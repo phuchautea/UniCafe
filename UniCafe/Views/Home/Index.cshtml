@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                if (User.IsInRole("Admin"))
+                {
+                    <b>Xin chào @User.Identity.Name có level Admin</b>
+                }
+                else
+                {
+                    <b>Xin chào @User.Identity.Name có level Guest</b>
+                }
+            }
+        </h2>
+    </div>
+</div>

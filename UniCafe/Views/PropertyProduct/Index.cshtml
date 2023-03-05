@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using UniCafe.Models
+@model IEnumerable<PropertyProduct>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Slug)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Slug)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+@using (Html.BeginForm("Create", "PropertyProduct", FormMethod.Post))
+{
+    //<form method="POST" asp-action="Create" asp-controller="Category">
+    <div class="form-group">
+        <label>Slug</label>
+        <input type="text" class="form-control" name="Slug">
+    </div>
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" name="Name">
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea rows="5" class="form-control" name="Description"></textarea>
+    </div>
+    <div class="form-group">
+        <label>ParentId</label>
+        <input type="text" class="form-control" name="ParentId">
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" name="Status" value="1">
+        <label class="form-check-label">Active</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    //</form>
+}

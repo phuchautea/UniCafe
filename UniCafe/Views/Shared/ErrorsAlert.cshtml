@@ -1,0 +1,26 @@
+﻿@{
+    List<string> ErrorsTemp = TempData["Errors"] as List<string>;
+}
+@if (ViewBag.Errors != null && ViewBag.Errors.Count > 0)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (string error in ViewBag.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (ErrorsTemp != null && ErrorsTemp.Count > 0)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (string error in ErrorsTemp)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
