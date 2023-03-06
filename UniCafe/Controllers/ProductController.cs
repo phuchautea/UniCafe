@@ -109,8 +109,8 @@ namespace UniCafe.Controllers
         }
         public ActionResult Index()
         {
-            var p = GetProducts();
-            //var p = GetAll().ToList();
+            //var p = GetProducts();
+            var p = GetAll().ToList();
             var c = _categoryRepository.GetAll().ToList();
             ViewBag.Categories = c;
             return View(p);
@@ -144,6 +144,17 @@ namespace UniCafe.Controllers
             Category category = _categoryRepository.GetById(Category_Id);
             product.Category = category;
             Update(product);
+            return RedirectToAction("Index", "Product");
+        }
+        public ActionResult Delete(int Id)
+        {
+            Product product = GetById(Id);
+            return View(product);
+        }
+        [HttpPost]
+        public ActionResult Delete(Product product)
+        {
+            Remove(product);
             return RedirectToAction("Index", "Product");
         }
     }

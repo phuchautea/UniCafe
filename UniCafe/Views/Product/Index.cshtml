@@ -13,6 +13,12 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Slug)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
@@ -39,6 +45,12 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Slug)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -73,8 +85,8 @@
 {
     //<form method="POST" asp-action="Create" asp-controller="Category">
     <div class="form-group">
-        <label>Id</label>
-        <input type="text" class="form-control" name="Id">
+        <label>Slug</label>
+        <input type="text" class="form-control" name="Slug">
     </div>
     <div class="form-group">
         <label>Name</label>
