@@ -3,87 +3,75 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UniCafe.Data;
+using UniCafe.Models;
 
 namespace UniCafe.Controllers
 {
-    public class OptionProductController : Controller
+    public class OptionProductController : MasterController<OptionProduct>
     {
+        private readonly IRepository<Product> _productRepository;
+        public OptionProductController()
+        {
+            _productRepository = new Repository<Product>(Context);
+        }
         // GET: OptionProduct
         public ActionResult Index()
         {
-            return View();
+            var OptionProducts = GetAll().ToList();
+            var Products = _productRepository.GetAll().ToList();
+            ViewBag.Products = Products;
+            return View(OptionProducts);
         }
-
-        // GET: OptionProduct/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: OptionProduct/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: OptionProduct/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
+        public ActionResult Create(FormCollection formCollection, OptionProduct optionProduct) {
+            List<string> errors = new List<string>();
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                var Product_Id = Int32.Parse(formCollection["Product_Id"]);
+                var product = _productRepository.GetById(Product_Id);
+                optionProduct.Product = product;
+                Add(optionProduct);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                errors.Add(ex.Message);
             }
+            TempData["Errors"] = errors;
+            return RedirectToAction("Index", "OptionProduct");
         }
-
-        // GET: OptionProduct/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int Id)
         {
-            return View();
+            OptionProduct optionProduct = GetById(Id);
+            var products = _productRepository.GetAll().ToList();
+            ViewBag.Products = products;
+            return View(optionProduct);
         }
-
-        // POST: OptionProduct/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(FormCollection formCollection)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var optionProduct = GetById(Int32.Parse(formCollection["Id"]));
+            optionProduct.Name = formCollection["Name"];
+            optionProduct.Slug = formCollection["Slug"];
+            optionProduct.Price = formCollection["Price"];
+            optionProduct.Status = formCollection["Status"];
+            optionProduct.UpdatedAt = DateTime.Now;
+            var Product_Id = Int32.Parse(formCollection["Product_Id"]);
+            Product product = _productRepository.GetById(Product_Id);
+            optionProduct.Product = product;
+            Update(optionProduct);
+            return RedirectToAction("Index", "OptionProduct");
         }
-
-        // GET: OptionProduct/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int Id)
         {
-            return View();
+            OptionProduct optionRroduct = GetById(Id);
+            return View(optionRroduct);
         }
-
-        // POST: OptionProduct/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(OptionProduct optionRroduct)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Remove(optionRroduct);
+            return RedirectToAction("Index", "OptionProduct");
         }
     }
 }

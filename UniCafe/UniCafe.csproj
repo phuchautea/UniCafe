@@ -271,12 +271,15 @@
     <Content Include="Views\Role\SetRole.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Role\DeleteSetRole.cshtml" />
+    <Content Include="Views\OptionProduct\Index.cshtml" />
+    <Content Include="Views\OptionProduct\Edit.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\OptionProduct\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\ApplicationRole\" />
     <Folder Include="Views\Authenticate\" />
-    <Folder Include="Views\OptionProduct\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
