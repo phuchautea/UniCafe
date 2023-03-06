@@ -190,6 +190,7 @@
     <Compile Include="Controllers\PropertyProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\ApplicationRole.cs" />
     <Compile Include="Data\ApplicationUserManager.cs" />
     <Compile Include="Data\IRepository.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PropertyProduct.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -280,6 +282,7 @@
     <Content Include="Views\PropertyProduct\Delete.cshtml" />
     <Content Include="Views\PropertyProduct\Edit.cshtml" />
     <Content Include="Views\PropertyProduct\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

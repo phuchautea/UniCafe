@@ -32,6 +32,8 @@ namespace UniCafe.Models
 
         public System.Data.Entity.DbSet<UniCafe.Data.ApplicationRole> IdentityRoles { get; set; }
 
+        //public System.Data.Entity.DbSet<UniCafe.Data.ApplicationUser> ApplicationUsers { get; set; }
+
         //public System.Data.Entity.DbSet<UniCafe.Data.ApplicationRole> IdentityRoles { get; set; }
 
         //public System.Data.Entity.DbSet<UniCafe.Data.ApplicationUser> ApplicationUsers { get; set; }
