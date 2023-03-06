@@ -14,7 +14,7 @@ namespace UniCafe.Models
         public Product Product { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
-        public string Price { get; set; }
+        public decimal Price { get; set; }
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;

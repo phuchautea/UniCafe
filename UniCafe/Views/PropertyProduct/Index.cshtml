@@ -1,11 +1,9 @@
-﻿
+﻿@model IEnumerable<UniCafe.Models.PropertyProduct>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@using UniCafe.Models
-@model IEnumerable<PropertyProduct>
 
 <h2>Index</h2>
 
@@ -15,6 +13,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
@@ -22,6 +23,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
@@ -39,13 +43,19 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Slug)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @item.Price.ToString("N0")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
@@ -67,7 +77,7 @@
 </table>
 @using (Html.BeginForm("Create", "PropertyProduct", FormMethod.Post))
 {
-    //<form method="POST" asp-action="Create" asp-controller="Category">
+    @Html.Partial("ErrorsAlert")
     <div class="form-group">
         <label>Slug</label>
         <input type="text" class="form-control" name="Slug">
@@ -77,17 +87,22 @@
         <input type="text" class="form-control" name="Name">
     </div>
     <div class="form-group">
-        <label>Description</label>
-        <textarea rows="5" class="form-control" name="Description"></textarea>
+        <label>Price</label>
+        <input type="text" class="form-control" name="Price">
     </div>
     <div class="form-group">
-        <label>ParentId</label>
-        <input type="text" class="form-control" name="ParentId">
+        <label>Product</label>
+        <select class="form-control" name="Product_Id">
+            @foreach(var product in ViewBag.Products)
+                {
+                <option value="@product.Id">@product.Name</option>
+                }
+        </select>
+        @*<input type="text" class="form-control" name="Product_Id">*@
     </div>
     <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" name="Status" value="1">
         <label class="form-check-label">Active</label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-    //</form>
 }

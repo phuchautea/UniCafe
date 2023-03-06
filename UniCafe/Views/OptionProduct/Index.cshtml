@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Slug)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @item.Price.ToString("N0")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Name)

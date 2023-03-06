@@ -8,115 +8,70 @@ using UniCafe.Models;
 
 namespace UniCafe.Controllers
 {
-    public class PropertyProductController : Controller
+    public class PropertyProductController : MasterController<PropertyProduct>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IRepository<PropertyProduct> _propertyProductRepository;
-        private readonly ApplicationDbContext _context;
-
+        private readonly IRepository<Product> _productRepository;
         public PropertyProductController()
         {
-            _context = new ApplicationDbContext();
-            _unitOfWork = new UnitOfWork(_context);
-            _propertyProductRepository = new Repository<PropertyProduct>(_context);
+            _productRepository = new Repository<Product>(Context);
         }
-
-        public void AddPropertyProduct(PropertyProduct propertyProduct)
-        {
-            _propertyProductRepository.Add(propertyProduct);
-            _unitOfWork.BeginTransaction();
-            try
-            {
-                _unitOfWork.Commit();
-            }
-            catch
-            {
-                _unitOfWork.Rollback();
-                throw;
-            }
-        }
-        public IEnumerable<PropertyProduct> GetAllPropertyProducts()
-        {
-            return _propertyProductRepository.GetAll();
-        }
-
-        public PropertyProduct GetPropertyProductById(int Id)
-        {
-            return _propertyProductRepository.GetById(Id);
-        }
-
-        public void UpdatePropertyProduct(PropertyProduct propertyProduct)
-        {
-            _propertyProductRepository.Update(propertyProduct);
-            _unitOfWork.BeginTransaction();
-            try
-            {
-                _unitOfWork.Commit();
-            }
-            catch
-            {
-                _unitOfWork.Rollback();
-                throw;
-            }
-        }
-
-        public void DeletePropertyProduct(PropertyProduct propertyProduct)
-        {
-            _propertyProductRepository.Remove(propertyProduct);
-            _unitOfWork.BeginTransaction();
-            try
-            {
-                _unitOfWork.Commit();
-            }
-            catch
-            {
-                _unitOfWork.Rollback();
-                throw;
-            }
-        }
-
-        // List
-
+        // GET: PropertyProduct
         public ActionResult Index()
         {
-            var listPropertyProduct = GetAllPropertyProducts().ToList();
-            return View(listPropertyProduct);
+            var PropertyProducts = GetAll().ToList();
+            var Products = _productRepository.GetAll().ToList();
+            ViewBag.Products = Products;
+            return View(PropertyProducts);
         }
-        // Details
-        public ActionResult Details(int Id)
-        {
-            PropertyProduct propertyProduct = GetPropertyProductById(Id);
-            return View(propertyProduct);
-        }
-        // Add
         [HttpPost]
-        public ActionResult Create(PropertyProduct propertyProduct)
+        public ActionResult Create(FormCollection formCollection, PropertyProduct propertyProduct)
         {
-            AddPropertyProduct(propertyProduct);
+            List<string> errors = new List<string>();
+            try
+            {
+                var Product_Id = Int32.Parse(formCollection["Product_Id"]);
+                var product = _productRepository.GetById(Product_Id);
+                propertyProduct.Product = product;
+                Add(propertyProduct);
+            }
+            catch (Exception ex)
+            {
+                errors.Add(ex.Message);
+            }
+            TempData["Errors"] = errors;
             return RedirectToAction("Index", "PropertyProduct");
         }
-        // Update
         public ActionResult Edit(int Id)
         {
-            PropertyProduct propertyProduct = GetPropertyProductById(Id);
+            PropertyProduct propertyProduct = GetById(Id);
+            var products = _productRepository.GetAll().ToList();
+            ViewBag.Products = products;
             return View(propertyProduct);
         }
         [HttpPost]
-        public ActionResult Edit(PropertyProduct propertyProduct)
+        public ActionResult Edit(FormCollection formCollection)
         {
-            UpdatePropertyProduct(propertyProduct);
+            var propertyProduct = GetById(Int32.Parse(formCollection["Id"]));
+            propertyProduct.Name = formCollection["Name"];
+            propertyProduct.Slug = formCollection["Slug"];
+            propertyProduct.Price = Decimal.Parse(formCollection["Price"]);
+            propertyProduct.Status = formCollection["Status"];
+            propertyProduct.UpdatedAt = DateTime.Now;
+            var Product_Id = Int32.Parse(formCollection["Product_Id"]);
+            Product product = _productRepository.GetById(Product_Id);
+            propertyProduct.Product = product;
+            Update(propertyProduct);
             return RedirectToAction("Index", "PropertyProduct");
         }
-        //Remove
         public ActionResult Delete(int Id)
         {
-            PropertyProduct propertyProduct = GetPropertyProductById(Id);
+            PropertyProduct propertyProduct = GetById(Id);
             return View(propertyProduct);
         }
         [HttpPost]
         public ActionResult Delete(PropertyProduct propertyProduct)
         {
-            DeletePropertyProduct(propertyProduct);
+            Remove(propertyProduct);
             return RedirectToAction("Index", "PropertyProduct");
         }
     }

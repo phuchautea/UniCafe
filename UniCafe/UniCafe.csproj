@@ -209,6 +209,10 @@
     <Compile Include="Migrations\202303030338180_CreateTableProduct.designer.cs">
       <DependentUpon>202303030338180_CreateTableProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303060348197_updateDecimalPrice.cs" />
+    <Compile Include="Migrations\202303060348197_updateDecimalPrice.designer.cs">
+      <DependentUpon>202303060348197_updateDecimalPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\Category.cs" />
@@ -262,8 +266,6 @@
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
-    <Content Include="Views\PropertyProduct\Index.cshtml" />
-    <Content Include="Views\PropertyProduct\Details.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\ErrorsAlert.cshtml" />
@@ -275,6 +277,9 @@
     <Content Include="Views\OptionProduct\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\OptionProduct\Delete.cshtml" />
+    <Content Include="Views\PropertyProduct\Delete.cshtml" />
+    <Content Include="Views\PropertyProduct\Edit.cshtml" />
+    <Content Include="Views\PropertyProduct\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -300,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303030338180_CreateTableProduct.resx">
       <DependentUpon>202303030338180_CreateTableProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303060348197_updateDecimalPrice.resx">
+      <DependentUpon>202303060348197_updateDecimalPrice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
