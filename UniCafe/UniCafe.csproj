@@ -182,6 +182,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CollectionController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -213,6 +214,10 @@
     <Compile Include="Migrations\202303060348197_updateDecimalPrice.cs" />
     <Compile Include="Migrations\202303060348197_updateDecimalPrice.designer.cs">
       <DependentUpon>202303060348197_updateDecimalPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303091344171_addPriceProduct.cs" />
+    <Compile Include="Migrations\202303091344171_addPriceProduct.designer.cs">
+      <DependentUpon>202303091344171_addPriceProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
@@ -261,11 +266,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Category\Index.cshtml" />
-    <Content Include="Views\Category\Index2.cshtml" />
-    <Content Include="Views\Category\Edit.cshtml" />
-    <Content Include="Views\Category\Delete.cshtml" />
-    <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -283,6 +283,13 @@
     <Content Include="Views\PropertyProduct\Edit.cshtml" />
     <Content Include="Views\PropertyProduct\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Collection\Index.cshtml" />
+    <Content Include="Views\Home\Collection.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -311,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303060348197_updateDecimalPrice.resx">
       <DependentUpon>202303060348197_updateDecimalPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303091344171_addPriceProduct.resx">
+      <DependentUpon>202303091344171_addPriceProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
