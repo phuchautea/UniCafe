@@ -139,9 +139,7 @@
                         @Html.DisplayFor(modelItem => item.UpdatedAt)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        <a href="@Url.Action("Edit", "ManageProduct", new { id = item.Id })">Sửa</a>
                         <a onclick="del(@item.Id)">Xóa</a>
                     </td>
                 </tr>

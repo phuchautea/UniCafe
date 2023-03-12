@@ -183,6 +183,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageProductController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -250,6 +251,7 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\ManageProduct\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManageProduct\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageCategory\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -276,7 +278,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\ErrorsAlert.cshtml" />
@@ -286,7 +287,6 @@
     <Content Include="Views\Role\DeleteSetRole.cshtml" />
     <Content Include="Views\OptionProduct\Index.cshtml" />
     <Content Include="Views\OptionProduct\Edit.cshtml" />
-    <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\OptionProduct\Delete.cshtml" />
     <Content Include="Views\PropertyProduct\Delete.cshtml" />
     <Content Include="Views\PropertyProduct\Edit.cshtml" />
