@@ -1,0 +1,67 @@
+﻿@model List<UniCafe.Models.CartItem>
+
+<h2>Cart</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Price.ToString("N0")đ</td>
+                <td>@item.Quantity</td>
+                <td>@((item.Price * item.Quantity).ToString("N0"))đ</td>
+                <td><button class="btn-remove" data-product-id="@item.ProductId">Remove</button></td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3">Total:</td>
+            <td colspan="2">@Model.Sum(item => item.Price * item.Quantity).ToString("N0")đ</td>
+        </tr>
+    </tbody>
+</table>
+
+<div>
+    <button class="btn-clear">Clear Cart</button>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('.btn-remove').on('click', function () {
+                var productId = $(this).data('product-id');
+                $.ajax({
+                    url: '@Url.Action("RemoveFromCart", "Cart")',
+                    type: 'POST',
+                    data: { productId: productId },
+                    success: function (result) {
+                        if (result.success) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+
+            $('.btn-clear').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("ClearCart", "Cart")',
+                    type: 'POST',
+                    success: function (result) {
+                        if (result.success) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

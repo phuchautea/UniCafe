@@ -114,5 +114,25 @@ namespace UniCafe.Controllers
             Remove(category);
             return RedirectToAction("Index", "Category");
         }
+        [Route("Category/{Slug}")]
+        public ActionResult Collection(string Slug)
+        {
+            if(Slug == "All" || Slug == "")
+            {
+                var products = Context.Products.ToList();
+                ViewBag.Products = products;
+                return View(products);
+            }
+            else
+            {
+                var category = Context.Categories.FirstOrDefault(c => c.Slug == Slug);
+                var products = Context.Products.Where(s => s.Category.Id == category.Id).ToList();
+                ViewBag.Products = products;
+                ViewBag.Category = category;
+
+                return View(products);
+            }
+            
+        }
     }
 }

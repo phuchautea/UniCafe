@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (@ViewBag.Category != null)
+{
+    <h2> Danh sách sản phẩm của danh mục @ViewBag.Category.Name</h2>
+}
+@foreach (var product in ViewBag.Products)
+{
+    <h2>@product.Id - @product.Name</h2>
+    <br />
+}

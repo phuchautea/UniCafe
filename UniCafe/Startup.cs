@@ -16,8 +16,10 @@ namespace UniCafe
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login")
+                LoginPath = new PathString("/Home/Index")
             });
+
+
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
         }
     }
