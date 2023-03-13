@@ -1,0 +1,112 @@
+﻿@model IEnumerable<UniCafe.Models.AspNetUserRoles>
+@{
+    ViewBag.Title = "Set Role Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    List<UniCafe.Data.ApplicationUser> users = ViewBag.Users;
+    List<Microsoft.AspNet.Identity.EntityFramework.IdentityRole> roles = ViewBag.Roles;
+}
+<h2>Set Role Manage</h2>
+@Html.Partial("ErrorsAlert")
+<p>
+    <a data-toggle="modal" data-target="#create_modal">Create</a>
+    <div class="modal fade" id="create_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <b><i class="fa fa-plus"></i> Set role cho user</b>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("SetRole", "ManageRole", FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            <label>User</label>
+                            <select class="form-control" name="UserId" id="UserId">
+                                @foreach (var user in ViewBag.Users)
+                                {
+                                    <option value="@user.Id">@user.UserName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select class="form-control" name="RoleId" id="RoleId">
+                                @foreach (var role in ViewBag.Roles)
+                                {
+                                    <option value="@role.Id">@role.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Thêm mới</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-condensed table-hover" id="nTable">
+        <thead>
+            <tr>
+                <th>
+                    User
+                </th>
+                <th>
+                    Role
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @users.Find(x => x.Id == item.UserId).UserName
+                        @*@Html.DisplayFor(modelItem => item.UserId)*@
+                    </td>
+                    <td>
+                        @roles.Find(x => x.Id == item.RoleId).Name
+                        @*@Html.DisplayFor(modelItem => item.RoleId)*@
+                    </td>
+                    <td>
+                        <a onclick="del('@item.UserId', '@item.RoleId')">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function del(UserId, RoleId) {
+        if (confirm("Bạn chắc chắn muốn xóa?")) {
+            $.ajax({
+                url: "@Url.Action("DeleteSetRole", "ManageRole")",
+                type: "POST",
+                data: { UserId: UserId, RoleId: RoleId },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+            });
+        }
+    }
+    $(document).ready(function () {
+        $('#nTable').DataTable({
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "order": [[1, 'desc']],
+        });
+    });
+</script>

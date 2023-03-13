@@ -1,22 +1,25 @@
-﻿@using UniCafe.Models
-@model IEnumerable<Role>
+﻿@model IEnumerable<UniCafe.Data.ApplicationUser>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "User Manage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Role Manager</h2>
+<h2>User Manage</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Id)
+            Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Email
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            UserName
         </th>
         <th></th>
     </tr>
@@ -28,7 +31,13 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -39,12 +48,3 @@
     }
 
 </table>
-@using (Html.BeginForm("Create", "Role", FormMethod.Post))
-{
-    @Html.Partial("ErrorsAlert")
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" name="Name">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-}

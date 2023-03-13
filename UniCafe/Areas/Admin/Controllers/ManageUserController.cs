@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UniCafe.Controllers;
 using UniCafe.Data;
-using UniCafe.Models;
 
-namespace UniCafe.Controllers
+namespace UniCafe.Areas.Admin.Controllers
 {
-    public class UserController : MasterController<ApplicationUser>
+    [Authorize(Roles = "Admin")]
+    public class ManageUserController : BaseController<ApplicationUser>
     {
-        // GET: User
+        // GET: Admin/ManageUser
         public ActionResult Index()
         {
             var users = GetAll().ToList();

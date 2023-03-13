@@ -185,6 +185,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageRoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CollectionController.cs" />
@@ -195,7 +197,6 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PropertyProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\ApplicationRole.cs" />
     <Compile Include="Data\ApplicationUserManager.cs" />
@@ -252,6 +253,9 @@
     <Content Include="Areas\Admin\Views\ManageProduct\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManageProduct\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ManageCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageRole\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageRole\SetRole.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageUser\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -281,10 +285,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\ErrorsAlert.cshtml" />
-    <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\Role\SetRole.cshtml" />
-    <Content Include="Views\Role\Delete.cshtml" />
-    <Content Include="Views\Role\DeleteSetRole.cshtml" />
     <Content Include="Views\OptionProduct\Index.cshtml" />
     <Content Include="Views\OptionProduct\Edit.cshtml" />
     <Content Include="Views\OptionProduct\Delete.cshtml" />
@@ -305,7 +305,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Category\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\ApplicationRole\" />
     <Folder Include="Views\Authenticate\" />

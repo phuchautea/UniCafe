@@ -1,40 +1,35 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.PeerToPeer;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using UniCafe.Models;
+using UniCafe.Controllers;
 using UniCafe.Data;
-using Microsoft.AspNet.Identity.Owin;
-using System.Threading.Tasks;
-using System.Net.PeerToPeer;
-using System.Net;
-using System.Data.Entity;
+using UniCafe.Models;
 
-namespace UniCafe.Controllers
+namespace UniCafe.Areas.Admin.Controllers
 {
-    public class RoleController : MasterController<Role>
+    [Authorize(Roles = "Admin")]
+    public class ManageRoleController : BaseController<Role>
     {
-        // GET: Role
+        // GET: Admin/ManageRole
         public ActionResult Index()
         {
-            var listRole = GetAll().ToList();
-            return View(listRole);
+            var roles = GetAll().ToList();
+            return View(roles);
         }
-
-        // POST: Role/Create
         [HttpPost]
         public ActionResult Create(FormCollection formCollection)
         {
             List<string> errors = new List<string>();
             try
             {
-                var roleName = formCollection["Name"];
-                var checkRole = Context.Roles.Count(x => x.Name == roleName);
-                if (string.IsNullOrEmpty(formCollection["Name"]))
+                var name = formCollection["name"];
+                var checkRole = Context.Roles.Count(x => x.Name == name);
+                if (string.IsNullOrEmpty(name))
                 {
                     errors.Add("Vui lòng nhập tên role.");
                 }
@@ -44,9 +39,8 @@ namespace UniCafe.Controllers
                 }
                 if (errors.Count == 0)
                 {
-                    
                     Role role = new Role();
-                    role.Name = roleName;
+                    role.Name = name;
                     Context.Roles.Add(role);
                     Context.SaveChanges();
                 }
@@ -56,13 +50,27 @@ namespace UniCafe.Controllers
                 errors.Add(ex.Message);
             }
             TempData["Errors"] = errors;
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "ManageRole");
+        }
+        [HttpPost]
+        public ActionResult Delete(Guid? Id)
+        {
+            if (Id == null)
+            {
+                return Json(new { success = false, message = "ID không hợp lệ" });
+            }
+            var role = Context.Roles.FirstOrDefault(x => x.Id.Equals(Id.ToString()));
+            if (role == null)
+            {
+                return Json(new { success = false, message = "Role không tồn tại" });
+            }
+            Remove((Role)role);
+            return Json(new { success = true, message = "Xóa role thành công" });
         }
         public ActionResult SetRole()
         {
             var roles = Context.Roles.ToList();
             var users = Context.Users.ToList();
-            // Create a new list to store the role-user mappings
             var roleUserList = new List<AspNetUserRoles>();
 
             foreach (var role in roles)
@@ -79,7 +87,7 @@ namespace UniCafe.Controllers
                     .ToList();
 
                 // Add the role-user mappings to the list
-                roleUserList.AddRange(roleUsers.Select(u => new AspNetUserRoles { RoleId = role.Name, UserId = u.UserName }));
+                roleUserList.AddRange(roleUsers.Select(u => new AspNetUserRoles { RoleId = role.Id, UserId = u.Id }));
             }
             ViewBag.Roles = roles;
             ViewBag.Users = users;
@@ -117,59 +125,44 @@ namespace UniCafe.Controllers
                 errors.Add(ex.Message);
             }
             TempData["Errors"] = errors;
-            return RedirectToAction("SetRole");
+            return RedirectToAction("SetRole", "ManageRole");
         }
-        // GET: Role/DeleteSetRole/5
-        public ActionResult DeleteSetRole(string UserName, string Role)
-        {
-            var getRole = Context.Roles.FirstOrDefault(x => x.Id == Role);
-            var getUser = Context.Users.FirstOrDefault(x => x.UserName == UserName);
-            var userRole = Context.Set<IdentityUserRole>().FirstOrDefault(ur => ur.UserId == getUser.Id && ur.RoleId == getRole.Id);
-
-            return View(userRole);
-        }
-
-        // POST: Role/DeleteSetRole/5
         [HttpPost]
-        public ActionResult DeleteSetRole(FormCollection formCollection)
+        public ActionResult DeleteSetRole(Guid? UserId, Guid? RoleId)
         {
-            List<string> errors = new List<string>();
             try
             {
-                var RoleId = formCollection["RoleId"];
-                var UserName = formCollection["UserName"];
+                if (RoleId == null || UserId == null)
+                {
+                    return Json(new { success = false, message = "Vui lòng nhập đầy đủ thông tin." });
+                }
+                var getRole = Context.Roles.FirstOrDefault(x => x.Id.Equals(RoleId.ToString()));
+                var getUser = Context.Users.FirstOrDefault(x => x.Id.Equals(UserId.ToString()));
 
-                var getRole = Context.Roles.FirstOrDefault(x => x.Id == RoleId);
-                var getUser = Context.Users.FirstOrDefault(x => x.UserName == UserName);
                 if (getRole == null)
                 {
-                    errors.Add("Không tìm thấy Role này.");
+                    return Json(new { success = false, message = "Không tìm thấy Role này." });
                 }
                 if (getUser == null)
                 {
-                    errors.Add("Không tìm thấy User này.");
+                    return Json(new { success = false, message = "Không tìm thấy User này." });
                 }
-                if (errors.Count == 0)
+                var userRole = Context.Set<IdentityUserRole>().FirstOrDefault(ur => ur.UserId == getUser.Id && ur.RoleId == getRole.Id);
+
+                if (userRole != null)
                 {
-                    // Retrieve the record that you want to delete
-                    var userRole = Context.Set<IdentityUserRole>().FirstOrDefault(ur => ur.UserId == getUser.Id && ur.RoleId == getRole.Id);
+                    // Remove the record from the AspNetUserRoles table
+                    Context.Set<IdentityUserRole>().Remove(userRole);
 
-                    if (userRole != null)
-                    {
-                        // Remove the record from the AspNetUserRoles table
-                        Context.Set<IdentityUserRole>().Remove(userRole);
-
-                        // Save the changes to the database
-                        Context.SaveChanges();
-                    }
+                    // Save the changes to the database
+                    Context.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                errors.Add(ex.Message);
+                return Json(new { success = false, message = ex.Message });
             }
-            TempData["Errors"] = errors;
-            return RedirectToAction("SetRole");
+            return Json(new { success = true, message = "Xóa set role thành công" });
         }
     }
 }
