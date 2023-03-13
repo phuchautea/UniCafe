@@ -19,7 +19,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <b><i class="fa fa-plus"></i> Thêm loại sản phẩm mới</b>
+                        <b><i class="fa fa-plus"></i> Thêm danh mục mới</b>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </h4>
                 </div>
@@ -114,9 +114,8 @@
                         @Html.DisplayFor(modelItem => item.UpdatedAt)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        <a href="@Url.Action("Edit", "ManageCategory", new { id = item.Id })">Sửa</a>
+                        <a onclick="del(@item.Id)">Xóa</a>
                     </td>
                 </tr>
             }
@@ -138,7 +137,7 @@
     function del(id) {
         if (confirm("Bạn chắc chắn muốn xóa?")) {
             $.ajax({
-                url: "@Url.Action("Delete", "ManageProduct")",
+                url: "@Url.Action("Delete", "ManageCategory")",
                 type: "POST",
                 data: { id: id },
                 success: function (response) {
@@ -161,7 +160,7 @@
     $(document).ready(function () {
         $('#nTable').DataTable({
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[9, 'desc']],
+            "order": [[7, 'desc']],
         });
     });
 </script>
