@@ -15,7 +15,7 @@ namespace UniCafe.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ManageRoleController : BaseController<Role>
     {
-        //test role nè
+        //test role nè 123
         // GET: Admin/ManageRole
         public ActionResult Index()
         {
