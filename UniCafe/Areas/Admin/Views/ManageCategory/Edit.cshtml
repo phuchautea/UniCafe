@@ -1,4 +1,4 @@
-﻿@model UniCafe.Models.Product
+﻿@model UniCafe.Models.Category
 
 @{
     ViewBag.Title = "Edit";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Product</h4>
+    <h4>Category</h4>
     <hr />
     @Html.HiddenFor(model => model.Id)
 
@@ -31,37 +31,12 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-md-2">Giá</label>
-        <div class="col-md-10">
-            <input class="form-control" id="price" name="price" type="text" value="@Model.Price.ToString("N0")đ">
-        </div>
-    </div>
-
-    <div class="form-group">
         <label class="control-label col-md-2">Mô tả</label>
         <div class="col-md-10">
             <textarea class="form-control" id="description" name="description" rows="3">@Html.DisplayFor(item => item.Description)</textarea>
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-2">Hình ảnh</label>
-        <div class="col-md-10">
-            <input class="form-control" id="image" name="image" type="text" value="@Html.DisplayFor(item => item.Image)">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Danh mục</label>
-        <div class="col-md-10">
-            <select class="form-control" name="category_id">
-                <option value="@Html.DisplayFor(model => model.Category.Id)">Giữ nguyên: @Html.DisplayFor(model => model.Category.Name)</option>
-                @foreach (var category in ViewBag.Categories)
-                {
-                    <option value="@category.Id">@category.Name</option>
-                }
-            </select>
-        </div>
-    </div>
     <div class="form-group">
         <label class="control-label col-md-2">Trạng thái</label>
         <div class="col-md-10">
