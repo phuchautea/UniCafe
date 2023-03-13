@@ -197,7 +197,6 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PropertyProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\ApplicationRole.cs" />
     <Compile Include="Data\ApplicationUserManager.cs" />
     <Compile Include="Data\IRepository.cs" />
