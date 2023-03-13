@@ -35,7 +35,7 @@ namespace UniCafe.Areas.Admin.Controllers
                 var checkSlug = Context.Categories.Count(x => x.Slug == slug);
                 if (string.IsNullOrEmpty(name))
                 {
-                    errors.Add("Chưa nhập tên loại sản phẩm");
+                    errors.Add("Chưa nhập tên danh mục");
                 }
                 if (checkSlug > 0)
                 {
@@ -43,7 +43,7 @@ namespace UniCafe.Areas.Admin.Controllers
                 }
                 if (string.IsNullOrEmpty(description))
                 {
-                    errors.Add("Chưa nhập mô tả loại sản phẩm");
+                    errors.Add("Chưa nhập mô tả danh mục");
                 }
                 if (errors.Count == 0)
                 {
