@@ -19,14 +19,20 @@
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 stikySidebar">
                 <div class="list-group-item">
-                    <a class="nav-link active" href="#" style="text-decoration:none">Tất cả</a>
+                    <a class="nav-link active" href="/Category/All" style="text-decoration:none">Tất cả</a>
                 </div>
-                <div class="list-group-item">
+                @foreach(var Category in ViewBag.Categories){
+                    
+                <div class="list-group-item ">
+                    <a class="nav-link active" href="/Category/@Category.Slug" style="text-decoration:none">@Category.Name</a>
+                </div> 
+                }
+                <!--<div class="list-group-item">
                     <a class="nav-link active" href="/@TempData["Slug"]" style="text-decoration:none">Trà trái cây</a>
                 </div>
                 <div class="list-group-item ">
                     <a class="nav-link active" href="/Collection/tra-sua-macchiato" style="text-decoration:none">Trà sữa macchiato</a>
-                </div> 
+                </div> -->
             </div>
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 border_right_before">
                 @foreach (var item in Model)
