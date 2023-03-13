@@ -128,7 +128,7 @@ namespace UniCafe.Controllers
                 var category = Context.Categories.FirstOrDefault(c => c.Slug == Slug);
                 var products = Context.Products.Where(s => s.Category.Id == category.Id).ToList();
                 ViewBag.Products = products;
-                ViewBag.Category = category;
+                TempData["Slug"] = category;
 
                 return View(products);
             }

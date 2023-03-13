@@ -1,13 +1,57 @@
-﻿@{
+﻿@model IEnumerable<UniCafe.Models.Product>
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (@ViewBag.Category != null)
+@*@if (@ViewBag.Category != null)
 {
     <h2> Danh sách sản phẩm của danh mục @ViewBag.Category.Name</h2>
-}
-@foreach (var product in ViewBag.Products)
+}*@
+@*@foreach (var product in ViewBag.Products)
 {
     <h2>@product.Id - @product.Name</h2>
     <br />
-}
+}*@
+<h2>
+</h2>
+<div id="collection">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 stikySidebar">
+                <div class="list-group-item">
+                    <a class="nav-link active" href="#" style="text-decoration:none">Tất cả</a>
+                </div>
+                <div class="list-group-item">
+                    <a class="nav-link active" href="/@TempData["Slug"]" style="text-decoration:none">Trà trái cây</a>
+                </div>
+                <div class="list-group-item ">
+                    <a class="nav-link active" href="/Collection/tra-sua-macchiato" style="text-decoration:none">Trà sữa macchiato</a>
+                </div> 
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 border_right_before">
+                @foreach (var item in Model)
+                {
+                    <div class="menu_item">
+                        <div class="menu_item_image">
+                            <img src="@Html.DisplayFor(modelItem => item.Image)" style="max-width:200px; max-height:300px;" />
+                        </div>
+                        <div class="menu_info">
+                            <label>
+                                @item.Name
+                                @*@Html.DisplayFor(modelItem => item.Name)*@
+                            </label>
+                            <br />
+                            <p>
+                                @item.Price.ToString("N0")đ
+                                @*@Html.DisplayFor(modelItem => item.Price)đ*@
+                            </p>
+
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+</div>
