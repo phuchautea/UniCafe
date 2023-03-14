@@ -185,6 +185,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManagePropertyProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageOptionProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageProductController.cs" />
@@ -267,6 +268,8 @@
     <Content Include="Areas\Admin\Views\ManageCategory\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ManageOptionProduct\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManageOptionProduct\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagePropertyProduct\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagePropertyProduct\Index.cshtml" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
