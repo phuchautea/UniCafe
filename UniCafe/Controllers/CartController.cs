@@ -33,10 +33,18 @@ namespace UniCafe.Controllers
             return View(cart);
         }
         [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity, List<OptionProduct> optionProducts, int propertyId)
+        public ActionResult AddToCart(int productId, int quantity, List<int> optionProductIds, int propertyId)
         {
             var product = _productRepository.GetById(productId);
             var propertyProduct = _propertyProductRepositoy.GetById(propertyId);
+            List<OptionProduct> optionProducts = new List<OptionProduct>();
+            if(optionProductIds != null)
+            {
+                foreach (var optionProductId in optionProductIds)
+                {
+                    optionProducts.Add(_optionProductRepositoy.GetById(optionProductId));
+                }
+            }
             var item = new CartItem
             {
                 ProductId = productId,
@@ -46,19 +54,6 @@ namespace UniCafe.Controllers
                 Options = optionProducts,
                 PropertyProduct = propertyProduct
             };
-            foreach (var option in optionProducts)
-            {
-                item.Options.Add(option);
-            }
-            //foreach (var property in product.PropertyProducts)
-            //{
-            //    var cartProperty = new CartProperty
-            //    {
-            //        PropertyName = property.Name,
-            //        PropertyId = property.Id
-            //    };
-            //    item.Properties.Add(cartProperty);
-            //}
             _cartManager.AddToCart(item);
             return Json(new { success = true });
         }

@@ -8,6 +8,8 @@
             <th>Product Name</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Size</th>
+            <th>Topping</th>
             <th>Subtotal</th>
             <th>Action</th>
         </tr>
@@ -19,13 +21,20 @@
                 <td>@item.ProductName</td>
                 <td>@item.Price.ToString("N0")đ</td>
                 <td>@item.Quantity</td>
-                <td>@((item.Price * item.Quantity).ToString("N0"))đ</td>
+                <td>@item.PropertyProduct.Name - @item.PropertyProduct.Price</td>
+                <td>
+                    @foreach (var option in item.Options)
+                    {
+                        <span><b>@option.Name</b> : <b>@option.Price</b></span><br />
+                    }
+                </td>
+                <td>@(((item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0"))đ</td>
                 <td><button class="btn-remove" data-product-id="@item.ProductId">Remove</button></td>
             </tr>
         }
         <tr>
-            <td colspan="3">Total:</td>
-            <td colspan="2">@Model.Sum(item => item.Price * item.Quantity).ToString("N0")đ</td>
+            <td colspan="5">Total:</td>
+            <td colspan="4">@Model.Sum(item => (item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0")đ</td>
         </tr>
     </tbody>
 </table>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using UniCafe.Models;
@@ -9,6 +10,26 @@ namespace UniCafe.Services
     public class CartManager
     {
         public const string CartSessionKey = "Cart";
+        public bool CompareListOptions(List<OptionProduct> list1, List<OptionProduct> list2)
+        {
+            bool equal = true;
+            if (list1.Count == list2.Count)
+            {
+                for (int i = 0; i < list1.Count; i++)
+                {
+                    if (list1[i].Id != list2[i].Id)
+                    {
+                        equal = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                equal = false;
+            }
+            return equal;
+        }
 
         public List<CartItem> GetCartItems()
         {
@@ -23,8 +44,9 @@ namespace UniCafe.Services
         public void AddToCart(CartItem item)
         {
             var cart = GetCartItems();
-            var existingItem = cart.FirstOrDefault(i => i.ProductId == item.ProductId);
-
+            var existingItem = cart.FirstOrDefault(c => c.ProductId == item.ProductId
+                                                     && c.PropertyProduct.Id == item.PropertyProduct.Id
+                                                     && CompareListOptions(c.Options, item.Options));
             if (existingItem != null)
             {
                 existingItem.Quantity += item.Quantity;
@@ -53,7 +75,7 @@ namespace UniCafe.Services
 
             foreach (var item in cart)
             {
-                total += item.Price * item.Quantity;
+                total += (item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity;
             }
 
             return total;
@@ -65,5 +87,4 @@ namespace UniCafe.Services
             cart.Clear();
         }
     }
-
 }
