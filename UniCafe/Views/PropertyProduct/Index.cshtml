@@ -19,9 +19,6 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Slug)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
@@ -47,9 +44,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Slug)
             </td>
             <td>
                 @item.Price.ToString("N0")
@@ -78,10 +72,6 @@
 @using (Html.BeginForm("Create", "PropertyProduct", FormMethod.Post))
 {
     @Html.Partial("ErrorsAlert")
-    <div class="form-group">
-        <label>Slug</label>
-        <input type="text" class="form-control" name="Slug">
-    </div>
     <div class="form-group">
         <label>Name</label>
         <input type="text" class="form-control" name="Name">

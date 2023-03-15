@@ -1,0 +1,149 @@
+﻿@model UniCafe.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Slug)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Slug)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+
+    </dl>
+</div>
+<form>
+    <input type="hidden" id="productId" value="@Model.Id" />
+    <div class="form-group">
+        <label>Size:</label>
+        <select name="propertyProduct" id="propertyProduct" class="form-control">
+            @foreach (var propertyProduct in ViewBag.PropertyProducts)
+            {
+                <option value="@propertyProduct.Id">@propertyProduct.Name - @propertyProduct.Price.ToString("N0")đ</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Topping:</label>
+        <select name="optionProduct" id="optionProduct" class="form-control">
+            @foreach (var optionProduct in ViewBag.OptionProducts)
+            {
+                <option value="@optionProduct.Id">@optionProduct.Name - @optionProduct.Price.ToString("N0")đ</option>
+            }
+            @*<option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>*@
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" class="form-control" value="1" />
+    </div>
+    <button type="button" class="btn btn-primary" id="addToCart">Add to Cart</button>
+</form>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<script>
+    $(document).ready(function () {
+        $('.addToCart').click(function (e) {
+            e.preventDefault();
+            var productId = $('#productId').val();
+            var propertyProduct = $('#propertyProduct').val();
+            var optionProduct = $('#optionProduct').val();
+            var quantity = $('#quantity').val();
+            //var options = {};
+            //$('.option-select').each(function () {
+            //    var optionId = $(this).attr('name');
+            //    var optionValueId = $(this).val();
+            //    options[optionId] = optionValueId;
+            //});
+            //var properties = {};
+            //$('.property-input').each(function () {
+            //    var propertyId = $(this).attr('name');
+            //    var propertyValue = $(this).val();
+            //    properties[propertyId] = propertyValue;
+            //});
+            //var productId = $(this).data('product-id');
+            $.ajax({
+                url: '/Cart/AddToCart',
+                type: 'POST',
+                data: { productId: productId, quantity: quantity, optionProduct: optionProduct, propertyProduct: propertyProduct },
+                success: function (data) {
+                    alert("Thêm thành công");
+                    // Thực hiện các thay đổi trên giao diện để hiển thị giỏ hàng mới nhất
+                },
+                error: function () {
+                    alert('An error occurred while adding to cart.');
+                }
+            });
+        });
+    });
+
+</script>

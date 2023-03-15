@@ -224,8 +224,13 @@
     <Compile Include="Migrations\202303091344171_addPriceProduct.designer.cs">
       <DependentUpon>202303091344171_addPriceProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303130912242_addShowProductAndDeleteSlug.cs" />
+    <Compile Include="Migrations\202303130912242_addShowProductAndDeleteSlug.designer.cs">
+      <DependentUpon>202303130912242_addShowProductAndDeleteSlug.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
+    <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\OptionProduct.cs" />
@@ -277,8 +282,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -300,6 +303,7 @@
     <Content Include="Views\Category\Index2.cshtml" />
     <Content Include="Views\Category\Collection.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -335,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303091344171_addPriceProduct.resx">
       <DependentUpon>202303091344171_addPriceProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303130912242_addShowProductAndDeleteSlug.resx">
+      <DependentUpon>202303130912242_addShowProductAndDeleteSlug.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
