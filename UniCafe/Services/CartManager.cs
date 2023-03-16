@@ -57,14 +57,13 @@ namespace UniCafe.Services
             }
         }
 
-        public void RemoveFromCart(int productId)
+        public void RemoveFromCart(Guid cartItemId)
         {
             var cart = GetCartItems();
-            var item = cart.FirstOrDefault(i => i.ProductId == productId);
-
-            if (item != null)
+            var existingItem = cart.FirstOrDefault(c => c.Id == cartItemId);
+            if (existingItem != null)
             {
-                cart.Remove(item);
+                cart.Remove(existingItem);
             }
         }
 

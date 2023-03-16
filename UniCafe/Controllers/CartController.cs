@@ -58,9 +58,9 @@ namespace UniCafe.Controllers
             return Json(new { success = true });
         }
         [HttpPost]
-        public ActionResult RemoveFromCart(int productId)
+        public ActionResult RemoveFromCart(Guid cartItemId)
         {
-            _cartManager.RemoveFromCart(productId);
+            _cartManager.RemoveFromCart(cartItemId);
 
             return Json(new { success = true });
         }
