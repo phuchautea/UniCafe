@@ -52,7 +52,6 @@ namespace UniCafe.Controllers
         {
             var optionProduct = GetById(Int32.Parse(formCollection["Id"]));
             optionProduct.Name = formCollection["Name"];
-            optionProduct.Slug = formCollection["Slug"];
             optionProduct.Price = Decimal.Parse(formCollection["Price"]);
             optionProduct.Status = formCollection["Status"];
             optionProduct.UpdatedAt = DateTime.Now;

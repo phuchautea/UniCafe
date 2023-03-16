@@ -4,14 +4,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    @functions{
+@functions{
     public string NorActive(string active = "1")
     {
         return active == "1" ? "<span class='label label-success'>ON</span>" : "<span class='label label-danger'>OFF</span>";
     }
 }
-<h2>Index</h2>
-    <p>
+<h2>Manage Category</h2>
+@Html.Partial("ErrorsAlert")
+<p>
     <a data-toggle="modal" data-target="#create_modal">Create</a>
     <div class="modal fade" id="create_modal">
         <div class="modal-dialog">
@@ -53,71 +54,76 @@
         </div>
     </div>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            Tên
-        </th>
-        <th>
-            Slug
-        </th>
-        <th>
-            Mô tả
-        </th>
-        <th>
-            Parent
-        </th>
-        <th>
-            Trạng thái
-        </th>
-        <th>
-            CreatedAt
-        </th>
-        <th>
-            UpdatedAt
-        </th>
-        <th></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-condensed table-hover" id="nTable">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Tên
+                </th>
+                <th>
+                    Slug
+                </th>
+                <th>
+                    Mô tả
+                </th>
+                <th>
+                    ParentID
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    CreatedAt
+                </th>
+                <th>
+                    UpdatedAt
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Slug)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParentId)
+                    </td>
+                    <td>
+                        @Html.Raw(NorActive(item.Status))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedAt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedAt)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "ManageCategory", new { id = item.Id })">Sửa</a>
+                        <a onclick="del(@item.Id)">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Slug)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentId)
-        </td>
-        <td>
-            @Html.Raw(NorActive(item.Status))
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
-
-</table>
-    <script type="text/javascript">
+<script type="text/javascript">
     function removeDiacritics(str) {
         str = str.replace(/Đ/g, "D");
         str = str.replace(/ /g, "-"); // replace space to "-"
@@ -131,7 +137,7 @@
     function del(id) {
         if (confirm("Bạn chắc chắn muốn xóa?")) {
             $.ajax({
-                url: "@Url.Action("Delete", "ManageProduct")",
+                url: "@Url.Action("Delete", "ManageCategory")",
                 type: "POST",
                 data: { id: id },
                 success: function (response) {
@@ -153,7 +159,7 @@
     $(document).ready(function () {
         $('#nTable').DataTable({
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[9, 'desc']],
+            "order": [[7, 'desc']],
         });
     });
 </script>

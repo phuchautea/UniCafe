@@ -55,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.Slug)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                <a href="/Product/@Html.DisplayFor(modelItem => item.Slug)">@Html.DisplayFor(modelItem => item.Name)</a>
             </td>
             <td>
                 @item.Price.ToString("N0")đ
@@ -148,5 +148,4 @@
             });
         });
     });
-
 </script>

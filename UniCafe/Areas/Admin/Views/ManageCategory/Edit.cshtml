@@ -5,12 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Edit</h2>
 @Html.Partial("ErrorsAlert")
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-<h2>Edit</h2>
 <div class="form-horizontal">
     <h4>Category</h4>
     <hr />
@@ -30,8 +29,6 @@
         </div>
     </div>
 
-
-
     <div class="form-group">
         <label class="control-label col-md-2">Mô tả</label>
         <div class="col-md-10">
@@ -39,13 +36,6 @@
         </div>
     </div>
 
-       <div class="form-group">
-        <label class="control-label col-md-2">ParentId</label>
-        <div class="col-md-10">
-          <input type="number" class="form-control" name="parentid" id="parentid" value="@Html.DisplayFor(item => item.ParentId)">
-        </div>
-    </div>
-  
     <div class="form-group">
         <label class="control-label col-md-2">Trạng thái</label>
         <div class="col-md-10">
@@ -67,6 +57,7 @@
         </div>
     </div>
 </div>
+}
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -83,4 +74,3 @@
         $('#slug').val(result.toLowerCase());
     }
 </script>
-}

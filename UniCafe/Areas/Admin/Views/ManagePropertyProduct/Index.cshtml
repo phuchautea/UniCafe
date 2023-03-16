@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UniCafe.Models.Product>
+﻿@model IEnumerable<UniCafe.Models.PropertyProduct>
 
 @{
     ViewBag.Title = "Index";
@@ -10,48 +10,40 @@
         return active == "1" ? "<span class='label label-success'>ON</span>" : "<span class='label label-danger'>OFF</span>";
     }
 }
-<h2>Manage Product</h2>
+<h2>Manage Property Product</h2>
 @Html.Partial("ErrorsAlert")
 <p>
-  <a data-toggle="modal" data-target="#create_modal">Create</a>
+    <a data-toggle="modal" data-target="#create_modal">Create</a>
     <div class="modal fade" id="create_modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <b><i class="fa fa-plus"></i> Thêm sản phẩm mới</b>
+                        <b><i class="fa fa-plus"></i> Thêm thuộc tính mới</b>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </h4>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("Create", "ManageProduct", FormMethod.Post))
+                    @using (Html.BeginForm("Create", "ManagePropertyProduct", FormMethod.Post))
                     {
                         <div class="form-group">
                             <label>Tên</label>
-                            <input type="text" class="form-control" name="name" id="name" onchange="getSlug();">
+                            <input type="text" class="form-control" name="name" id="name">
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label>Slug</label>
                             <input type="text" class="form-control" name="slug" id="slug">
-                        </div>
+                        </div>*@
                         <div class="form-group">
                             <label>Giá</label>
-                            <input type="number" class="form-control" name="price" id="price" value="1000">
+                            <input type="number" class="form-control" name="price" id="price" value="0">
                         </div>
                         <div class="form-group">
-                            <label>Mô tả</label>
-                            <textarea rows="5" class="form-control" name="description" id="description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Hình ảnh</label>
-                            <input type="text" class="form-control" name="image" id="image">
-                        </div>
-                        <div class="form-group">
-                            <label>Danh mục</label>
-                            <select class="form-control" name="category_id" id="category_id">
-                                @foreach (var category in ViewBag.Categories)
+                            <label>Sản Phẩm</label>
+                            <select class="form-control" name="product_id" id="product_id">
+                                @foreach (var product in ViewBag.Product)
                                 {
-                                    <option value="@category.Id">@category.Name</option>
+                                    <option value="@product.Id">@product.Name</option>
                                 }
                             </select>
                         </div>
@@ -77,23 +69,17 @@
                 <th>
                     Tên
                 </th>
-                <th>
+                @*<th>
                     Slug
-                </th>
+                </th>*@
                 <th>
                     Giá
-                </th>
-                <th>
-                    Mô tả
-                </th>
-                <th>
-                    Hình ảnh
                 </th>
                 <th>
                     Trạng thái
                 </th>
                 <th>
-                    Danh mục
+                    Sản Phẩm
                 </th>
                 <th>
                     CreatedAt
@@ -114,23 +100,17 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.Slug)
-                    </td>
+                    </td>*@
                     <td>
                         @item.Price.ToString("N0")đ
-                    </td>
-                    <td>
-                        <textarea rows="3">@Html.DisplayFor(modelItem => item.Description)</textarea>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Image)
                     </td>
                     <td>
                         @Html.Raw(NorActive(item.Status))
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Category.Name)
+                        @Html.DisplayFor(modelItem => item.Product.Name)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -139,7 +119,7 @@
                         @Html.DisplayFor(modelItem => item.UpdatedAt)
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit", "ManageProduct", new { id = item.Id })">Sửa</a>
+                        <a href="@Url.Action("Edit", "ManagePropertyProduct", new { id = item.Id })">Sửa</a>
                         <a onclick="del(@item.Id)">Xóa</a>
                     </td>
                 </tr>
@@ -164,7 +144,7 @@
     function del(id) {
         if (confirm("Bạn chắc chắn muốn xóa?")) {
             $.ajax({
-                url: "@Url.Action("Delete", "ManageProduct")",
+                url: "@Url.Action("Delete", "ManagePropertyProduct")",
                 type: "POST",
                 data: { id: id },
                 success: function (response) {
@@ -186,7 +166,7 @@
     $(document).ready(function () {
         $('#nTable').DataTable({
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[9, 'desc']],
+            "order": [[6, 'desc']], // order by theo cột
         });
     });
 </script>

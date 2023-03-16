@@ -12,12 +12,13 @@ namespace UniCafe.Controllers
     public class ProductController : MasterController<Product>
     {
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<OptionProduct> _optionProductRepository;
-
+        private readonly IRepository<PropertyProduct> _propertyProductRepositoy;
+        private readonly IRepository<OptionProduct> _optionProductRepositoy;
         public ProductController()
         {
             _categoryRepository = new Repository<Category>(Context);
-            _optionProductRepository = new Repository<OptionProduct>(Context);
+            _propertyProductRepositoy = new Repository<PropertyProduct>(Context);
+            _optionProductRepositoy = new Repository<OptionProduct>(Context);
         }
         /// <summary>
         ///  MEMORY CACHE
@@ -46,14 +47,25 @@ namespace UniCafe.Controllers
             var p = GetAll().ToList();
             var c = _categoryRepository.GetAll().ToList();
             ViewBag.Categories = c;
+            ViewBag.PropertyProducts = _propertyProductRepositoy.GetAll().ToList();
+            ViewBag.OptionProducts = _optionProductRepositoy.GetAll().ToList();
             return View(p);
         }
-        //public ActionResult Details(int Id) {
-        //    var Product = GetById(Id);
-        //    var c = _optionProductRepository.GetAll().ToList();
-        //    c = Context.OptionProducts.Where(p => p.Product.Id == Id).ToList();
-        //    ViewBag.optionProducts = c;
-        //    return View(Product);
-        //}
+        [Route("Product/{Slug}")]
+        public ActionResult Details(string Slug)
+        {
+            try
+            {
+                ViewBag.PropertyProducts = Context.PropertityProducts.Where(x => x.Product.Slug == Slug).ToList();
+                ViewBag.OptionProducts = Context.OptionProducts.Where(x => x.Product.Slug == Slug).ToList();
+                var product = Context.Products.FirstOrDefault(x => x.Slug == Slug);
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "Product");
+            }
+            return RedirectToAction("Index", "Product");
+        }
     }
 }
