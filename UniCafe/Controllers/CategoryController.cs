@@ -15,13 +15,16 @@ namespace UniCafe.Controllers
         //private readonly IUnitOfWork _unitOfWork;
         //private readonly IRepository<Category> _categoryRepository;
         //private readonly ApplicationDbContext _context;
-
-        //public CategoryController()
-        //{
-        //    _context = new ApplicationDbContext();
-        //    _unitOfWork = new UnitOfWork(_context);
-        //    _categoryRepository = new Repository<Category>(_context);
-        //}
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<OptionProduct> _optionProductRepository;
+        public CategoryController()
+        {
+            //    _context = new ApplicationDbContext();
+            //    _unitOfWork = new UnitOfWork(_context);
+            //    _categoryRepository = new Repository<Category>(_context);
+            _productRepository = new Repository<Product>(Context);
+            _optionProductRepository = new Repository<OptionProduct>(Context);
+        }
         //public void AddCategory(Category category)
         //{
         //    Repository.Add(category);
@@ -114,25 +117,33 @@ namespace UniCafe.Controllers
             Remove(category);
             return RedirectToAction("Index", "Category");
         }
-        [Route("Category/{Slug}")]
+        [Route("Collection/{Slug}")]
         public ActionResult Collection(string Slug)
         {
-            if(Slug == "All" || Slug == "")
+            var categories = GetAll().ToList();
+            if (Slug == "All" || Slug == "")
             {
                 var products = Context.Products.ToList();
-                ViewBag.Products = products;
+                ViewBag.Categories = categories;
                 return View(products);
             }
             else
             {
-                var category = Context.Categories.FirstOrDefault(c => c.Slug == Slug);
-                var products = Context.Products.Where(s => s.Category.Id == category.Id).ToList();
-                ViewBag.Products = products;
-                ViewBag.Category = category;
-
+                
+                var products = Context.Products.Where(x => x.Category.Slug == Slug).ToList();
+                //var category = Context.Categories.FirstOrDefault(c => c.Slug == Slug);
+                //var products = Context.Products.Where(s => s.Category.Id == category.Id).ToList();
+                ViewBag.Categories = categories;
                 return View(products);
             }
             
+        }
+        public ActionResult DetailProduct(int Id) {
+            var Product = _productRepository.GetById(Id);
+            var c = _optionProductRepository.GetAll().ToList();
+            c = Context.OptionProducts.Where(p => p.Product.Id == Id).ToList();
+            ViewBag.optionProducts = c;
+            return View(Product);
         }
     }
 }
