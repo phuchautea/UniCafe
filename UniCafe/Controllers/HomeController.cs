@@ -21,10 +21,12 @@ namespace UniCafe.Controllers
         }
         public ActionResult Index()
         {
-            if(!User.Identity.IsAuthenticated)
+            var showProducts = _context.Products.Where(c => c.Show == 1).ToList();
+            if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Login", "Account");
             }
+            ViewBag.showProducts = showProducts;
             return View();
         }
         //[Route("Collection/{id}")]
@@ -34,19 +36,6 @@ namespace UniCafe.Controllers
             var products = _context.Products.Where(c => c.Category.Id == category.Id).ToList();
             ViewBag.Products = products;
             ViewBag.Category = category;
-            return View();
-        }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

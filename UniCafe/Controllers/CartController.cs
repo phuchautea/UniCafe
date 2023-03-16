@@ -16,11 +16,15 @@ namespace UniCafe.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<PropertyProduct> _propertyProductRepositoy;
+        private readonly IRepository<OptionProduct> _optionProductRepositoy;
         private readonly CartManager _cartManager;
         public CartController()
         {
             _context = new ApplicationDbContext();
             _productRepository = new Repository<Product>(_context);
+            _propertyProductRepositoy = new Repository<PropertyProduct>(_context);
+            _optionProductRepositoy = new Repository<OptionProduct>(_context);
             _cartManager = new CartManager();
         }
         public ActionResult Index()
@@ -29,18 +33,28 @@ namespace UniCafe.Controllers
             return View(cart);
         }
         [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity)
+        public ActionResult AddToCart(int productId, int quantity, List<int> optionProductIds, int propertyId)
         {
             var product = _productRepository.GetById(productId);
+            var propertyProduct = _propertyProductRepositoy.GetById(propertyId);
+            List<OptionProduct> optionProducts = new List<OptionProduct>();
+            if(optionProductIds != null)
+            {
+                foreach (var optionProductId in optionProductIds)
+                {
+                    optionProducts.Add(_optionProductRepositoy.GetById(optionProductId));
+                }
+            }
             var item = new CartItem
             {
                 ProductId = productId,
                 Quantity = quantity,
                 ProductName = product.Name,
-                Price = product.Price
+                Price = product.Price,
+                Options = optionProducts,
+                PropertyProduct = propertyProduct
             };
             _cartManager.AddToCart(item);
-
             return Json(new { success = true });
         }
         [HttpPost]

@@ -24,6 +24,7 @@ namespace UniCafe.Models
         public string Description { get; set; }
         public string Image { get; set; }
         public string Status { get; set; }
+        public int Show { get; set; } = 0;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
