@@ -109,8 +109,10 @@ namespace UniCafe.Areas.Admin.Controllers
                 }
                 if (errors.Count == 0)
                 {
+                    var product = _productRepository.GetById(Int32.Parse(formCollection["product_id"]));
                     var propertyProduct = GetById(Int32.Parse(formCollection["Id"]));
                     propertyProduct.Name = name;
+                    propertyProduct.Product = product;
                     //propertyProduct.Slug = slug;
                     propertyProduct.Price = Convert.ToDecimal(price); // ép kiểu từ string về decimal
                     propertyProduct.Status = status;
