@@ -198,6 +198,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OptionProductController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PropertyProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -232,12 +233,17 @@
     <Compile Include="Migrations\202303130912242_addShowProductAndDeleteSlug.designer.cs">
       <DependentUpon>202303130912242_addShowProductAndDeleteSlug.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303161313217_CreateTableOrder.cs" />
+    <Compile Include="Migrations\202303161313217_CreateTableOrder.designer.cs">
+      <DependentUpon>202303161313217_CreateTableOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\OptionProduct.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PropertyProduct.cs" />
     <Compile Include="Models\Role.cs" />
@@ -262,6 +268,11 @@
     <Content Include="Areas\Admin\Views\ManageRole\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManageRole\SetRole.cshtml" />
     <Content Include="Areas\Admin\Views\ManageUser\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageCategory\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageOptionProduct\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageOptionProduct\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagePropertyProduct\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagePropertyProduct\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -270,11 +281,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\Admin\Views\ManageCategory\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ManageOptionProduct\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ManageOptionProduct\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ManagePropertyProduct\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ManagePropertyProduct\Index.cshtml" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -323,6 +329,9 @@
     <Content Include="Views\Category\Collection.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Order\CheckOut.cshtml" />
+    <Content Include="Views\Order\IndexSearchOrder.cshtml" />
+    <Content Include="Views\Order\SearchOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -351,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303130912242_addShowProductAndDeleteSlug.resx">
       <DependentUpon>202303130912242_addShowProductAndDeleteSlug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303161313217_CreateTableOrder.resx">
+      <DependentUpon>202303161313217_CreateTableOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

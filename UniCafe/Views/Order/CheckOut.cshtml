@@ -1,0 +1,290 @@
+﻿@model UniCafe.Models.Order
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CheckOut</h2>
+@Html.Partial("errorsAlert")
+@* Code cũ*@
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Order</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrderCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OrderCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OrderCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Payment, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Payment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+
+
+<div class="row">
+    <div class="col-md-4 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill">3</span>
+        </h4>
+        <ul class="list-group mb-3 sticky-top">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <h6 class="my-0">Product name</h6>
+                    <small class="text-muted">Brief description</small>
+                </div>
+                <span class="text-muted">$12</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <h6 class="my-0">Second product</h6>
+                    <small class="text-muted">Brief description</small>
+                </div>
+                <span class="text-muted">$8</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <h6 class="my-0">Third item</h6>
+                    <small class="text-muted">Brief description</small>
+                </div>
+                <span class="text-muted">$5</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-success">
+                    <h6 class="my-0">Promo code</h6>
+                    <small>EXAMPLECODE</small>
+                </div>
+                <span class="text-success">-$5</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Total (USD)</span>
+                <strong>$20</strong>
+            </li>
+        </ul>
+        <form class="card p-2">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Promo code">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary">Redeem</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div class="col-md-8 order-md-1">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Customer Information</span>
+                </h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label for="OrderCode">OrderCode</label>
+                        @Html.EditorFor(model => model.OrderCode, new { htmlAttributes = new { @class = "form-control", placeholder = "abc123" } })
+                        @Html.ValidationMessageFor(model => model.OrderCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label for="Name">Name</label>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Lê Văn Nam" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label for="PhoneNumber">PhoneNumber</label>
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "123456789" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label for="Email">Email</label>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "you@example.com" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label for="Address">Address</label>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "1234 Main St" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        <div class="col-md-10">
+                            <label for="Payment">Payment</label>
+                            @Html.EditorFor(model => model.Payment, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Payment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                <hr class="mb-4">
+                <h4 class="mb-3">Payment</h4>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="custom-control custom-radio">
+                            <input id="Cash" name="Payment" type="radio" class="custom-control-input" checked="" required="" value="Cash">
+                            <label class="custom-control-label" for="Cash">Cash</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="momo" name="Payment" type="radio" class="custom-control-input" required="" value="momo">
+                            <label class="custom-control-label" for="momo">MoMo</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="Credit" name="Payment" type="radio" class="custom-control-input" required="" value="Credit">
+                            <label class="custom-control-label" for="Credit">Credit Card</label>
+                        </div>
+                    </div>
+                </div>
+
+                @*<hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">PAY</button>*@
+                <hr class="mb-4">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">PAY</button>
+                        @*<input type="submit" value="Create" class="btn btn-default" />*@
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+
+
+
+
+    @*Code Bootrap
+                <div class="col-md-8 order-md-1">
+
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Customer Information</span>
+                            </h4>
+                            <form class="needs-validation" novalidate="">
+                                <div class="row">
+
+                                    <div style="margin-bottom: 20px" class="mb-3">
+                                        <label for="OrderCode">OrderCode</label>
+                                        <input type="text" name="OrderCode" class="form-control" id="OrderCode" placeholder="123456">
+                                    </div>
+                                    <div style="margin-bottom: 20px" class="mb-3">
+                                        <label for="Name">Name</label>
+                                        <input type="text" name="Name" class="form-control" id="Name" placeholder="Lê Văn Nam">
+                                    </div>
+                                    <div style="margin-bottom: 20px" class="mb-3">
+                                        <label for="phonenumber">Phone Number </label>
+                                        <input type="text" name="PhoneNumber" class="form-control" id="phonenumber" placeholder="123456789">
+                                    </div>
+
+                                    <div style="margin-bottom: 20px" class="mb-3">
+                                        <label for="email">Email </label>
+                                        <input type="email" name="Email" class="form-control" id="email" placeholder="you@example.com">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="address">Address</label>
+                                        <input type="text" name="Address" class="form-control" id="address" placeholder="1234 Main St" required="">
+                                    </div>
+
+
+
+                                    <hr class="mb-4">
+                <h4 class="mb-3">Payment</h4>
+                <div class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                        <input id="Cash" name="Payment" type="radio" class="custom-control-input" checked="" required="" value="Cash">
+                        <label class="custom-control-label" for="Cash">Cash</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="momo" name="Payment" type="radio" class="custom-control-input" required="" value="momo">
+                        <label class="custom-control-label" for="momo">MoMo</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="Credit" name="Payment" type="radio" class="custom-control-input" required="" value="Credit">
+                        <label class="custom-control-label" for="Credit">Credit Card</label>
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">PAY</button>
+
+
+
+        </form>
+                        </div>
+                    </div>*@
+
+
+
