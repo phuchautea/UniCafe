@@ -35,18 +35,12 @@ namespace UniCafe.Areas.Admin.Controllers
             try
             {
                 var name = formCollection["name"];
-                //var slug = formCollection["slug"];
                 var price = formCollection["price"];
                 var status = formCollection["status"];
-                //var checkSlug = Context.PropertyProducts.Count(x => x.Slug == slug);
                 if (string.IsNullOrEmpty(name))
                 {
                     errors.Add("Chưa nhập tên thuộc tính");
                 }
-                //if (checkSlug > 0)
-                //{
-                //    errors.Add("Slug đã tồn tại");
-                //}
                 if (Convert.ToDecimal(price) < 0 || string.IsNullOrEmpty(price))
                 {
                     errors.Add("Nhập giá ít nhất là 0đ");

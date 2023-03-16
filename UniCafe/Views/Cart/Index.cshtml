@@ -23,13 +23,17 @@
                 <td>@item.Quantity</td>
                 <td>@item.PropertyProduct.Name - @item.PropertyProduct.Price</td>
                 <td>
+                    @{ 
+                        List<int> optionIds = new List<int>();
+                    }
                     @foreach (var option in item.Options)
                     {
+                        optionIds.Add(option.Id);
                         <span><b>@option.Name</b> : <b>@option.Price</b></span><br />
                     }
                 </td>
                 <td>@(((item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0"))đ</td>
-                <td><button class="btn-remove" data-product-id="@item.ProductId">Remove</button></td>
+                <td><button class="btn-remove" data-item-cart-id="@item.Id">Remove</button></td>
             </tr>
         }
         <tr>
@@ -47,11 +51,11 @@
     <script>
         $(function () {
             $('.btn-remove').on('click', function () {
-                var productId = $(this).data('product-id');
+                var cartItemId = $(this).data('item-cart-id');
                 $.ajax({
                     url: '@Url.Action("RemoveFromCart", "Cart")',
                     type: 'POST',
-                    data: { productId: productId },
+                    data: { cartItemId: cartItemId },
                     success: function (result) {
                         if (result.success) {
                             location.reload();
