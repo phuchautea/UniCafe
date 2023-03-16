@@ -12,10 +12,12 @@ namespace UniCafe.Controllers
     public class ProductController : MasterController<Product>
     {
         private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<OptionProduct> _optionProductRepository;
 
         public ProductController()
         {
             _categoryRepository = new Repository<Category>(Context);
+            _optionProductRepository = new Repository<OptionProduct>(Context);
         }
         /// <summary>
         ///  MEMORY CACHE
@@ -46,5 +48,12 @@ namespace UniCafe.Controllers
             ViewBag.Categories = c;
             return View(p);
         }
+        //public ActionResult Details(int Id) {
+        //    var Product = GetById(Id);
+        //    var c = _optionProductRepository.GetAll().ToList();
+        //    c = Context.OptionProducts.Where(p => p.Product.Id == Id).ToList();
+        //    ViewBag.optionProducts = c;
+        //    return View(Product);
+        //}
     }
 }
