@@ -72,7 +72,8 @@
                         @Html.DisplayFor(modelItem => item.UpdatedAt)
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit", "ManageCategory", new { id = item.Id })">Sửa</a>
+                        <a href="@Url.Action("Detail", "ManageOrder", new { id = item.Id })">Chi tiết</a>
+                        <a href="@Url.Action("Edit", "ManageOrder", new { id = item.Id })">Sửa</a>
                         <a onclick="del(@item.Id)">Xóa</a>
                     </td>
                 </tr>

@@ -115,5 +115,21 @@ namespace UniCafe.Areas.Admin.Controllers
             Remove(order);
             return Json(new { success = true, message = "Xóa hóa đơn thành công" });
         }
+        //--DETAIL
+        public ActionResult Detail (int? Id)
+        {
+            if (Id == null)
+            {
+                return RedirectToAction("Index", "ManageOrder");
+            }
+            var checkId = GetById(Id.Value);
+            if (checkId == null)
+            {
+                return RedirectToAction("Index", "ManageOrder");
+            }
+             var  orderDetail = Context.OrderDetails.Where(x => x.Order.Id == Id).ToList();
+            return View(orderDetail);
+
+        }
     }
 }
