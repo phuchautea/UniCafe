@@ -20,6 +20,7 @@ namespace UniCafe.Areas.Admin.Controllers
             var categories = GetAll().ToList();
             return View(categories);
         }
+
         [HttpPost]
         public ActionResult Create(FormCollection formCollection, Category category)
         {
@@ -48,6 +49,7 @@ namespace UniCafe.Areas.Admin.Controllers
                 {
                     Add(category);
                 }
+
             }
             catch (Exception ex)
             {

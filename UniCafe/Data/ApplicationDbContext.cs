@@ -17,6 +17,9 @@ namespace UniCafe.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<PropertyProduct> PropertityProducts { get; set; }
         public DbSet<OptionProduct> OptionProducts { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         public ApplicationDbContext() : base("DefaultConnection"){
 
         }

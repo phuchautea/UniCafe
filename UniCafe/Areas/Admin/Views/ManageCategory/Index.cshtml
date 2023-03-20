@@ -39,8 +39,8 @@
                             <textarea rows="5" class="form-control" name="description" id="description"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>ParentID</label>
-                            <input type="text" class="form-control" name="parentid" id="parentid">
+                            <label>ParentId</label>
+                            <input type="number" class="form-control" name="parentid" id="parentid">
                         </div>
                         <div class="form-group form-check">
                             <label>Trạng thái</label>
@@ -149,7 +149,6 @@
                     }
                 },
                 error: function (xhr, status, error) {
-                    // Handle error
                     alert(error);
                 }
             });

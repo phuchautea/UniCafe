@@ -1,13 +1,93 @@
-﻿@{
+﻿@model IEnumerable<UniCafe.Models.Product>
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (@ViewBag.Category != null)
+@*@if (@ViewBag.Category != null)
 {
     <h2> Danh sách sản phẩm của danh mục @ViewBag.Category.Name</h2>
-}
-@foreach (var product in ViewBag.Products)
+}*@
+@*@foreach (var product in ViewBag.Products)
 {
     <h2>@product.Id - @product.Name</h2>
     <br />
-}
+}*@
+<h2>
+</h2>
+
+
+<div id="collection">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 stikySidebar">
+                <div class="list-group-item">
+                    <a class="nav-link active" href="/Collection/All" style="text-decoration:none">Tất cả</a>
+                </div>
+                @foreach(var Category in ViewBag.Categories){
+                    
+                <div class="list-group-item ">
+                    <a class="nav-link active" href="/Collection/@Category.Slug" style="text-decoration:none">@Category.Name</a>
+                </div> 
+                }
+                <!--<div class="list-group-item">
+                    <a class="nav-link active" href="/@TempData["Slug"]" style="text-decoration:none">Trà trái cây</a>
+                </div>
+                <div class="list-group-item ">
+                    <a class="nav-link active" href="/Collection/tra-sua-macchiato" style="text-decoration:none">Trà sữa macchiato</a>
+                </div> -->
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 border_right_before">
+                @foreach (var item in Model)
+                {
+                    <div class="menu_item">
+                        <div class="menu_item_image">
+                            <a href="" title="@item.Name" data-toggle="modal" data-target="#exampleModal">
+                            <img src="@Html.DisplayFor(modelItem => item.Image)" style="max-width:200px; max-height:300px;" />
+                            </a>
+                        </div>
+                        <div class="menu_info">
+                            <label>
+                                @item.Name
+                                @*@Html.DisplayFor(modelItem => item.Name)*@
+                            </label>
+                            <br />
+                            <p>
+                                @item.Price.ToString("N0")đ
+                                @*@Html.DisplayFor(modelItem => item.Price)đ*@
+                            </p>
+
+                        </div>
+                    </div>
+                <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center" style="text-transform:uppercase"  id="exampleModalLabel">Chi tiết sản phẩm</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-8" >
+                <h2>@item.Name</h2>
+            </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
