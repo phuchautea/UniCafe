@@ -185,6 +185,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagePropertyProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageOptionProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageCategoryController.cs" />
@@ -237,6 +238,18 @@
     <Compile Include="Migrations\202303161313217_CreateTableOrder.designer.cs">
       <DependentUpon>202303161313217_CreateTableOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303171117081_deleteEmailOnOrder.cs" />
+    <Compile Include="Migrations\202303171117081_deleteEmailOnOrder.designer.cs">
+      <DependentUpon>202303171117081_deleteEmailOnOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303171128493_addNoteOnOrder.cs" />
+    <Compile Include="Migrations\202303171128493_addNoteOnOrder.designer.cs">
+      <DependentUpon>202303171128493_addNoteOnOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303171851389_updateOrderAndOrderDetail.cs" />
+    <Compile Include="Migrations\202303171851389_updateOrderAndOrderDetail.designer.cs">
+      <DependentUpon>202303171851389_updateOrderAndOrderDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -244,6 +257,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\OptionProduct.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PropertyProduct.cs" />
     <Compile Include="Models\Role.cs" />
@@ -281,6 +295,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Admin\Views\ManageOrder\Index.cshtml" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -330,8 +345,8 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Order\CheckOut.cshtml" />
-    <Content Include="Views\Order\IndexSearchOrder.cshtml" />
     <Content Include="Views\Order\SearchOrder.cshtml" />
+    <Content Include="Views\Order\CompleteOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -363,6 +378,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303161313217_CreateTableOrder.resx">
       <DependentUpon>202303161313217_CreateTableOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303171117081_deleteEmailOnOrder.resx">
+      <DependentUpon>202303171117081_deleteEmailOnOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303171128493_addNoteOnOrder.resx">
+      <DependentUpon>202303171128493_addNoteOnOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303171851389_updateOrderAndOrderDetail.resx">
+      <DependentUpon>202303171851389_updateOrderAndOrderDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

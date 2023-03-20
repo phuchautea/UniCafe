@@ -5,63 +5,76 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SearchOrder</h2>
 
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderCode)
-        </dt>
+@if (Model != null)
+{
+    <h2>SearchOrder</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.OrderCode)
-        </dd>
+    <div>
+        <h4>Order</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Code)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Code)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Payment)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Payment)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Payment)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Payment)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
 
-    </dl>
-</div>
-<p>
+            <dd>
+                @Html.DisplayFor(model => model.Note)
+            </dd>
 
-    @Html.ActionLink("Back to List", "IndexSearchOrder")
-</p>
+        </dl>
+    </div>
+    <p>
+
+        @Html.ActionLink("Back to List", "IndexSearchOrder")
+    </p>
+}
+else
+{
+    <h2>SearchOrder</h2>
+    <form action="@Url.Action("SearchOrder", "Order")">
+        <input class="form-control" type="text" name="OrderCode" placeholder="Nhập mã đơn hàng của bạn" />
+        <button class="btn btn-success">Tra cứu</button>
+    </form>
+}
+

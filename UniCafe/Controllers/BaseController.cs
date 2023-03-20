@@ -13,7 +13,6 @@ namespace UniCafe.Controllers
     public class BaseController<T> : Controller where T : class
     {
         public readonly ApplicationDbContext Context;
-
         public readonly IUnitOfWork UnitOfWork;
         public readonly IRepository<T> Repository;
         public UserManager<ApplicationUser> UserManager;
