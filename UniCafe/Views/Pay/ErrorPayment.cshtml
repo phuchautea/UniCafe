@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "ErrorPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var payment = Session["Payment"].ToString();
+}
+
+<h2>ErrorPayment</h2>
+<div class="text-center">
+    <p>Lỗi thanh toán</p>
+    <p>Bạn hãy thử thanh toán lại <a href="@Url.Action(payment, "Pay")">tại đây</a></p>
+</div>
