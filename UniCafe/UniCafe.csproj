@@ -250,6 +250,10 @@
     <Compile Include="Migrations\202303171851389_updateOrderAndOrderDetail.designer.cs">
       <DependentUpon>202303171851389_updateOrderAndOrderDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303220729146_updateMaster.cs" />
+    <Compile Include="Migrations\202303220729146_updateMaster.designer.cs">
+      <DependentUpon>202303220729146_updateMaster.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -389,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303171851389_updateOrderAndOrderDetail.resx">
       <DependentUpon>202303171851389_updateOrderAndOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303220729146_updateMaster.resx">
+      <DependentUpon>202303220729146_updateMaster.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
