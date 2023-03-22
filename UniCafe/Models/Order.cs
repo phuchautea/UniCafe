@@ -17,6 +17,7 @@ namespace UniCafe.Models
         public string Address { get; set; }
         public string Payment { get; set; }
         public string Note { get; set; }
+        public int Paid { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
