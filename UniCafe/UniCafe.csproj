@@ -200,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OptionProductController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PropertyProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -250,6 +251,10 @@
     <Compile Include="Migrations\202303171851389_updateOrderAndOrderDetail.designer.cs">
       <DependentUpon>202303171851389_updateOrderAndOrderDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303200616043_addPaidOrder.cs" />
+    <Compile Include="Migrations\202303200616043_addPaidOrder.designer.cs">
+      <DependentUpon>202303200616043_addPaidOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -258,12 +263,17 @@
     <Compile Include="Models\OptionProduct.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PropertyProduct.cs" />
+    <Compile Include="Models\ResultMomo.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CartManager.cs" />
+    <Compile Include="Services\Payment\Momo\MomoSecurity.cs" />
+    <Compile Include="Services\Payment\Momo\PaymentRequest.cs" />
+    <Compile Include="Services\Payment\Momo\Result.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +281,97 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Layout\User\css\animation\animate.min.css" />
+    <Content Include="Content\Layout\User\css\bootstrap-plugin\bootstrap-slider.css" />
+    <Content Include="Content\Layout\User\css\form-field\jquery.formstyler.css" />
+    <Content Include="Content\Layout\User\css\light-box\magnific-popup.css" />
+    <Content Include="Content\Layout\User\css\light-box\simplelightbox.css" />
+    <Content Include="Content\Layout\User\css\owl-carousel\owl.carousel.css" />
+    <Content Include="Content\Layout\User\css\owl-carousel\owl.theme.default.css" />
+    <Content Include="Content\Layout\User\css\responsive.css" />
+    <Content Include="Content\Layout\User\css\revolution-plugin\extralayers.css" />
+    <Content Include="Content\Layout\User\css\revolution-plugin\settings.css" />
+    <Content Include="Content\Layout\User\css\scroll-bar\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\Layout\User\css\slick-slider\slick-theme.css" />
+    <Content Include="Content\Layout\User\css\style.css" />
+    <Content Include="Content\Layout\User\fonts\Graviola-Regular.svg" />
+    <Content Include="Content\Layout\User\fonts\GraviolaSoft-Medium.svg" />
+    <Content Include="Content\Layout\User\fonts\icomoon.svg" />
+    <Content Include="Content\Layout\User\fonts\jey.svg" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBold-Regular.svg" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBook-Regular.svg" />
+    <Content Include="Content\Layout\User\fonts\QuicksandLight-Regular.svg" />
+    <Content Include="Content\Layout\User\images\arrow-left.png" />
+    <Content Include="Content\Layout\User\images\arrow-right.png" />
+    <Content Include="Content\Layout\User\images\arrow-top.png" />
+    <Content Include="Content\Layout\User\images\banner1.jpg" />
+    <Content Include="Content\Layout\User\images\banner2.jpg" />
+    <Content Include="Content\Layout\User\images\bewerages.png" />
+    <Content Include="Content\Layout\User\images\bg1.jpg" />
+    <Content Include="Content\Layout\User\images\cake.png" />
+    <Content Include="Content\Layout\User\images\client1.png" />
+    <Content Include="Content\Layout\User\images\cocktail.png" />
+    <Content Include="Content\Layout\User\images\coffee.png" />
+    <Content Include="Content\Layout\User\images\delete.png" />
+    <Content Include="Content\Layout\User\images\dummy.png" />
+    <Content Include="Content\Layout\User\images\favicon.png" />
+    <Content Include="Content\Layout\User\images\feature1.jpg" />
+    <Content Include="Content\Layout\User\images\feature2.jpg" />
+    <Content Include="Content\Layout\User\images\feature3.jpg" />
+    <Content Include="Content\Layout\User\images\footer-bg.jpg" />
+    <Content Include="Content\Layout\User\images\gallery\gallery1.png" />
+    <Content Include="Content\Layout\User\images\gallery\gallery2.png" />
+    <Content Include="Content\Layout\User\images\gallery\gallery3.png" />
+    <Content Include="Content\Layout\User\images\gallery\gallery4.png" />
+    <Content Include="Content\Layout\User\images\gallery\gallery5.png" />
+    <Content Include="Content\Layout\User\images\gradient-bg.png" />
+    <Content Include="Content\Layout\User\images\icon\icon1.png" />
+    <Content Include="Content\Layout\User\images\icon\icon2.png" />
+    <Content Include="Content\Layout\User\images\icon\icon3.png" />
+    <Content Include="Content\Layout\User\images\icon\icon4.png" />
+    <Content Include="Content\Layout\User\images\img1.png" />
+    <Content Include="Content\Layout\User\images\img10.png" />
+    <Content Include="Content\Layout\User\images\img2.png" />
+    <Content Include="Content\Layout\User\images\img21.png" />
+    <Content Include="Content\Layout\User\images\img3.png" />
+    <Content Include="Content\Layout\User\images\img4.png" />
+    <Content Include="Content\Layout\User\images\img5.png" />
+    <Content Include="Content\Layout\User\images\img6.png" />
+    <Content Include="Content\Layout\User\images\img7.png" />
+    <Content Include="Content\Layout\User\images\img9.png" />
+    <Content Include="Content\Layout\User\images\item1.png" />
+    <Content Include="Content\Layout\User\images\item2.png" />
+    <Content Include="Content\Layout\User\images\item3.png" />
+    <Content Include="Content\Layout\User\images\item4.png" />
+    <Content Include="Content\Layout\User\images\item5.png" />
+    <Content Include="Content\Layout\User\images\item6.png" />
+    <Content Include="Content\Layout\User\images\logo-cafe.gif" />
+    <Content Include="Content\Layout\User\images\logo-icon.png" />
+    <Content Include="Content\Layout\User\images\milk.png" />
+    <Content Include="Content\Layout\User\images\product1.png" />
+    <Content Include="Content\Layout\User\images\product2.png" />
+    <Content Include="Content\Layout\User\images\product3.png" />
+    <Content Include="Content\Layout\User\images\product4.png" />
+    <Content Include="Content\Layout\User\images\tea.png" />
+    <Content Include="Content\Layout\User\images\video-bg.png" />
+    <Content Include="Content\Layout\User\js\animation\wow.min.js" />
+    <Content Include="Content\Layout\User\js\app.js" />
+    <Content Include="Content\Layout\User\js\bootstrap\bootstrap-slider.js" />
+    <Content Include="Content\Layout\User\js\bootstrap\bootstrap.min.js" />
+    <Content Include="Content\Layout\User\js\form-field\jquery.formstyler.min.js" />
+    <Content Include="Content\Layout\User\js\jquery\jquery.min.js" />
+    <Content Include="Content\Layout\User\js\light-box\jquery.magnific-popup.min.js" />
+    <Content Include="Content\Layout\User\js\light-box\simple-lightbox.min.js" />
+    <Content Include="Content\Layout\User\js\masonry\isotop.js" />
+    <Content Include="Content\Layout\User\js\masonry\packery-mode.pkgd.min.js" />
+    <Content Include="Content\Layout\User\js\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Content\Layout\User\js\parallax-stellar\jquery.stellar.js" />
+    <Content Include="Content\Layout\User\js\progress-circle\waterbubble.min.js" />
+    <Content Include="Content\Layout\User\js\revolution-plugin\jquery.themepunch.plugins.min.js" />
+    <Content Include="Content\Layout\User\js\revolution-plugin\jquery.themepunch.revolution.min.js" />
+    <Content Include="Content\Layout\User\js\script.js" />
+    <Content Include="Content\Layout\User\js\scroll-bar\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Content\Layout\User\js\slick-slider\slick.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -296,6 +397,36 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Areas\Admin\Views\ManageOrder\Index.cshtml" />
+    <Content Include="Content\Layout\User\fonts\Graviola-Regular.eot" />
+    <Content Include="Content\Layout\User\fonts\Graviola-Regular.otf" />
+    <Content Include="Content\Layout\User\fonts\Graviola-Regular.ttf" />
+    <Content Include="Content\Layout\User\fonts\Graviola-Regular.woff" />
+    <Content Include="Content\Layout\User\fonts\GraviolaSoft-Medium.eot" />
+    <Content Include="Content\Layout\User\fonts\GraviolaSoft-Medium.otf" />
+    <Content Include="Content\Layout\User\fonts\GraviolaSoft-Medium.ttf" />
+    <Content Include="Content\Layout\User\fonts\GraviolaSoft-Medium.woff" />
+    <Content Include="Content\Layout\User\fonts\icomoon.eot" />
+    <Content Include="Content\Layout\User\fonts\icomoon.ttf" />
+    <Content Include="Content\Layout\User\fonts\icomoon.woff" />
+    <Content Include="Content\Layout\User\fonts\icomoon.woff2" />
+    <Content Include="Content\Layout\User\fonts\jey.eot" />
+    <Content Include="Content\Layout\User\fonts\jey.ttf" />
+    <Content Include="Content\Layout\User\fonts\jey.woff" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBold-Regular.eot" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBold-Regular.otf" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBold-Regular.ttf" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBold-Regular.woff" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBook-Regular.eot" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBook-Regular.otf" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBook-Regular.ttf" />
+    <Content Include="Content\Layout\User\fonts\QuicksandBook-Regular.woff" />
+    <Content Include="Content\Layout\User\fonts\QuicksandLight-Regular.eot" />
+    <Content Include="Content\Layout\User\fonts\QuicksandLight-Regular.otf" />
+    <Content Include="Content\Layout\User\fonts\QuicksandLight-Regular.ttf" />
+    <Content Include="Content\Layout\User\fonts\QuicksandLight-Regular.woff" />
+    <Content Include="Content\Layout\User\fonts\revicons.ttf" />
+    <Content Include="Content\Layout\User\fonts\revicons.woff" />
+    <Content Include="Content\Layout\User\fonts\SF-Pro-Display-Regular.otf" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -347,6 +478,9 @@
     <Content Include="Views\Order\CheckOut.cshtml" />
     <Content Include="Views\Order\SearchOrder.cshtml" />
     <Content Include="Views\Order\CompleteOrder.cshtml" />
+    <Content Include="Views\Order\ConfirmPaymentClient.cshtml" />
+    <Content Include="Views\Pay\ErrorPayment.cshtml" />
+    <Content Include="Views\Shared\_Layout_User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -388,6 +522,9 @@
     <EmbeddedResource Include="Migrations\202303171851389_updateOrderAndOrderDetail.resx">
       <DependentUpon>202303171851389_updateOrderAndOrderDetail.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303200616043_addPaidOrder.resx">
+      <DependentUpon>202303200616043_addPaidOrder.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -421,12 +558,12 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

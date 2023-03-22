@@ -1,23 +1,336 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    Page.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
 }
 
 
-<div class="row">
-    <div class="col-md-12">
-        <h2>
-            @if (User.Identity.IsAuthenticated)
-            {
+@*<div class="row">
+        <div class="col-md-12">
+            <h2>
+                @if (User.Identity.IsAuthenticated)
+                {
 
-                if (User.IsInRole("Admin"))
-                {
-                    <b>Xin chào @User.Identity.Name có level Admin</b>
+                    if (User.IsInRole("Admin"))
+                    {
+                        <b>Xin chào @User.Identity.Name có level Admin</b>
+                    }
+                    else
+                    {
+                        <b>Xin chào @User.Identity.Name có level Guest</b>
+                    }
                 }
-                else
-                {
-                    <b>Xin chào @User.Identity.Name có level Guest</b>
-                }
-            }
-        </h2>
+            </h2>
+        </div>
+    </div>*@
+
+<main>
+    <div class="main-part">
+
+        <!-- Slider Part -->
+
+        <section class="home-slider">
+            <div class="tp-banner-container">
+                <div class="tp-banner">
+                    <ul>
+                        <li data-transition="fade" data-slotamount="2" data-masterspeed="500" data-thumb=""
+                            data-saveperformance="on" data-title="Slide">
+                            <img src="~/Content/Layout/User/images/dummy.png" alt="slidebg1" data-lazyload="/Content/Layout/User/images/bg1.jpg"
+                                 data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+
+                            <!-- LAYER NR. 1 -->
+                            <div class="tp-caption lft customout rs-parallaxlevel-0 left-slot"
+                                 data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+                                 data-x="0" data-hoffset="0" data-y="bottom" data-speed="500" data-start="500"
+                                 data-easing="Power3.easeInOut" data-endspeed="300"
+                                 data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                <img src="~/Content/Layout/User/images/dummy.png" alt="" data-lazyload="/Content/Layout/User/images/img1.png">
+                            </div>
+
+                            <!-- LAYER NR. 2 -->
+                            <div class="tp-caption lft customout rs-parallaxlevel-0 right-slot"
+                                 data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+                                 data-x="right" data-hoffset="0" data-y="bottom" data-speed="500"
+                                 data-start="500" data-easing="Power3.easeInOut" data-endspeed="300"
+                                 data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                <img src="~/Content/Layout/User/images/dummy.png" alt="" data-lazyload="/Content/Layout/User/images/img2.png">
+                            </div>
+
+                            <!-- LAYER NR. 3 -->
+                            <div class="tp-caption lft very_large_text text-center" data-x="center" data-y="320"
+                                 data-speed="900" data-start="1000" data-easing="Power4.easeOut"
+                                 data-endspeed="350" data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                SPECIAL COFFEE <br> <span class="v-light">BEANS</span>
+                            </div>
+
+                            <!-- LAYER NR. 4 -->
+                            <div class="tp-caption lft text-uppercase large_text text-center best-after"
+                                 data-x="center" data-y="220" data-speed="800" data-start="900"
+                                 data-easing="Power4.easeOut" data-endspeed="300" data-endeasing="Power1.easeIn"
+                                 data-captionhidden="off">
+                                best quaITY
+                            </div>
+
+                            <!-- LAYER NR. 5 -->
+                            <div class="tp-caption lft text-uppercase medium_text text-center" data-x="center"
+                                 data-y="270" data-speed="800" data-start="900" data-easing="Power4.easeOut"
+                                 data-endspeed="300" data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                Established in 1991
+                            </div>
+
+                        </li>
+
+                        <li data-transition="fade" data-slotamount="2" data-masterspeed="500" data-thumb=""
+                            data-saveperformance="on" data-title="Slide">
+                            <img src="~/Content/Layout/User/images/dummy.png" alt="slidebg1" data-lazyload="/Content/Layout/User/images/bg1.jpg"
+                                 data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+
+                            <!-- LAYER NR. 1 -->
+                            <div class="tp-caption lft customout rs-parallaxlevel-0 left-slot"
+                                 data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+                                 data-x="0" data-hoffset="0" data-y="bottom" data-speed="500" data-start="500"
+                                 data-easing="Power3.easeInOut" data-endspeed="300"
+                                 data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                <img src="~/Content/Layout/User/images/dummy.png" alt="" data-lazyload="/Content/Layout/User/images/img1.png">
+                            </div>
+
+                            <!-- LAYER NR. 2 -->
+                            <div class="tp-caption lft customout rs-parallaxlevel-0 right-slot"
+                                 data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+                                 data-x="right" data-hoffset="0" data-y="bottom" data-speed="500"
+                                 data-start="500" data-easing="Power3.easeInOut" data-endspeed="300"
+                                 data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                <img src="~/Content/Layout/User/images/dummy.png" alt="" data-lazyload="/Content/Layout/User/images/img2.png">
+                            </div>
+
+                            <!-- LAYER NR. 3 -->
+                            <div class="tp-caption lft very_large_text text-center" data-x="center" data-y="320"
+                                 data-speed="900" data-start="1000" data-easing="Power4.easeOut"
+                                 data-endspeed="350" data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                SPECIAL COFFEE <br> <span class="v-light">BEANS</span>
+                            </div>
+
+                            <!-- LAYER NR. 4 -->
+                            <div class="tp-caption lft text-uppercase large_text text-center best-after"
+                                 data-x="center" data-y="220" data-speed="800" data-start="900"
+                                 data-easing="Power4.easeOut" data-endspeed="300" data-endeasing="Power1.easeIn"
+                                 data-captionhidden="off">
+                                best quaITY
+                            </div>
+
+                            <!-- LAYER NR. 5 -->
+                            <div class="tp-caption lft text-uppercase medium_text text-center" data-x="center"
+                                 data-y="270" data-speed="800" data-start="900" data-easing="Power4.easeOut"
+                                 data-endspeed="300" data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                Established in 1991
+                            </div>
+
+                        </li>
+
+                        <li data-transition="fade" data-slotamount="2" data-masterspeed="500" data-thumb=""
+                            data-saveperformance="on" data-title="Slide">
+                            <img src="~/Content/Layout/User/images/dummy.png" alt="slidebg1" data-lazyload="/Content/Layout/User/images/bg1.jpg"
+                                 data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+
+                            <!-- LAYER NR. 1 -->
+                            <div class="tp-caption lft customout rs-parallaxlevel-0 left-slot"
+                                 data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+                                 data-x="0" data-hoffset="0" data-y="bottom" data-speed="500" data-start="500"
+                                 data-easing="Power3.easeInOut" data-endspeed="300"
+                                 data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                <img src="~/Content/Layout/User/images/dummy.png" alt="" data-lazyload="/Content/Layout/User/images/img1.png">
+                            </div>
+
+                            <!-- LAYER NR. 2 -->
+                            <div class="tp-caption lft customout rs-parallaxlevel-0 right-slot"
+                                 data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+                                 data-x="right" data-hoffset="0" data-y="bottom" data-speed="500"
+                                 data-start="500" data-easing="Power3.easeInOut" data-endspeed="300"
+                                 data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                <img src="~/Content/Layout/User/images/dummy.png" alt="" data-lazyload="/Content/Layout/User/images/img2.png">
+                            </div>
+
+                            <!-- LAYER NR. 3 -->
+                            <div class="tp-caption lft very_large_text text-center" data-x="center" data-y="320"
+                                 data-speed="900" data-start="1000" data-easing="Power4.easeOut"
+                                 data-endspeed="350" data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                SPECIAL COFFEE <br> <span class="v-light">BEANS</span>
+                            </div>
+
+                            <!-- LAYER NR. 4 -->
+                            <div class="tp-caption lft text-uppercase large_text text-center best-after"
+                                 data-x="center" data-y="220" data-speed="800" data-start="900"
+                                 data-easing="Power4.easeOut" data-endspeed="300" data-endeasing="Power1.easeIn"
+                                 data-captionhidden="off">
+                                best quaITY
+                            </div>
+
+                            <!-- LAYER NR. 5 -->
+                            <div class="tp-caption lft text-uppercase medium_text text-center" data-x="center"
+                                 data-y="270" data-speed="800" data-start="900" data-easing="Power4.easeOut"
+                                 data-endspeed="300" data-endeasing="Power1.easeIn" data-captionhidden="off">
+                                Established in 1991
+                            </div>
+
+                        </li>
+                    </ul>
+                    <div class="tp-bannertimer"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- End Slider Part -->
+        <!-- Start Item list Part -->
+
+        <section class="default-section">
+            <div class="container">
+                <div class="title text-center">
+                    <h2 class="text-primary">Coffee Build Your Base</h2>
+                </div>
+                <div class="product-wrapper">
+                    <div class="owl-carousel owl-theme" data-items="4" data-tablet="3" data-mobile="2"
+                         data-nav="false" data-dots="true" data-autoplay="true" data-speed="1800"
+                         data-autotime="5000">
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/product1.png" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5><a href="shop_single.html">Cà Phê Sữa Đá</a></h5>
+                            <span>15,000đ</span><del>18,000đ</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/product2.png" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5><a href="shop_single.html">Cà Phê Đen Đá</a></h5>
+                            <span>15,000đ</span>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/product3.png" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5><a href="shop_single.html">Bạc Sỉu Nóng</a></h5>
+                            <span>29,000đ</span>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/product4.png" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5><a href="shop_single.html">Cappuccino Nóng</a></h5>
+                            <span>55,000đ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-single">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="product-single-left bg-skin text-white">
+                                <div class="product-single-detail">
+                                    <h2>UNICAFE Quận 9</h2>
+                                    <p>Nơi cuộc hẹn tròn đầy với Cà phê đặc sản, Món ăn đa bản sắc và Không gian cảm hứng.</p>
+                                    <div class="item-product">
+                                        <img src="~/Content/Layout/User/images/img10.png" alt="" class="animated">
+                                    </div>
+                                    <a href="menu.html"
+                                       class="button-default button-default-white margin-top-30">Tìm hiểu thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="owl-carousel owl-theme" data-items="1" data-tablet="1" data-mobile="1"
+                                 data-nav="false" data-dots="true" data-autoplay="true" data-speed="1300"
+                                 data-autotime="6000">
+                                <div class="item dp-animation">
+                                    <div class="product-single-right">
+                                        <img src="~/Content/Layout/User/images/img9.png" alt="" class="animated">
+                                    </div>
+                                </div>
+                                <div class="item dp-animation">
+                                    <div class="product-single-right">
+                                        <img src="~/Content/Layout/User/images/img9.png" alt="" class="animated">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- End Item list Part -->
+        <!-- Start Feature Part -->
+
+        <section class="default-section bg-grey">
+            <div class="container">
+                <div class="title text-center">
+                    <h2 class="text-coffee">Blog</h2>
+                </div>
+                <div class="feature-blog">
+                    <div class="owl-carousel owl-theme" data-items="3" data-tablet="2" data-mobile="1"
+                         data-nav="true" data-dots="false" data-autoplay="true" data-speed="2500"
+                         data-autotime="6000">
+                        <div class="item dp-animation">
+                            <div class="feature-img">
+                                <img src="~/Content/Layout/User/images/feature1.jpg" alt="" class="animated">
+                                <div class="date-feature">01 <br> <small>thg 02</small></div>
+                            </div>
+                            <div class="feature-info">
+                                <span><i class="fa fa-clock-o"></i> 01/02/2023</span>
+                                <h5>LỄ TÌNH NHÂN, CÙNG CRUSH ĐI ĐÂU?</h5>
+                                <p>
+                                    Tadaaaa, hết Tết thì Valentine đầy yêu thương lại đang đến rồi nè. Lễ tình nhân, dẫn crush đi quán nào? Nhất định phải
+                                    cùng người ấy đến Nhà hẹn...
+                                </p>
+                                <a href="#">Xem Thêm <i class="icon-right-4"></i></a>
+                            </div>
+                        </div>
+                        <div class="item dp-animation">
+                            <div class="feature-img">
+                                <img src="~/Content/Layout/User/images/feature2.jpg" alt="" class="animated">
+                                <div class="date-feature">15 <br> <small>thg 01</small></div>
+                            </div>
+                            <div class="feature-info">
+                                <span><i class="fa fa-clock-o"></i> 15/01/2023</span>
+                                <h5>UNICAFE - QUÁN CAFE LÝ TƯỞNG</h5>
+                                <p>
+                                    Những ngày cuối năm, đầu năm mới, bạn lên kế hoạch để gặp gỡ những người yêu, thương, quý, mến... Vậy bạn đã tìm được
+                                    điểm hẹn lý tưởng ...
+                                </p>
+                                <a href="#">Xem Thêm <i class="icon-right-4"></i></a>
+                            </div>
+                        </div>
+                        <div class="item dp-animation">
+                            <div class="feature-img">
+                                <img src="~/Content/Layout/User/images/feature3.jpg" alt="" class="animated">
+                                <div class="date-feature">01 <br> <small>thg 01</small></div>
+                            </div>
+                            <div class="feature-info">
+                                <span><i class="fa fa-clock-o"></i> 01/01/2023</span>
+                                <h5>PHONG CÁCH "ĐI CÀ PHÊ" CỦA NGƯỜI TRẺ</h5>
+                                <p>
+                                    Người trẻ thường thích trải nghiệm, thích sự mới mẻ và không ngừng sáng tạo. Vậy cách người trẻ thưởng thức cà phê sẽ
+                                    như thế nào, có gì đặc ...
+                                </p>
+                                <a href="#">Xem Thêm <i class="icon-right-4"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- End Feature Part -->
+       
     </div>
-</div>
+</main>
