@@ -22,10 +22,10 @@ namespace UniCafe.Controllers
         public ActionResult Index()
         {
             var showProducts = _context.Products.Where(c => c.Show == 1).ToList();
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
             ViewBag.showProducts = showProducts;
             return View();
         }

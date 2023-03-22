@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using UniCafe.Data;
@@ -12,11 +14,15 @@ namespace UniCafe.Controllers
 {
     public class OrderController : BaseController<Order>
     {
-        private readonly BaseController<OrderDetail> _orderDetailBase;
         private readonly CartManager _cartManager;
         public OrderController() {
-            _orderDetailBase = new BaseController<OrderDetail>();
             _cartManager = new CartManager();
+        }
+        public static bool ValidateVNPhoneNumber(string phoneNumber)
+        {
+            phoneNumber = phoneNumber.Replace("+84", "0");
+            Regex regex = new Regex(@"^(0)(86|96|97|98|32|33|34|35|36|37|38|39|91|94|83|84|85|81|82|90|93|70|79|77|76|78|92|56|58|99|59|55|87)\d{7}$");
+            return regex.IsMatch(phoneNumber);
         }
         public static string RandomString(int length)
         {
@@ -29,6 +35,9 @@ namespace UniCafe.Controllers
         public ActionResult CheckOut()
         {
             var cart = _cartManager.GetCartItems();
+            if(cart.Count() < 1){
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Carts = cart;
             return View();
         }
@@ -44,10 +53,31 @@ namespace UniCafe.Controllers
                 var payment = formCollection["payment"];
                 var note = formCollection["note"];
 
-                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(address) || string.IsNullOrEmpty(payment))
+                if (string.IsNullOrEmpty(name))
                 {
-                    errors.Add("Vui lòng nhập đầy đủ thông tin.");
+                    errors.Add("Vui lòng nhập tên.");
                 }
+
+                if (string.IsNullOrEmpty(address))
+                {
+                    errors.Add("Vui lòng nhập địa chỉ.");
+                }
+
+                if(ValidateVNPhoneNumber(phoneNumber) != true){
+                    errors.Add("Số điện thoại không hợp lệ.");
+                }
+
+                switch (payment)
+                {
+                    case "cash":
+                    case "momo":
+                    case "vnpay":
+                        break;
+                    default:
+                        errors.Add("Phương thức thanh toán không hợp lệ.");
+                        break;
+                }
+
 
                 if (errors.Count == 0)
                 {
@@ -60,38 +90,41 @@ namespace UniCafe.Controllers
                     order.Address = address;
                     order.Payment = payment;
                     order.Note = note;
+                    order.Status = "1";
                     Add(order);
                     TempData["orderCode"] = code;
+                    Session["orderCode"] = code;
                     var cart = _cartManager.GetCartItems();
-                    var orderAdded = Context.Orders.FirstOrDefault(x => x.Code == code);
                     foreach (var item in cart) {
-                        try
+                        string propertyProduct = "" + item.PropertyProduct.Name + " - " + item.PropertyProduct.Price.ToString("N0") + "đ";
+                        string optionProduct = "";
+                        foreach (var option in item.Options)
                         {
-                            string propertyProduct = "" + item.PropertyProduct.Name + " - " + item.PropertyProduct.Price.ToString("N0") + "đ";
-                            string optionProduct = "";
-                            foreach (var option in item.Options)
-                            {
-                                optionProduct += "" + option.Name + " - " + option.Price.ToString("N0") + "đ\n";
-                            }
+                            optionProduct += "" + option.Name + " - " + option.Price.ToString("N0") + "đ\n";
+                        }
 
-                            OrderDetail orderDetail = new OrderDetail();
-                            orderDetail.Order = orderAdded;
-                            orderDetail.ProductId = item.ProductId;
-                            orderDetail.ProductName = item.ProductName;
-                            orderDetail.Price = item.Price;
-                            orderDetail.Quantity = item.Quantity;
-                            orderDetail.PropertyProduct = propertyProduct;
-                            orderDetail.OptionProduct = optionProduct;
-                            //Context.OrderDetails.Add(orderDetail);
-                            //Context.SaveChanges();
-                            
-                            _orderDetailBase.Add(orderDetail);
-                        }
-                        catch (Exception exCart)
-                        {
-                            Debug.WriteLine(exCart);
-                        }
-                        
+                        OrderDetail orderDetail = new OrderDetail();
+                        orderDetail.Order = order;
+                        orderDetail.ProductId = item.ProductId;
+                        orderDetail.ProductName = item.ProductName;
+                        orderDetail.Price = item.Price;
+                        orderDetail.Quantity = item.Quantity;
+                        orderDetail.PropertyProduct = propertyProduct;
+                        orderDetail.OptionProduct = optionProduct;
+
+                        Context.OrderDetails.Add(orderDetail);
+                        Context.SaveChanges();
+                    }
+                    _cartManager.ClearCart();
+                    if (payment == "momo")
+                    {
+                        Session["Payment"] = "MomoPay";
+                        return RedirectToAction("MomoPay", "Pay");
+                    }
+                    if(payment == "vnpay")
+                    {
+                        Session["Payment"] = "VNPay";
+                        return RedirectToAction("VNPay", "Pay");
                     }
                     return RedirectToAction("CompleteOrder", "Order");
                 }
