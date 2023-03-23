@@ -48,10 +48,7 @@ namespace UniCafe.Services.Payment.Momo
                     }
                 }
 
-
-                //todo parse it
                 return jsonResponse;
-                //return new MomoResponse(mtid, jsonresponse);
 
             }
             catch (WebException e)

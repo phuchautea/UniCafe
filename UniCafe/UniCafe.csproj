@@ -255,6 +255,10 @@
     <Compile Include="Migrations\202303200616043_addPaidOrder.designer.cs">
       <DependentUpon>202303200616043_addPaidOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303220945146_addTotal.cs" />
+    <Compile Include="Migrations\202303220945146_addTotal.designer.cs">
+      <DependentUpon>202303220945146_addTotal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -273,7 +277,7 @@
     <Compile Include="Services\CartManager.cs" />
     <Compile Include="Services\Payment\Momo\MomoSecurity.cs" />
     <Compile Include="Services\Payment\Momo\PaymentRequest.cs" />
-    <Compile Include="Services\Payment\Momo\Result.cs" />
+    <Compile Include="Services\Payment\Momo\MomoResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -524,6 +528,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303200616043_addPaidOrder.resx">
       <DependentUpon>202303200616043_addPaidOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303220945146_addTotal.resx">
+      <DependentUpon>202303220945146_addTotal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

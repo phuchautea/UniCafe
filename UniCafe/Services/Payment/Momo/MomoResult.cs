@@ -5,7 +5,7 @@ using System.Web;
 
 namespace UniCafe.Services.Payment.Momo
 {
-    public class Result
+    public class MomoResult
     {
         public string partnerCode { get; set; }
         public string orderId { get; set; }
