@@ -16,7 +16,6 @@ namespace UniCafe.Models
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public string Payment { get; set; }
-        public decimal Total { get; set; }
         public string Note { get; set; }
         public int Paid { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }

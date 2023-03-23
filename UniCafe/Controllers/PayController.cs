@@ -8,7 +8,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using System.Windows.Input;
 using UniCafe.Data;
 using UniCafe.Models;
 using UniCafe.Services;
@@ -30,32 +29,32 @@ namespace UniCafe.Controllers
         // GET: Pay
         public ActionResult MomoPay()
         {
-            if (String.IsNullOrEmpty(Session["orderCode"].ToString()))
-            {
-                // Lỗi không tìm thấy order
-                return RedirectToAction("CheckOut", "Order");
-            }
-            var orderCode = Session["orderCode"].ToString();
-            var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
-            if(order == null)
-            {
-                // Lỗi không tìm thấy order
-                return RedirectToAction("CheckOut", "Order");
-            }
-            string endPoint = System.Configuration.ConfigurationManager.AppSettings["endPoint_Momo"];
-            string partnerCode = System.Configuration.ConfigurationManager.AppSettings["partnerCode_Momo"];
-            string accessKey = System.Configuration.ConfigurationManager.AppSettings["accessKey_Momo"];
-            string secretKey = System.Configuration.ConfigurationManager.AppSettings["secretKey_Momo"];
-            string redirectUrl = System.Configuration.ConfigurationManager.AppSettings["redirectUrl_Momo"];
-            string ipnUrl = System.Configuration.ConfigurationManager.AppSettings["ipnUrl_Momo"];
+            string endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+            string partnerCode = "MOMOOJOI20210710";
+            string accessKey = "iPXneGmrJH0G8FOP";
+            string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
+            string orderInfo = "Thanh toan UniCafe #" + Session["orderCode"] +"";
+            string redirectUrl = "https://localhost:44377/Pay/MomoProcessing";
+            //string notifyurl = "https://5b56-116-108-86-76.ap.ngrok.io/Pay/ConfirmPaymentClient"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string ipnUrl = "https://webhook.site/00642294-4421-43fd-8415-7e195ddcdad8";
             string requestType = "captureWallet";
-            string orderInfo = "Thanh toan UniCafe #" + orderCode + "";
-            string amount = string.Join("", order.Total.ToString("N0").Where(char.IsDigit)); // Xóa dấu phẩy
+            string amount = "1000";
             string orderId = Guid.NewGuid().ToString();
             string requestId = Guid.NewGuid().ToString();
             string extraData = "";
 
             //Before sign HMAC SHA256 signature
+            //string rawHash = "partnerCode=" +
+            //    partnerCode + "&accessKey=" +
+            //    accessKey + "&requestId=" +
+            //    requestId + "&amount=" +
+            //    amount + "&orderId=" +
+            //    orderid + "&orderInfo=" +
+            //    orderInfo + "&returnUrl=" +
+            //    returnUrl + "&notifyUrl=" +
+            //    notifyUrl + "&extraData=" +
+            //    extraData;
+
             string rawHash = "accessKey=" + accessKey +
                 "&amount=" + amount +
                 "&extraData=" + extraData +
@@ -70,9 +69,24 @@ namespace UniCafe.Controllers
 
             MomoSecurity crypto = new MomoSecurity();
             //sign signature SHA256
-            string signature = crypto.signSHA256(rawHash, secretKey);
+            string signature = crypto.signSHA256(rawHash, serectkey);
 
             //build body json request
+            //JObject message = new JObject
+            //{
+            //    { "partnerCode", partnerCode },
+            //    { "accessKey", accessKey },
+            //    { "requestId", requestId },
+            //    { "amount", amount },
+            //    { "orderId", orderid },
+            //    { "orderInfo", orderInfo },
+            //    { "returnUrl", returnUrl },
+            //    { "notifyUrl", notifyurl },
+            //    { "extraData", extraData },
+            //    { "requestType", "captureMoMoWallet" },
+            //    { "signature", signature }
+
+            //};
             JObject message = new JObject
             {
                 { "partnerCode", partnerCode },
@@ -88,30 +102,31 @@ namespace UniCafe.Controllers
                 { "extraData", extraData },
                 { "requestType", requestType },
                 { "signature", signature }
+
             };
-            string responseFromMomo = PaymentRequest.sendPaymentRequest(endPoint, message.ToString());
+            string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+
             JObject jmessage = JObject.Parse(responseFromMomo);
+
             return Redirect(jmessage.GetValue("payUrl").ToString());
         }
-        public ActionResult MomoProcessing(MomoResult result)
+        public ActionResult MomoProcessing(Result resultMomo)
         {
             //errorCode = 0 : thanh toán thành công (Request.QueryString["errorCode"])
-            if (result.resultCode == 0)
+            if (resultMomo.resultCode == 0)
             {
-                if (!String.IsNullOrEmpty(Session["orderCode"].ToString()))
+                // Cập nhật lại status paid
+                string orderCode = Session["orderCode"].ToString();
+                var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
+                if (order != null)
                 {
-                    // Cập nhật lại status paid
-                    string orderCode = Session["orderCode"].ToString();
-                    var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
-                    if (order != null)
-                    {
-                        order.Paid = 1;
-                        Context.SaveChanges();
-                    }
-                    // Xóa OrderCode
-                    Session["orderCode"] = null;
-                    Session["payment"] = null;
+                    order.Paid = 1;
+                    Context.SaveChanges();
                 }
+                // Xóa OrderCode
+                Session["orderCode"] = null;
+                Session["payment"] = null;
+
                 return RedirectToAction("CompleteOrder", "Order");
             }
             return RedirectToAction("ErrorPayment", "Pay");
@@ -175,38 +190,31 @@ namespace UniCafe.Controllers
         }
         public ActionResult VNPay()
         {
-            if (String.IsNullOrEmpty(Session["orderCode"].ToString()))
-            {
-                // Lỗi không tìm thấy order
-                return RedirectToAction("CheckOut", "Order");
-            }
-            var orderCode = Session["orderCode"].ToString();
-            var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
-            if (order == null)
-            {
-                // Lỗi không tìm thấy order
-                return RedirectToAction("CheckOut", "Order");
-            }
-            string vnp_Url = System.Configuration.ConfigurationManager.AppSettings["vnp_Url"];
-            string vnp_ReturnUrl = System.Configuration.ConfigurationManager.AppSettings["vnp_ReturnUrl"];
-            string vnp_HashSecret = System.Configuration.ConfigurationManager.AppSettings["vnp_HashSecret"];
-            string vnp_TmnCode = System.Configuration.ConfigurationManager.AppSettings["vnp_TmnCode"]; // Mã website của merchant trên hệ thống của VNPAY
+            string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            string vnp_HashSecret = "NGXPMNYHDXTRHIKDMYSUWXEZHJJTAHMD";
             var vnp_Params = new Dictionary<string, string>();
             vnp_Params.Add("vnp_Version", "2.1.0");
             vnp_Params.Add("vnp_Command", "pay");
-            vnp_Params.Add("vnp_TmnCode", vnp_TmnCode);
-            vnp_Params.Add("vnp_Locale", "vn"); //en= English, vn=Tiếng Việt
+            vnp_Params.Add("vnp_TmnCode", "K651OP32"); // Mã website của merchant trên hệ thống của VNPAY
+            string locale = "vn"; //en= English, vn=Tiếng Việt
+            if (!string.IsNullOrEmpty(locale))
+            {
+                vnp_Params.Add("vnp_Locale", locale);
+            }
+            else
+            {
+                vnp_Params.Add("vnp_Locale", "vn");
+            }
             vnp_Params.Add("vnp_CurrCode", "VND");
             vnp_Params.Add("vnp_TxnRef", Guid.NewGuid().ToString()); // Mã tham chiếu của giao dịch đơn hàng gửi sang VNPAY. Không được trùng lặp trong ngày
-            vnp_Params.Add("vnp_OrderInfo", "Thanh toan UniCafe #" + orderCode + "");
+            vnp_Params.Add("vnp_OrderInfo", "Thanh toan UniCafe #" + Session["orderCode"] + "");
             vnp_Params.Add("vnp_OrderType", "topup"); //Mã danh mục hàng hóa.
-            string amount = string.Join("", order.Total.ToString("N0").Where(char.IsDigit)); // Xóa dấu phẩy
-            amount = (Int32.Parse(amount) * 100).ToString();
+            string amount = (10000 * 100).ToString();
             vnp_Params.Add("vnp_Amount", amount); // Số tiền thanh toán
-            vnp_Params.Add("vnp_ReturnUrl", vnp_ReturnUrl);
+            vnp_Params.Add("vnp_ReturnUrl", "https://localhost:44377/Pay/VNPayProcessing");
             vnp_Params.Add("vnp_IpAddr", GetIpAddress());
             vnp_Params.Add("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
-            //vnp_Params.Add("vnp_BankCode", "NCB");
+            vnp_Params.Add("vnp_BankCode", "NCB");
             vnp_Params = vnp_Params.OrderBy(o => o.Key).ToDictionary(k => k.Key, v => v.Value);
             String signData = string.Join("&",
             vnp_Params.Where(x => !string.IsNullOrEmpty(x.Value))
@@ -219,21 +227,17 @@ namespace UniCafe.Controllers
             //errorCode = 0 : thanh toán thành công (Request.QueryString["errorCode"])
             if (vnp_ResponseCode == 00)
             {
-                if (!String.IsNullOrEmpty(Session["orderCode"].ToString()))
+                // Cập nhật lại status paid
+                string orderCode = Session["orderCode"].ToString();
+                var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
+                if (order != null)
                 {
-                    // Cập nhật lại status paid
-                    string orderCode = Session["orderCode"].ToString();
-                    var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
-                    if (order != null)
-                    {
-                        order.Paid = 1;
-                        Context.SaveChanges();
-                    }
-                    // Xóa OrderCode
-                    Session["orderCode"] = null;
-                    Session["payment"] = null;
+                    order.Paid = 1;
+                    Context.SaveChanges();
                 }
-                
+                // Xóa OrderCode
+                Session["orderCode"] = null;
+                Session["payment"] = null;
 
                 return RedirectToAction("CompleteOrder", "Order");
             }
