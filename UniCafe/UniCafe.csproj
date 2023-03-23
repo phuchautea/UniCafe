@@ -308,10 +308,13 @@
     <Content Include="Content\Layout\User\images\arrow-left.png" />
     <Content Include="Content\Layout\User\images\arrow-right.png" />
     <Content Include="Content\Layout\User\images\arrow-top.png" />
+    <Content Include="Content\Layout\User\images\bac-xiu.jpg" />
     <Content Include="Content\Layout\User\images\banner1.jpg" />
     <Content Include="Content\Layout\User\images\banner2.jpg" />
     <Content Include="Content\Layout\User\images\bewerages.png" />
     <Content Include="Content\Layout\User\images\bg1.jpg" />
+    <Content Include="Content\Layout\User\images\ca-phe-den-da.jpg" />
+    <Content Include="Content\Layout\User\images\ca-phe-sua-da.jpg" />
     <Content Include="Content\Layout\User\images\cake.png" />
     <Content Include="Content\Layout\User\images\client1.png" />
     <Content Include="Content\Layout\User\images\cocktail.png" />
@@ -329,6 +332,9 @@
     <Content Include="Content\Layout\User\images\gallery\gallery4.png" />
     <Content Include="Content\Layout\User\images\gallery\gallery5.png" />
     <Content Include="Content\Layout\User\images\gradient-bg.png" />
+    <Content Include="Content\Layout\User\images\hong-tra-sua-tran-chau-detail-1.jpg" />
+    <Content Include="Content\Layout\User\images\hong-tra-sua-tran-chau-detail-2.jpg" />
+    <Content Include="Content\Layout\User\images\hong-tra-sua-tran-chau.jpg" />
     <Content Include="Content\Layout\User\images\icon\icon1.png" />
     <Content Include="Content\Layout\User\images\icon\icon2.png" />
     <Content Include="Content\Layout\User\images\icon\icon3.png" />
@@ -357,6 +363,12 @@
     <Content Include="Content\Layout\User\images\product3.png" />
     <Content Include="Content\Layout\User\images\product4.png" />
     <Content Include="Content\Layout\User\images\tea.png" />
+    <Content Include="Content\Layout\User\images\tra-dao-cam-sa.jpg" />
+    <Content Include="Content\Layout\User\images\tra-den-matchiato.jpg" />
+    <Content Include="Content\Layout\User\images\tra-sen-nhan.jpg" />
+    <Content Include="Content\Layout\User\images\tra-sen.jpg" />
+    <Content Include="Content\Layout\User\images\tra-sua-oolong-nuong-tran-chau.jpg" />
+    <Content Include="Content\Layout\User\images\tra=sua-macca.jpg" />
     <Content Include="Content\Layout\User\images\video-bg.png" />
     <Content Include="Content\Layout\User\js\animation\wow.min.js" />
     <Content Include="Content\Layout\User\js\app.js" />
