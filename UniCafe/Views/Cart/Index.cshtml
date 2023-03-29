@@ -1,7 +1,38 @@
 ﻿@model List<UniCafe.Models.CartItem>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
 
-<h2>Cart</h2>
+<script>
+    $(function () {
+                $('.btn-remove').on('click', function () {
+                    var cartItemId = $(this).data('item-cart-id');
+                    $.ajax({
+                        url: '@Url.Action("RemoveFromCart", "Cart")',
+                        type: 'POST',
+                        data: { cartItemId: cartItemId },
+                        success: function (result) {
+                            if (result.success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                });
 
+                $('.btn-clear').on('click', function () {
+                    $.ajax({
+                        url: '@Url.Action("ClearCart", "Cart")',
+                        type: 'POST',
+                        success: function (result) {
+                            if (result.success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                });
+            });
+</script> 
 <table class="table">
     <thead>
         <tr>
@@ -23,7 +54,7 @@
                 <td>@item.Quantity</td>
                 <td>@item.PropertyProduct.Name - @item.PropertyProduct.Price</td>
                 <td>
-                    @{ 
+                    @{
                         List<int> optionIds = new List<int>();
                     }
                     @foreach (var option in item.Options)
@@ -47,34 +78,155 @@
     <button class="btn-clear">Clear Cart</button>
 </div>
 
-@section scripts {
-    <script>
-        $(function () {
-            $('.btn-remove').on('click', function () {
-                var cartItemId = $(this).data('item-cart-id');
-                $.ajax({
-                    url: '@Url.Action("RemoveFromCart", "Cart")',
-                    type: 'POST',
-                    data: { cartItemId: cartItemId },
-                    success: function (result) {
-                        if (result.success) {
-                            location.reload();
-                        }
-                    }
-                });
-            });
 
-            $('.btn-clear').on('click', function () {
-                $.ajax({
-                    url: '@Url.Action("ClearCart", "Cart")',
-                    type: 'POST',
-                    success: function (result) {
-                        if (result.success) {
-                            location.reload();
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-}
+
+<main>
+    <div class="main-part">
+
+        <!-- Start Shop Cart -->
+
+        <section class="default-section shop-cart bg-grey">
+            <div class="container">
+                <div class="checkout-wrap wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <ul class="checkout-bar">
+                        <li class="active">Shopping Cart</li>
+                        <li>Checkout</li>
+                        <li>Order Complete</li>
+                    </ul>
+                </div>
+                <div class="shop-cart-list wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <table class="shop-cart-table">
+                        <thead>
+                            <tr>
+                                <th>PRODUCT</th>
+                                <th>PRICE</th>
+                                <th>QUANTITY</th>
+                                <th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>SẢN PHẨM</th>
+                                <td>
+                                    <div class="product-cart">
+                                        <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
+                                    </div>
+                                    <div class="product-cart-title">
+                                        <span>Cà Phê Sữa</span><br />
+                                        <span style="color:#808080; font-size:12px;">Size: Lớn</span><br />
+                                        <span style="color:#808080; font-size:12px;">Topping: Thạch Cà Phê, Trân Châu Đen</span><br />
+                                    </div>
+                                </td>
+                                <th>PRICE</th>
+                                <td>
+                                    <strong>$59</strong>
+                                    <del>$5400.00</del>
+                                </td>
+                                <th>QUANTITY</th>
+                                <td>
+                                    <div class="price-textbox">
+                                        <span class="minus-text"><i class="glyphicon glyphicon-minus"></i></span>
+                                        <input name="txt" placeholder="1" type="text">
+                                        <span class="plus-text"><i class="glyphicon glyphicon-plus"></i></span>
+                                    </div>
+                                </td>
+                                <th>TOTAL</th>
+                                <td>
+                                    $59
+                                </td>
+                                <td class="shop-cart-close"><i class="icon-cancel-5"></i></td>
+                            </tr>
+                            <tr>
+                                <th>PRODUCT</th>
+                                <td>
+                                    <div class="product-cart">
+                                        <img src="~/Content/Layout/User/images/ca-phe-den-da.jpg" alt="">
+                                    </div>
+                                    <div class="product-cart-title">
+                                        <span>Blanched Garlic</span>
+                                    </div>
+                                </td>
+                                <th>PRICE</th>
+                                <td>
+                                    <strong>$59</strong>
+                                    <del>$5400.00</del>
+                                </td>
+                                <th>QUANTITY</th>
+                                <td>
+                                    <div class="price-textbox">
+                                        <span class="minus-text"><i class="glyphicon glyphicon-minus"></i></span>
+                                        <input name="txt" placeholder="1" type="text">
+                                        <span class="plus-text"><i class="glyphicon glyphicon-plus"></i></span>
+                                    </div>
+                                </td>
+                                <th>TOTAL</th>
+                                <td>
+                                    $59
+                                </td>
+                                <td class="shop-cart-close"><i class="icon-cancel-5"></i></td>
+                            </tr>
+                            <tr>
+                                <th>PRODUCT</th>
+                                <td>
+                                    <div class="product-cart">
+                                        <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
+                                    </div>
+                                    <div class="product-cart-title">
+                                        <span>Blanched Garlic</span>
+                                    </div>
+                                </td>
+                                <th>PRICE</th>
+                                <td>
+                                    <strong>$59</strong>
+                                    <del>$5400.00</del>
+                                </td>
+                                <th>QUANTITY</th>
+                                <td>
+                                    <div class="price-textbox">
+                                        <span class="minus-text"><i class="glyphicon glyphicon-minus"></i></span>
+                                        <input name="txt" placeholder="1" type="text">
+                                        <span class="plus-text"><i class="glyphicon glyphicon-plus"></i></span>
+                                    </div>
+                                </td>
+                                <th>TOTAL</th>
+                                <td>
+                                    $59
+                                </td>
+                                <td class="shop-cart-close"><i class="icon-cancel-5"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="product-cart-detail">
+                        <!--Add Coupon-->
+                        @*<div class="cupon-part">
+                                <input type="text" name="txt" placeholder="Cupon Code">
+                            </div>
+                            <a href="#" class="btn-medium btn-dark-coffee">Apply Coupon</a>*@
+                        <a href="#" class="btn-medium btn-skin pull-right">Cập Nhật Giỏ Hàng</a>
+                    </div>
+                </div>
+                <div class="cart-total wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
+                    <div class="cart-total-title">
+                        <h5>CART TOTALS</h5>
+                    </div>
+                    <div class="product-cart-total">
+                        <small>Total products</small>
+                        <span>$140.00</span>
+                    </div>
+                    <div class="product-cart-total">
+                        <small>Total shipping</small>
+                        <span>$15.00</span>
+                    </div>
+                    <div class="grand-total">
+                        <h5>TOTAL <span>$140.00</span></h5>
+                    </div>
+                    <div class="proceed-check">
+                        <a href="@Url.Action("CheckOut","Order")" class="btn-primary-gold btn-medium">PROCEED TO CHECKOUT</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- End Shop Cart -->
+    </div>
+</main>

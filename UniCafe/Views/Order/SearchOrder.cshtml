@@ -2,16 +2,16 @@
 
 @{
     ViewBag.Title = "SearchOrder";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
 }
 
 
 @if (Model != null)
 {
-    <h2>SearchOrder</h2>
+    <h2>Tìm Kiếm</h2>
 
     <div>
-        <h4>Order</h4>
+        <h4>Hóa Đơn</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -71,10 +71,14 @@
 }
 else
 {
-    <h2>SearchOrder</h2>
-    <form action="@Url.Action("SearchOrder", "Order")">
-        <input class="form-control" type="text" name="OrderCode" placeholder="Nhập mã đơn hàng của bạn" />
-        <button class="btn btn-success">Tra cứu</button>
-    </form>
+<div style="padding: 200px 50px 100px">
+    <center>
+        <h2 style="color: #c19942;">Tìm Kiếm Đơn Hàng</h2>
+        <form action="@Url.Action("SearchOrder", "Order")">
+            <input class="form-control" type="text" name="OrderCode" placeholder="Nhập mã đơn hàng của bạn" style="width:50%;" />
+            <button class="btn btn-success">Tra cứu</button>
+        </form>
+    </center>
+</div>
 }
 
