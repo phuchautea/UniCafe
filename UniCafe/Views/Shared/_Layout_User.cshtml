@@ -1,0 +1,312 @@
+﻿@*<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    @RenderSection("head", required: false)
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>*@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@Page.Title | UniCafe</title>
+
+    <link rel="shortcut icon" href="~/Content/Layout/User/images/favicon.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Quicksand:300,400,500,700|Source+Sans+Pro:400,600,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="css/icon-plugin/fontello.css" rel="stylesheet"> -->
+    <link href="~/Content/Layout/User/css/revolution-plugin/extralayers.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/revolution-plugin/settings.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/bootstrap-plugin/bootstrap-slider.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/animation/animate.min.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/owl-carousel/owl.theme.default.css" rel="stylesheet">
+
+    <link href="~/Content/Layout/User/css/light-box/simplelightbox.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/light-box/magnific-popup.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/form-field/jquery.formstyler.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/slick-slider/slick-theme.css" rel="stylesheet">
+
+    <link href="~/Content/Layout/User/css/style.css" rel="stylesheet">
+    <link href="~/Content/Layout/User/css/responsive.css" rel="stylesheet">
+    <script src="~/Content/Layout/User/js/jquery/jquery.min.js"></script>
+    <link href="~/Content/Layout/User/css/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Content/Layout/User/js/sweetalert2/sweetalert2.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Page pre loader -->
+    <div id="pre-loader">
+        <div class="loader-holder">
+            <div class="frame">
+                <img src="~/Content/Layout/User/images/logo-cafe.gif" alt="UniCafe" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Wrapper Part -->
+    <div class="wrapper">
+        <!-- Start Header Part -->
+        <header>
+            <div class="header-part header-reduce sticky">
+                <div class="header-nav">
+                    <div class="container">
+                        <div class="header-nav-inside">
+                            <div class="logo">
+                                <a href="index.html"><span>UniCafe</span><small>2023</small></a>
+                            </div>
+                            <div class="menu-top-part">
+                                <div class="menu-nav-main">
+                                    <ul>
+                                        <li>
+                                            <a href="@Url.Action("Index","Home")">Trang Chủ</a>
+                                        </li>
+                                        <li class="mega-menu">
+                                            <a href="@Url.Action("Index","Product")">Sản Phẩm</a>
+                                            <ul class="menu_child" id="menu_child_3_3">
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Cà Phê</a>
+                                                    <ul class="menu_child_lv3">
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/ca-phe-viet-nam" title="Cà Phê Đen Đá">
+                                                                Cà Phê Đen Đá
+                                                            </a>
+                                                        </li>
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/ca-phe-may" title="Cà Phê Sữa Đá">
+                                                                Cà Phê Sữa Đá
+                                                            </a>
+                                                        </li>
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/cold-brew" title="Bạc Xỉu">
+                                                                Bạc Xỉu
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="lv2_title">
+                                                    <a href="/collections/tra-trai-cay-tra-sua" title="Trà">Trà</a>
+                                                    <ul class="menu_child_lv3">
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/tra-trai-cay" title="Trà Long Nhãn Hạt Sen">
+                                                                Trà Long Nhãn Hạt Sen
+                                                            </a>
+                                                        </li>
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/tra-trai-cay" title="Trà Đào Cam Sả">
+                                                                Trà Đào Cam Sả
+                                                            </a>
+                                                        </li>
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/tra-sua-macchiato" title="Trà Hạt Sen">
+                                                                Trà Hạt Sen
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="lv2_title">
+                                                    <a href="/collections/tra-trai-cay-tra-sua" title="Trà">Trà Sữa</a>
+                                                    <ul class="menu_child_lv3">
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/tra-trai-cay" title="Hồng Trà Sữa Trân Châu">
+                                                                Hồng Trà Sữa Trân Châu
+                                                            </a>
+                                                        </li>
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/tra-sua-macchiato" title="Trà sữa Macchiato">
+                                                                Trà sữa Macchiato
+                                                            </a>
+                                                        </li>
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/tra-sua-macchiato" title="Trà sữa Olong">
+                                                                Trà sữa Olong
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-child">
+                                            <a href="@Url.Action("KhuyenMai","Home")">Khuyến Mãi</a>
+                                        </li>
+                                        <li class="has-child">
+                                            <a href="@Url.Action("Index","Blog")">Blog</a>
+                                        </li>
+                                        <li class="mega-menu">
+                                            <a href="@Url.Action("Index","Contact")">Về Chúng Tôi</a>
+                                            <ul class="menu_child" id="menu_child_3_3">
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Hoàng Phúc Hậu</a>
+                                                </li>
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Lê Trần Tấn Lực</a>
+                                                </li>
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Vũ Đức Hoài Nam</a>
+                                                </li>
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Lê Chế Thanh</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="cell-part">
+                                    <a href="tel:0877220202"><span class="fa fa-phone"></span> 08 7722 0202</a>
+                                </div>
+                                <div class="cart animated">
+                                    <span class="icon-basket fontello"></span><span>2 items - $ 10.89</span>
+                                    <div class="cart-wrap">
+                                        <div class="cart-blog">
+                                            <div class="cart-item">
+                                                <div class="cart-item-left">
+                                                    <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
+                                                </div>
+                                                <div class="cart-item-right">
+                                                    <h6>Cà Phê Sữa Đá</h6>
+                                                    <span>39.000đ</span>
+                                                </div>
+                                                <span class="delete-icon"></span>
+                                            </div>
+                                            <div class="cart-item">
+                                                <div class="cart-item-left">
+                                                    <img src="~/Content/Layout/User/images/bac-xiu.jpg" alt="">
+                                                </div>
+                                                <div class="cart-item-right">
+                                                    <h6>Bạc Xỉu</h6>
+                                                    <span>39.000đ</span>
+                                                </div>
+                                                <span class="delete-icon"></span>
+                                            </div>
+                                            <div class="subtotal">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <h6>Subtotal :</h6>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <span>$ 140.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cart-btn">
+                                                <a href="@Url.Action("Index","Cart")" class="button-default view">VIEW ALL</a>
+                                                <a href="@Url.Action("CheckOut","Order")" class="button-default checkout">
+                                                    CHECK
+                                                    OUT
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-icon">
+                                    <a href="#" class="hambarger">
+                                        <span class="bar-1"></span>
+                                        <span class="bar-2"></span>
+                                        <span class="bar-3"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- End Header Part -->
+        <!-- Start Main Part -->
+        @RenderBody()
+
+        <!-- End Main Part -->
+        <!-- Start Footer Part -->
+
+        <footer>
+            <div class="footer-part">
+                <div class="footer-inner-info Banner-Bg" data-background="/Content/Layout/User/images/footer-bg.jpg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <div class="logo">
+                                    <a href="index.html"><span>UniCafe</span><small>2023</small></a>
+                                </div>
+                                <p>
+                                    Cảm ơn bạn đã chọn quán cà phê trực tuyến của chúng tôi, mong được phục vụ bạn loại cà phê ngon nhất mà bạn
+                                    từng nếm thử!
+                                </p>
+                                <ul class="footer-social">
+                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <h5>Liên hệ</h5>
+                                <span><i class="fa fa-map-marker"></i> 82/57 Đường 138, P. Tân Phú, Q9, TP. Thủ Đức.</span><br>
+                                <span><a href="tel:0877220202"><i class="fa fa-phone"></i> 08 7722 0202</a></span><br>
+                                <span><a href="mailto:admin@unicafe.com"><i class="fa fa-envelope"></i> admin@unicafe.com</a></span><br>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <h5>Giới thiệu</h5>
+                                <p>
+                                    <a href="#">Sản phẩm</a><br>
+                                    <a href="#">Khuyến mãi</a><br>
+                                    <a href="#">Chuyện cà phê</a><br>
+                                    <a href="#">Cửa hàng</a><br>
+                                    <a href="#">Tuyển dụng</a><br>
+                                </p>
+                            </div>
+                            <!-- <div class="col-md-3 col-sm-3 col-xs-12">
+                                <h5> Despina Video</h5>
+                                <a href="https://www.youtube.com/watch?v=uZ0aQMXkiV4" class="magnific-youtube"><img
+                                        src="~/Content/Layout/User/images/video-bg.png" alt=""></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <div class="container">
+                        <p>Copyright © 2023 by UniCafe. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- End Footer Part -->
+
+    </div>
+
+    <!-- End Wrapper Part -->
+    <!-- Back To Top Arrow -->
+
+    <a href="#" class="top-arrow"></a>
+
+    <script src="~/Content/Layout/User/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/Layout/User/js/bootstrap/bootstrap-slider.js"></script>
+    <script src="~/Content/Layout/User/js/revolution-plugin/jquery.themepunch.plugins.min.js"></script>
+    <script src="~/Content/Layout/User/js/revolution-plugin/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/Content/Layout/User/js/parallax-stellar/jquery.stellar.js"></script>
+    <script src="~/Content/Layout/User/js/animation/wow.min.js"></script>
+    <script src="~/Content/Layout/User/js/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/Content/Layout/User/js/light-box/simple-lightbox.min.js"></script>
+    <script src="~/Content/Layout/User/js/light-box/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/Layout/User/js/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Content/Layout/User/js/masonry/isotop.js"></script>
+    <script src="~/Content/Layout/User/js/masonry/packery-mode.pkgd.min.js"></script>
+    <script src="~/Content/Layout/User/js/form-field/jquery.formstyler.min.js"></script>
+    <script src="~/Content/Layout/User/js/slick-slider/slick.min.js"></script>
+    <script src="~/Content/Layout/User/js/progress-circle/waterbubble.min.js"></script>
+    <script src="~/Content/Layout/User/js/app.js"></script>
+    <script src="~/Content/Layout/User/js/script.js"></script>
+</body>
+
+</html>

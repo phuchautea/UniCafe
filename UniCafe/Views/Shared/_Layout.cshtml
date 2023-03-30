@@ -32,12 +32,13 @@
                     {
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                         <li>@Html.ActionLink("Category", "Index", "Category")</li>
+                    }
                         <li>@Html.ActionLink("Product", "Index", "Product")</li>
                         <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
                         @*<li>@Html.ActionLink("PropertyProduct", "Index", "PropertyProduct")</li>
                         <li>@Html.ActionLink("OptionProduct", "Index", "OptionProduct")</li>*@
                         <li>@Html.ActionLink("CheckOut", "CheckOut", "Order")</li>
-                    }
+                    
 
                     @if (User.IsInRole("Admin"))
                     {

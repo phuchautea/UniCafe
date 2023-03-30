@@ -1,165 +1,331 @@
 ﻿@model UniCafe.Models.Product
+@*@using IEnumerable<UniCafe.Models.Category>*@
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Page.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-
-    </dl>
-</div>
-<form>
-    <input type="hidden" id="productId" value="@Model.Id" />
-    <div class="form-group">
-        <label>Size:</label>
-        <select name="propertyId" id="propertyId" class="form-control">
-            @foreach (var propertyProduct in ViewBag.PropertyProducts)
-            {
-                <option value="@propertyProduct.Id">@propertyProduct.Name - @propertyProduct.Price.ToString("N0")đ</option>
-            }
-        </select>
-    </div>
-    @*<div class="form-group">
-        <label>Topping:</label>
-        <select name="optionProduct1" id="optionProduct1" class="form-control">
-            @foreach (var optionProduct in ViewBag.OptionProducts)
-            {
-                <option value="@optionProduct.Id">@optionProduct.Name - @optionProduct.Price.ToString("N0")đ</option>
-            }
-        </select>
-    </div>*@
-    @foreach (var optionProduct in ViewBag.OptionProducts)
-    {
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="optionProducts[@optionProduct.Id]" id="optionProduct_@optionProduct.Id" value="@optionProduct.Id">
-            <label class="form-check-label" for="optionProduct_@optionProduct.Id">
-                @optionProduct.Name - @optionProduct.Price.ToString("N0")đ
-            </label>
-        </div>
-    }
-    <div class="form-group">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" class="form-control" value="1" />
-    </div>
-    <button type="button" class="btn btn-primary" id="addToCart">Add to Cart</button>
-</form>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
+        $('input[name="propertyId"]').eq(0).prop('checked', true);
         $('#addToCart').click(function (e) {
             e.preventDefault();
             var productId = $('#productId').val();
-            var propertyId = $('#propertyId').val();
-            //var optionProduct = $('#optionProduct').val();
-            var quantity = $('#quantity').val();
+            var propertyId = $('input[name="propertyId"]:checked').val();
+            //var propertyId = $('#propertyId').val();
 
-            //var checkboxes = form.querySelectorAll("input[type='checkbox']:checked");
-            //var selectedValues = [];
-            //checkboxes.forEach(function (checkbox) {
-            //    selectedValues.push(checkbox.value);
-            //});
+            var quantity = $('#quantity').val();
             var optionProductIds = [];
             $('input[type="checkbox"]:checked').each(function () {
                 optionProductIds.push($(this).val());
             });
-            //var options = {};
-            //$('.option-select').each(function () {
-            //    var optionId = $(this).attr('name');
-            //    var optionValueId = $(this).val();
-            //    options[optionId] = optionValueId;
-            //});
-            //var properties = {};
-            //$('.property-input').each(function () {
-            //    var propertyId = $(this).attr('name');
-            //    var propertyValue = $(this).val();
-            //    properties[propertyId] = propertyValue;
-            //});
-            //var productId = $(this).data('product-id');
+
             $.ajax({
                 url: '/Cart/AddToCart',
                 type: 'POST',
                 data: { productId: productId, quantity: quantity, optionProductIds: optionProductIds, propertyId: propertyId },
                 success: function (data) {
-                    alert("Thêm thành công");
-                    // Thực hiện các thay đổi trên giao diện để hiển thị giỏ hàng mới nhất
+                    if (data.status == true) {
+                        Swal.fire('Thêm thành công!', data.message, 'success');
+                    } else {
+                        Swal.fire('Có lỗi xảy ra khi thêm vào giỏ hàng!', data.message, 'error');
+                    }
                 },
                 error: function () {
-                    alert('An error occurred while adding to cart.');
+                    Swal.fire('Có lỗi xảy ra khi thêm vào giỏ hàng!', data.message, 'error');
                 }
             });
         });
     });
+</script>
+<main>
+    <div class="main-part">
+        <section class="default-section shop-single pad-bottom-remove">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <div class="slider slider-for slick-shop">
+                            <div>
+                                <img src="@Model.Image" alt="@Model.Name">
+                            </div>
+                        </div>
+                        @*<div class="slider slider-nav slick-shop-thumb">
+                            <div><img src="@Model.Image" alt="@Model.Name"></div>
+                        </div>*@
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <input type="hidden" id="productId" value="@Model.Id" />
+                        <h4 class="text-coffee">@Model.Name</h4>
+                        <h3 class="text-coffee">@Model.Price.ToString("N0")đ</h3>
+                        <div class="share-tag">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tag-wrap">
+                                        <p><h5>Size</h5></p>
+                                        @foreach (var propertyProduct in ViewBag.PropertyProducts)
+                                        {
+                                            <input type="radio" id="propertyId_@propertyProduct.Id" name="propertyId" value="@propertyProduct.Id">
+                                            <label>@propertyProduct.Name - @propertyProduct.Price.ToString("N0")đ</label><br>
+                                            
+                                            @*<a href="#" class="tag-btn">@Model.Category</a>*@
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tag-wrap">
+                                        <p><h5>Topping</h5></p>
+                                        @foreach (var optionProduct in ViewBag.OptionProducts)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="optionProducts[@optionProduct.Id]" id="optionProduct_@optionProduct.Id" value="@optionProduct.Id">
+                                                <label class="form-check-label" for="optionProduct_@optionProduct.Id">
+                                                    @optionProduct.Name - @optionProduct.Price.ToString("N0")đ
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-textbox">
+                            <span class="minus-text" onclick="minusQuantity()"><i class="glyphicon glyphicon-minus"></i></span>
+                            <input type="text" id="quantity" name="quantity" value="1" pattern="[0-9]">
+                            <span class="plus-text" onclick="plusQuantity()"><i class="glyphicon glyphicon-plus"></i></span>
+                        </div>
+                        <a href="#" class="filter-btn btn-large" id="addToCart"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ hàng</a>
+                        @*<div class="share-tag">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="tag-wrap">
+                        <h5>Danh mục</h5>
+                        <a href="#" class="tag-btn">@Model.Category</a>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="default-section comment-review-tab bg-grey v-pad-remove wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+            <div class="container">
+                <div class="tab-part">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                        <a href="#description" aria-controls="description" role="tab" data-toggle="tab" aria-expanded="true">MÔ TẢ</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="description">
+                            <p>
+                                @Model.Description
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="default-section wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+            <div class="container">
+                <div class="title text-center">
+                    <h3 class="text-coffee">Sản Phẩm Liên Quan</h3>
+                </div>
+                <div class="product-wrapper">
+                    <div class="owl-carousel owl-theme" data-items="4" data-tablet="3" data-mobile="2" data-nav="false" data-dots="true" data-autoplay="true" data-speed="1800" data-autotime="5000">
+                        @*@foreach (var item in ViewBag.ProductRelative)
+                        {
+                            <div class="item">
+                                <div class="product-img">
+                                    <a href="/product/@item.Slug">
+                                        <img src="@item.Image" alt="">
+                                        <span class="icon-basket fontello"></span>
+                                    </a>
+                                </div>
+                                <h5>@item.Name</h5>
+                                <span>@item.Price.ToString("N0")đ</span>
+                            </div>
+                        }*@
+
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-dao-cam-sa.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Đào Cam Sả</h5>
+                            <span>$50.00</span><del>$70.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/bac-xiu.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Bạc Xỉu</h5>
+                            <span>$99.00</span><del>$120.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-den-matchiato.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Đen Macchiato</h5>
+                            <span>$40.00</span><del>$55.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Cà Phê Sữa Đá</h5>
+                            <span>$79.00</span><del>$99.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-dao-cam-sa.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Đào Cam Sả</h5>
+                            <span>$50.00</span><del>$70.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/ca-phe-den-da.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Cà Phê Đen Đá</h5>
+                            <span>$99.00</span><del>$120.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-den-matchiato.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Đen Macchiato</h5>
+                            <span>$40.00</span><del>$55.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-sen-nhan.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Long Nhãn Hạt Sen</h5>
+                            <span>$79.00</span><del>$99.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-dao-cam-sa.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Đào Cam Sả</h5>
+                            <span>$50.00</span><del>$70.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Cà Phê Sữa Đá</h5>
+                            <span>$99.00</span><del>$120.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-den-matchiato.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Đen Macchiato</h5>
+                            <span>$40.00</span><del>$55.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-sen-nhan.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Long Nhãn Hạt Sen</h5>
+                            <span>$79.00</span><del>$99.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-dao-cam-sa.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Đào Cam Sả</h5>
+                            <span>$50.00</span><del>$70.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Cà Phê Sữa Đá</h5>
+                            <span>$99.00</span><del>$120.00</del>
+                        </div>
+                        <div class="item">
+                            <div class="product-img">
+                                <a href="shop_single.html">
+                                    <img src="~/Content/Layout/User/images/tra-sen.jpg" alt="">
+                                    <span class="icon-basket fontello"></span>
+                                </a>
+                            </div>
+                            <h5>Trà Sen Vàng</h5>
+                            <span>$40.00</span><del>$55.00</del>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<script type="text/javascript">
+    // Plus number quantiy product detail 
+    var plusQuantity = function () {
+        if (jQuery('input[name="quantity"]').val() != undefined) {
+            var currentVal = parseInt(jQuery('input[name="quantity"]').val());
+            if (!isNaN(currentVal)) {
+                jQuery('input[name="quantity"]').val(currentVal + 1);
+            } else {
+                jQuery('input[name="quantity"]').val(1);
+            }
+        } else {
+            console.log('error: Not see elemnt ' + jQuery('input[name="quantity"]').val());
+        }
+    }
+    // Minus number quantiy product detail 
+    var minusQuantity = function () {
+        if (jQuery('input[name="quantity"]').val() != undefined) {
+            var currentVal = parseInt(jQuery('input[name="quantity"]').val());
+            if (!isNaN(currentVal) && currentVal > 1) {
+                jQuery('input[name="quantity"]').val(currentVal - 1);
+            }
+        } else {
+            console.log('error: Not see elemnt ' + jQuery('input[name="quantity"]').val());
+        }
+    }
 </script>

@@ -56,9 +56,14 @@ namespace UniCafe.Controllers
         {
             try
             {
-                ViewBag.PropertyProducts = Context.PropertityProducts.Where(x => x.Product.Slug == Slug).ToList();
+                ViewBag.PropertyProducts = Context.PropertityProducts.Where(x => x.Product.Slug == Slug).OrderBy(x => x.Price).ToList();
                 ViewBag.OptionProducts = Context.OptionProducts.Where(x => x.Product.Slug == Slug).ToList();
                 var product = Context.Products.FirstOrDefault(x => x.Slug == Slug);
+                if(product == null || Slug == null)
+                {
+                    return RedirectToAction("Index", "Product");
+                }
+                //ViewBag.ProductRelative = Context.Products.Where(x => x.Category.Id == product.Category.Id).ToList();
                 return View(product);
             }
             catch (Exception ex)

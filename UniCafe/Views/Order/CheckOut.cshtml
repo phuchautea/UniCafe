@@ -1,148 +1,274 @@
 ﻿@model UniCafe.Models.Order
 @{
     ViewBag.Title = "CheckOut";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
     List<UniCafe.Models.CartItem> carts = ViewBag.Carts as List<UniCafe.Models.CartItem>;
 }
 
 <h2>CheckOut</h2>
-@Html.Partial("ErrorsAlert")
-<div class="row">
-    <div class="col-md-4 order-md-2 mb-4">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Giỏ hàng</span>
-            <span class="badge badge-secondary badge-pill">@carts.Count()</span>
-        </h4>
-        <style>
-            .scrollbar {
-                max-height: 300px;
-                width: 360px;
-                overflow-y: scroll;
-            }
-            .scrollbar::-webkit-scrollbar {
-                width: 6px;
-                background-color: #F5F5F5;
-            }
-            .scrollbar::-webkit-scrollbar-thumb {
-                background-color: #000000;
-            }
-            .scrollbar::-webkit-scrollbar-track {
-                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-                background-color: #F5F5F5;
-            }
-        </style>
-        <div class="list-group mb-3 sticky-top">
-            <div class="scrollbar">
-                @foreach (var item in carts)
-                {
-                <div class="list-group-item d-flex justify-content-between lh-condensed">
+    @Html.Partial("ErrorsAlert")
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Giỏ hàng</span>
+                <span class="badge badge-secondary badge-pill">@carts.Count()</span>
+            </h4>
+            <style>
+                .scrollbar {
+                    max-height: 300px;
+                    width: 360px;
+                    overflow-y: scroll;
+                }
+                .scrollbar::-webkit-scrollbar {
+                    width: 6px;
+                    background-color: #F5F5F5;
+                }
+                .scrollbar::-webkit-scrollbar-thumb {
+                    background-color: #000000;
+                }
+                .scrollbar::-webkit-scrollbar-track {
+                    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                    background-color: #F5F5F5;
+                }
+            </style>
+            <div class="list-group mb-3 sticky-top">
+                <div class="scrollbar">
+                    @foreach (var item in carts)
+                    {
+                    <div class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <b>x<span>@item.Quantity @item.ProductName</span></b><br />
+                                <small class="text-muted">Size: @item.PropertyProduct.Name - @item.PropertyProduct.Price.ToString("N0")<span>đ</span></small><br />
+                                <small class="text-muted">
+                                    @{
+                                        List<int> optionIds = new List<int>();
+                                    }
+                                    @foreach (var option in item.Options)
+                                    {
+                                        optionIds.Add(option.Id);
+                                        <span><b>@option.Name</b> - <b>@option.Price.ToString("N0")<span>đ</span></b></span><br />
+                                    }
+                                </small>
+                            </div>
+                            <div class="col-md-3">
+                                <b>@item.Price.ToString("N0")<span>đ</span></b>
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+
+                <div class="list-group-item d-flex justify-content-between">
                     <div class="row">
                         <div class="col-md-9">
-                            <b>x<span>@item.Quantity @item.ProductName</span></b><br />
-                            <small class="text-muted">Size: @item.PropertyProduct.Name - @item.PropertyProduct.Price.ToString("N0")<span>đ</span></small><br />
-                            <small class="text-muted">
-                                @{
-                                    List<int> optionIds = new List<int>();
-                                }
-                                @foreach (var option in item.Options)
-                                {
-                                    optionIds.Add(option.Id);
-                                    <span><b>@option.Name</b> - <b>@option.Price.ToString("N0")<span>đ</span></b></span><br />
-                                }
-                            </small>
+                            <b>Tổng: </b>
                         </div>
                         <div class="col-md-3">
-                            <b>@item.Price.ToString("N0")<span>đ</span></b>
+                            <b style="color:red">@carts.Sum(item => (item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0")đ</b>
                         </div>
-                    </div>
-                </div>
-            }
-            </div>
-            
-            <div class="list-group-item d-flex justify-content-between">
-                <div class="row">
-                    <div class="col-md-9">
-                        <b>Tổng: </b>
-                    </div>
-                    <div class="col-md-3">
-                        <b style="color:red">@carts.Sum(item => (item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0")đ</b>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
-    <div class="col-md-8 order-md-1">
+        <div class="col-md-8 order-md-1">
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">Thông tin người đặt hàng</span>
-                </h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-horizontal">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Thông tin người đặt hàng</span>
+                    </h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <label for="Name">Tên người nhận</label>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <label for="PhoneNumber">Số điện thoại</label>
-                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <label for="Address">Địa chỉ</label>
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <label for="Note">Ghi chú</label>
-                        <textarea class="form-control" rows="5" name="Note" id="Note" placeholder="Thêm hướng dẫn giao hàng hoặc gì đó về đơn hàng"></textarea>
-                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <hr class="mb-4">
-                <h4 class="mb-3">Phương thức thanh toán</h4>
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <div class="custom-control custom-radio">
-                            <input id="Cash" name="Payment" type="radio" class="custom-control-input" checked="" required="" value="Cash">
-                            <label class="custom-control-label" for="Cash">Tiền mặt</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="momo" name="Payment" type="radio" class="custom-control-input" required="" value="momo">
-                            <label class="custom-control-label" for="momo">MoMo</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="Credit" name="Payment" type="radio" class="custom-control-input" required="" value="Credit">
-                            <label class="custom-control-label" for="Credit">Thẻ ngân hàng</label>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label for="Name">Tên người nhận</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label for="PhoneNumber">Số điện thoại</label>
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label for="Address">Địa chỉ</label>
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label for="Note">Ghi chú</label>
+                            <textarea class="form-control" rows="5" name="Note" id="Note" placeholder="Thêm hướng dẫn giao hàng hoặc gì đó về đơn hàng"></textarea>
+                            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <h4 class="mb-3">Phương thức thanh toán</h4>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <div class="custom-control custom-radio">
+                                <input id="cash" name="Payment" type="radio" class="custom-control-input" checked="" required="" value="cash">
+                                <label class="custom-control-label" for="cash">Tiền mặt</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="momo" name="Payment" type="radio" class="custom-control-input" required="" value="momo">
+                                <label class="custom-control-label" for="momo">MoMo</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="vnpay" name="Payment" type="radio" class="custom-control-input" required="" value="vnpay">
+                                <label class="custom-control-label" for="vnpay">VNPay</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Đặt hàng</button>
+                        </div>
+                    </div>
                 </div>
-                <hr class="mb-4">
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Đặt hàng</button>
+            }
+        </div>
+
+<!--Main-->
+<main>
+    <div class="main-part">
+
+        <!-- Start Shop Cart -->
+
+        <section class="default-section shop-checkout bg-grey">
+            <div class="container">
+                <div class="checkout-wrap wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <ul class="checkout-bar">
+                        <li class="done-proceed">Shopping Cart</li>
+                        <li class="active">Checkout</li>
+                        <li>Order Complete</li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <div class="shop-checkout-left">
+                            <h6>Returning customer? Click here to <a href="login_register.html">login</a></h6>
+                            <form class="form-checkout" name="form" method="post">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h5>Billing Details</h5>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <input type="text" name="txt" placeholder="First Name">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <input type="text" name="txt" placeholder="Last Name">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" name="txt" placeholder="Company Name">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <input type="email" name="email" placeholder="Email">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <input type="text" name="text" placeholder="Phone">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <select class="select-dropbox">
+                                            <option>Country</option>
+                                            <option>India</option>
+                                            <option>USA</option>
+                                            <option>London</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <textarea placeholder="Address"></textarea>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <select class="select-dropbox">
+                                            <option>Province</option>
+                                            <option>list 1</option>
+                                            <option>list 2</option>
+                                            <option>list 3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label><input type="checkbox" name="checkbox">Create an account ?</label>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h5>Shipping Address</h5>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label><input type="checkbox" name="checkbox">Ship to a different address ?</label>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <textarea placeholder="Order Notes"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <div class="shop-checkout-right">
+                            <div class="shop-checkout-box">
+                                <h5>YOUR ORDER</h5>
+                                <div class="shop-checkout-title">
+                                    <h6>PRODUCT <span>TOTAL</span></h6>
+                                </div>
+                                <div class="shop-checkout-row">
+                                    <p><span>Rocha Sleeve Sweater</span> x1 <small>$140.00</small></p>
+                                    <p><span>Mauris Tincidunt</span> x6 <small>$140.00</small></p>
+                                </div>
+                                <div class="checkout-total">
+                                    <h6>CART SUBTOTAL <small>$140.00</small></h6>
+                                </div>
+                                <div class="checkout-total">
+                                    <h6>SHIPPING <small>Free Shipping</small></h6>
+                                </div>
+                                <div class="checkout-total">
+                                    <h6>ORDER TOTAL <small class="price-big">$140.00</small></h6>
+                                </div>
+                            </div>
+                            <div class="shop-checkout-box">
+                                <h5>PAYMENT METHODS</h5>
+                                <label><input type="radio" name="radio">Direct Bank Transfer</label>
+                                <p>Make your payment directly into our bank account. Please use your cleared in our account.</p>
+                                <div class="payment-mode">
+                                    <label><input type="radio" name="radio">Check Payments</label>
+                                </div>
+                                <div class="payment-mode">
+                                    <label><input type="radio" name="radio">Cash on Delivery</label>
+                                </div>
+                                <div class="payment-mode">
+                                    <label><input type="radio" name="radio"> PayPal</label> <a href="#"><img src="images/paycart.png" alt=""></a><a href="#">What is PayPal?</a>
+                                </div>
+                                <div class="checkout-terms">
+                                    <label><input type="checkbox" name="checkbox">I’ve read and accept the terms &amp; conditions *</label>
+                                </div>
+                                <div class="checkout-button">
+                                    <button class="button-default btn-large btn-primary-gold">PROCEED TO PAYMENT</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        }
+        </section>
+
+        <!-- End Shop Cart -->
+
     </div>
+</main>  

@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+    <metadata>
+        Created by FontForge 2016
+    </metadata>
+    <defs>
+        <font id="icomoon" horiz-adv-x="538">
+            <font-face font-family="icomoon" font-weight="400" font-stretch="normal" units-per-em="512" panose-1="2 0 5 3 0 0 0 0 0 0" ascent="480" descent="-32" bbox="0 -32 538 480" underline-thickness="0" underline-position="0" unicode-range="U+0053-F000" />
+            <missing-glyph horiz-adv-x="512" />
+            <glyph glyph-name=".notdef" horiz-adv-x="512" />
+            <glyph glyph-name=".notdef" horiz-adv-x="512" />
+            <glyph glyph-name=".null" horiz-adv-x="0" />
+            <glyph glyph-name="nonmarkingreturn" horiz-adv-x="170" />
+            <glyph glyph-name="S" unicode="S" d="M269 480l84 -168l185 -27l-134 -131l32 -185l-167 87l-166 -87l32 185l-134 131l185 27z" />
+            <glyph glyph-name="s" unicode="s" d="M269 407l55 -110l7 -15l17 -2l121 -18l-88 -85l-12 -12l3 -17l21 -120l-108 57l-16 8l-15 -8l-108 -57l21 120l3 17l-12 12l-88 85l121 18l17 2l7 15zM269 480l-83 -168l-185 -27l134 -131l-32 -185l166 87l167 -87l-32 185l134 131l-185 27z" />
+            <glyph glyph-name="uniF000" unicode="&#xf000;" horiz-adv-x="0" d="M0 480l512 -512h-512v512z" />
+        </font>
+    </defs>
+</svg>
