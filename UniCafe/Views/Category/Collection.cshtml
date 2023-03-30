@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<UniCafe.Models.Product>
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
 }
 @*@if (@ViewBag.Category != null)
 {
@@ -11,83 +11,147 @@
 {
     <h2>@product.Id - @product.Name</h2>
     <br />
-}*@
-<h2>
-</h2>
+*@
 
+<main>
+    <div class="main-part">
 
-<div id="collection">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 stikySidebar">
-                <div class="list-group-item">
-                    <a class="nav-link active" href="/Collection/All" style="text-decoration:none">Tất cả</a>
+        <section class="breadcrumb-nav">
+            <div class="container">
+                <div class="breadcrumb-nav-inner" style="text-align:center">
+                    <label class="now">MENU</label>
                 </div>
-                @foreach(var Category in ViewBag.Categories){
-                    
-                <div class="list-group-item ">
-                    <a class="nav-link active" href="/Collection/@Category.Slug" style="text-decoration:none">@Category.Name</a>
-                </div> 
-                }
-                <!--<div class="list-group-item">
-                    <a class="nav-link active" href="/@TempData["Slug"]" style="text-decoration:none">Trà trái cây</a>
-                </div>
-                <div class="list-group-item ">
-                    <a class="nav-link active" href="/Collection/tra-sua-macchiato" style="text-decoration:none">Trà sữa macchiato</a>
-                </div> -->
             </div>
-            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 border_right_before">
-                @foreach (var item in Model)
-                {
-                    <div class="menu_item">
-                        <div class="menu_item_image">
-                            <a href="" title="@item.Name" data-toggle="modal" data-target="#exampleModal">
-                            <img src="@Html.DisplayFor(modelItem => item.Image)" style="max-width:200px; max-height:300px;" />
-                            </a>
-                        </div>
-                        <div class="menu_info">
-                            <label>
-                                @item.Name
-                                @*@Html.DisplayFor(modelItem => item.Name)*@
-                            </label>
-                            <br />
-                            <p>
-                                @item.Price.ToString("N0")đ
-                                @*@Html.DisplayFor(modelItem => item.Price)đ*@
-                            </p>
+        </section>
 
+        <!-- Start Blog List -->
+
+        <section class="default-section shop-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="blog-left-section">
+                            <div class="blog-left-search blog-common-wide wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                                <input type="text" name="txt" placeholder="Search" fdprocessedid="w8rqs">
+                                <input type="submit" name="submit" value="" fdprocessedid="cze44f">
+                            </div>
+                            <div class="blog-left-categories blog-common-wide wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                                <h5>DANH MỤC</h5
+                                <ul class="list">
+                                    @foreach (var Category in ViewBag.ListCate)
+                                    {
+                                        <li><a href="/Collection/@Category.Slug">@Category.Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                            @*<div class="blog-left-deal blog-common-wide wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                                <h5>SẢN PHẨM NỔI BẬT</h5>
+                                <div class="best-deal-blog">
+                                    <div class="best-deal-left">
+                                        <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
+                                    </div>
+                                    <div class="best-deal-right">
+                                        <p>Cà Phê Sữa Đá</p>
+                                        <p><strong>39.000đ</strong></p>
+                                    </div>
+                                </div>
+                                <div class="best-deal-blog">
+                                    <div class="best-deal-left">
+                                        <img src="~/Content/Layout/User/images/tra-dao-cam-sa.jpg" alt="">
+                                    </div>
+                                    <div class="best-deal-right">
+                                        <p>Trà Đào Cam Sả</p>
+                                        <p><strong>49.000đ</strong></p>
+                                    </div>
+                                </div>
+                                <div class="best-deal-blog">
+                                    <div class="best-deal-left">
+                                        <img src="~/Content/Layout/User/images/tra-sua-oolong-nuong-tran-chau.jpg" alt="">
+                                    </div>
+                                    <div class="best-deal-right">
+                                        <p>Trà Sữa Olong Trân Châu</p>
+                                        <p><strong>55.000đ</strong></p>
+                                    </div>
+                                </div>
+                            </div>*@
                         </div>
                     </div>
-                <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title text-center" style="text-transform:uppercase"  id="exampleModalLabel">Chi tiết sản phẩm</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-lg-8" >
-                <h2>@item.Name</h2>
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        @foreach (var Category in ViewBag.Categories)
+                        {   
+                        <div class="blog-right-section">
+                            <h3 class="block_menu_item_title">
+                                <span class="line_after_heading section_heading" style="color: #c19942">@Category.Name</span>
+                            </h3>
+                            <div class="row">
+                                @foreach (var item in Model)
+                                { if(item.Category.Id == Category.Id)
+                               {
+                                    <div class="col-md-4 col-sm-4 col-xs-12 wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                                        <div class="shop-main-list">
+                                            <div class="shop-product">
+                                               <a href="~/Product/@item.Slug"> <img src="@item.Image" alt="productImage"></a>
+                                                @*<div class="cart-overlay-wrap">
+                                                    <div class="cart-overlay">
+                                                        <a href="#" class="shop-cart-btn">Thêm</a>
+                                                    </div>
+                                                </div>*@
+                                            </div>
+                                            <a href="~/Product/@item.Slug"><h5>@item.Name</h5></a>
+                                            <h5><strong>@item.Price.ToString("N0")đ</strong></h5>
+                                        </div>
+                                    </div>
+                                    }
+
+                                      }
+                                    
+                                @*<div class="col-md-4 col-sm-4 col-xs-12 wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                <div class="shop-main-list">
+                    <div class="shop-product">
+                        <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
+                        <div class="cart-overlay-wrap">
+                            <div class="cart-overlay">
+                                <a href="#" class="shop-cart-btn">Thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="shop_single.html"><h5>Cà Phê Sữa Đá</h5></a>
+                    <h5><strong>39.000đ</strong></h5>
+                </div>
             </div>
-
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-                }
+            <div class="col-md-4 col-sm-4 col-xs-12 wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                <div class="shop-main-list">
+                    <div class="shop-product">
+                        <img src="~/Content/Layout/User/images/bac-xiu.jpg" alt="">
+                        <div class="cart-overlay-wrap">
+                            <div class="cart-overlay">
+                                <a href="#" class="shop-cart-btn">Thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="shop_single.html"><h5>Bạc Xỉu</h5></a>
+                    <h5><strong>39.000đ</strong></h5>*@
+                            </div>
+                        </div>}
+                            </div>
+                            @*<div class="gallery-pagination">
+                                    <div class="gallery-pagination-inner">
+                                        <ul>
+                                            <li><a href="#" class="pagination-prev"><i class="icon-left-4"></i> <span>Trang Trước</span></a></li>
+                                            <li class="active"><a href="#"><span>1</span></a></li>
+                                            <li><a href="#"><span>2</span></a></li>
+                                            <li><a href="#"><span>3</span></a></li>
+                                            <li><a href="#" class="pagination-next"><span>Trang Sau</span> <i class="icon-right-4"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-        </div>
+        <!-- End Blog List -->
 
     </div>
-</div>
-
+</main>
