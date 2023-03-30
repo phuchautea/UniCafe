@@ -30,6 +30,10 @@ namespace UniCafe.Controllers
         public ActionResult Index()
         {
             var cart = _cartManager.GetCartItems();
+            if (cart.Count() < 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View(cart);
         }
         [HttpPost]

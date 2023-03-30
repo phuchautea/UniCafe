@@ -6,7 +6,7 @@
 
 <script>
     $(function () {
-                $('.btn-remove').on('click', function () {
+                $('.remove').on('click', function () {
                     var cartItemId = $(this).data('item-cart-id');
                     $.ajax({
                         url: '@Url.Action("RemoveFromCart", "Cart")',
@@ -20,7 +20,7 @@
                     });
                 });
 
-                $('.btn-clear').on('click', function () {
+                $('.clear').on('click', function () {
                     $.ajax({
                         url: '@Url.Action("ClearCart", "Cart")',
                         type: 'POST',
@@ -33,7 +33,7 @@
                 });
             });
 </script> 
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th>Product Name</th>
@@ -76,7 +76,7 @@
 
 <div>
     <button class="btn-clear">Clear Cart</button>
-</div>
+</div>*@
 
 
 
@@ -84,24 +84,24 @@
     <div class="main-part">
 
         <!-- Start Shop Cart -->
-        <a href="~/Views/Category/Details.cshtml">~/Views/Category/Details.cshtml</a>
             <section class="default-section shop-cart bg-grey">
                 <div class="container">
                     <div class="checkout-wrap wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                         <ul class="checkout-bar">
-                            <li class="active">Shopping Cart</li>
-                            <li>Checkout</li>
-                            <li>Order Complete</li>
+                            <li class="active">Giỏ hàng</li>
+                            <li>Thanh toán</li>
+                            <li>Hoàn thành</li>
                         </ul>
                     </div>
                     <div class="shop-cart-list wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <table class="shop-cart-table">
                             <thead>
                                 <tr>
-                                    <th>PRODUCT</th>
-                                    <th>PRICE</th>
-                                    <th>QUANTITY</th>
-                                    <th>TOTAL</th>
+                                    <th>SẢN PHẨM</th>
+                                    <th>GIÁ</th>
+                                    <th>SỐ LƯỢNG</th>
+                                    <th>TỔNG</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,41 +111,46 @@
                                     <tr>
                                         <th>SẢN PHẨM</th>
                                         <td>
-                                            
-                                            <div class="product-cart">
-                                                <img src="@item." alt="">
-                                            </div>
                                             <div class="product-cart-title">
                                                 <span>@item.ProductName</span><br />
                                                 @{
                                                     List<int> optionIds = new List<int>();
                                                 }
-                                              <span style="color:#808080; font-size:12px;">Size: @item.PropertyProduct.Name - @item.PropertyProduct.Price.ToString("N0")đ</span><br />
-                                             <span style="color:#808080; font-size:12px;">Topping: </span>
-                                                @foreach (var option in item.Options)
+                                                <span style="color:#808080; font-size:12px;">Size: @item.PropertyProduct.Name - @item.PropertyProduct.Price.ToString("N0")đ</span><br />
+                                                @if (item.Options.Count > 0)
                                                 {
-                                                    <span style="color:#808080; font-size:12px;"><li>@option.Name - @option.Price.ToString("N0")đ</li></span>
+                                                    <span style="color:#808080; font-size:12px;">Topping: </span>
+                                                    foreach (var option in item.Options)
+                                                    {
+                                                        <span style="color:#808080; font-size:12px;"><li>@option.Name - @option.Price.ToString("N0")đ</li></span>
+                                                    }
                                                 }
+
                                             </div>
                                         </td>
-                                        <th>PRICE</th>
+                                        <th>GIÁ</th>
                                         <td>
                                             <strong>@item.Price.ToString("N0")đ</strong>
                                             <del>@item.Price.ToString("N0")đ</del>
                                         </td>
-                                        <th>QUANTITY</th>
+                                        <th>SỐ LƯỢNG</th>
                                         <td>
                                             <div class="price-textbox">
                                                 <span class="minus-text" onclick="minusQuantity('@item.Id')"><i class="glyphicon glyphicon-minus"></i></span>
-                                                <input type="text" id="quantity_@item.Id"  value="1" pattern="[0-9]">
+                                                <input type="text" id="quantity_@item.Id" value="1" pattern="[0-9]">
                                                 <span class="plus-text" onclick="plusQuantity('@item.Id')"><i class="glyphicon glyphicon-plus"></i></span>
                                             </div>
                                         </td>
-                                        <th>TOTAL</th>
+                                        <th>TỔNG</th>
                                         <td>
                                             @(((item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0"))đ
                                         </td>
-                                        <td class="shop-cart-close"><i class="icon-cancel-5"></i></td>
+                                        <td class="product-remove">
+                                            <button class="remove" data-item-cart-id="@item.Id">×</button>
+                                        </td>
+                                        @*<td class="shop-cart-close">
+                                            <button data-item-cart-id="@item.Id"><i class="fa fa-trash"></i> Remove</button>
+                                        </td>*@
                                     </tr>}
                                     @*<tr>
                 <th>PRODUCT</th>
@@ -213,12 +218,13 @@
                                 <input type="text" name="txt" placeholder="Cupon Code">
                             </div>
                             <a href="#" class="btn-medium btn-dark-coffee">Apply Coupon</a>*@
+                            <a href="#" class="clear btn-medium btn-danger">Xóa Giỏ Hàng</a>
                             <a href="#" class="btn-medium btn-skin pull-right">Cập Nhật Giỏ Hàng</a>
                         </div>
                     </div>
                     <div class="cart-total wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
                         <div class="cart-total-title">
-                            <h5>CART TOTALS</h5>
+                            <h5>TỔNG CỘNG</h5>
                         </div>
                         @*<div class="product-cart-total">
                             <small>Total products</small>
@@ -229,10 +235,10 @@
                             <span>$15.00</span>
                         </div>*@
                         <div class="grand-total">
-                            <h5>TOTAL <span>@Model.Sum(item => (item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0")đ</span></h5>
+                            <h5>TỔNG: <span>@Model.Sum(item => (item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0")đ</span></h5>
                         </div>
                         <div class="proceed-check">
-                            <a href="@Url.Action("CheckOut","Order")" class="btn-primary-gold btn-medium">PROCEED TO CHECKOUT</a>
+                            <a href="@Url.Action("CheckOut","Order")" class="btn-primary-gold btn-medium">THANH TOÁN</a>
                         </div>
                     </div>
                 </div>

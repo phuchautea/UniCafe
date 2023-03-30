@@ -5247,3 +5247,21 @@ table.shop-cart-table .shop-cart-close {
     max-width: 120px;
     border-radius: 17px;
 }
+button.remove {
+    display: block;
+    font-size: 1.5em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    line-height: 1;
+    border-radius: 100%;
+    color: red !important;
+    text-decoration: none;
+    font-weight: 700;
+    border: 0
+}
+
+    button.remove:hover {
+        color: #fff !important;
+        background: red
+    }
