@@ -4091,7 +4091,7 @@ textarea {
 .tab-part .nav-tabs>li {
     float: none;
     display: inline-block;
-    font-family: 'QuicksandBook-Regular';
+    font-family: 'Quicksand', sans-serif;
     font-size: 18px;
 }
 

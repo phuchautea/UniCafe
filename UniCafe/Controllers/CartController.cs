@@ -45,6 +45,10 @@ namespace UniCafe.Controllers
                     optionProducts.Add(_optionProductRepositoy.GetById(optionProductId));
                 }
             }
+            if(quantity <= 0)
+            {
+                return Json(new { status = false, message = "Số lượng không hợp lệ" });
+            }
             var item = new CartItem
             {
                 ProductId = productId,
@@ -55,7 +59,7 @@ namespace UniCafe.Controllers
                 PropertyProduct = propertyProduct
             };
             _cartManager.AddToCart(item);
-            return Json(new { success = true });
+            return Json(new { status = true, message = "Thêm vào giỏ hàng thành công" });
         }
         [HttpPost]
         public ActionResult RemoveFromCart(Guid cartItemId)

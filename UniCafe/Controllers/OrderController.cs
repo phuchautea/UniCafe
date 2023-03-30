@@ -146,7 +146,7 @@ namespace UniCafe.Controllers
         public ActionResult SearchOrder()
         {
             return View();
-        }s
+        }
         [Route("Order/SearchOrder/{orderCode}")]
         public ActionResult SearchOrder(string orderCode)
         {

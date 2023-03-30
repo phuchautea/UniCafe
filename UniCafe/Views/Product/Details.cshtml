@@ -1,110 +1,18 @@
 ﻿@model UniCafe.Models.Product
+@*@using IEnumerable<UniCafe.Models.Category>*@
 
 @{
-    ViewBag.Title = "Details";
+    Page.Title = Model.Name;
     Layout = "~/Views/Shared/_Layout_User.cshtml";
 }
-
-
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-    </dl>
-</div>
-<form>
-    <input type="hidden" id="productId" value="@Model.Id" />
-    <div class="form-group">
-        <label>Size:</label>
-        <select name="propertyId" id="propertyId" class="form-control">
-            @foreach (var propertyProduct in ViewBag.PropertyProducts)
-            {
-                <option value="@propertyProduct.Id">@propertyProduct.Name - @propertyProduct.Price.ToString("N0")đ</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Topping:</label>
-        @*<select name="optionProduct1" id="optionProduct1" class="form-control">
-            @foreach (var optionProduct in ViewBag.OptionProducts)
-            {
-                <option value="@optionProduct.Id">@optionProduct.Name - @optionProduct.Price.ToString("N0")đ</option>
-            }
-        </select>*@
-    </div>
-    @foreach (var optionProduct in ViewBag.OptionProducts)
-    {
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="optionProducts[@optionProduct.Id]" id="optionProduct_@optionProduct.Id" value="@optionProduct.Id">
-            <label class="form-check-label" for="optionProduct_@optionProduct.Id">
-                @optionProduct.Name - @optionProduct.Price.ToString("N0")đ
-            </label>
-        </div>
-    }
-    <div class="form-group">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" class="form-control" value="1" />
-    </div>
-    <button type="button" class="btn btn-primary" id="addToCart">Add to Cart</button>
-</form>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
+        $('input[name="propertyId"]').eq(0).prop('checked', true);
         $('#addToCart').click(function (e) {
             e.preventDefault();
             var productId = $('#productId').val();
-            var propertyId = $('#propertyId').val();
+            var propertyId = $('input[name="propertyId"]:checked').val();
+            //var propertyId = $('#propertyId').val();
 
             var quantity = $('#quantity').val();
             var optionProductIds = [];
@@ -117,11 +25,14 @@
                 type: 'POST',
                 data: { productId: productId, quantity: quantity, optionProductIds: optionProductIds, propertyId: propertyId },
                 success: function (data) {
-                    alert("Thêm thành công");
-
+                    if (data.status == true) {
+                        Swal.fire('Thêm thành công!', data.message, 'success');
+                    } else {
+                        Swal.fire('Có lỗi xảy ra khi thêm vào giỏ hàng!', data.message, 'error');
+                    }
                 },
                 error: function () {
-                    alert('An error occurred while adding to cart.');
+                    Swal.fire('Có lỗi xảy ra khi thêm vào giỏ hàng!', data.message, 'error');
                 }
             });
         });
@@ -135,93 +46,80 @@
                     <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                         <div class="slider slider-for slick-shop">
                             <div>
-                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail4.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail4.jpg" alt="">
+                                <img src="@Model.Image" alt="@Model.Name">
                             </div>
                         </div>
-                        <div class="slider slider-nav slick-shop-thumb">
-                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
-                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
-                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-4.jpg" alt=""></div>
-                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
-                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
-                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-4.jpg" alt=""></div>
-                        </div>
+                        @*<div class="slider slider-nav slick-shop-thumb">
+                            <div><img src="@Model.Image" alt="@Model.Name"></div>
+                        </div>*@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                        <h4 class="text-coffee">Hồng Trà Sữa Trân Châu</h4>
-                        <h3 class="text-coffee">$290.50</h3>
-                        <div class="price-textbox">
-                            <span class="minus-text"><i class="glyphicon glyphicon-minus"></i></span>
-                            <input type="text" name="txt" placeholder="1" pattern="[0-9]">
-                            <span class="plus-text"><i class="glyphicon glyphicon-plus"></i></span>
-                        </div>
-                        <a href="#" class="filter-btn btn-large"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to Cart</a>
+                        <input type="hidden" id="productId" value="@Model.Id" />
+                        <h4 class="text-coffee">@Model.Name</h4>
+                        <h3 class="text-coffee">@Model.Price.ToString("N0")đ</h3>
                         <div class="share-tag">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="social-wrap">
-                                        <h5>SHARE</h5>
-                                        <ul class="social">
-                                            <li class="social-facebook"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                            <li class="social-tweeter"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                            <li class="social-instagram"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                            <li class="social-dribble"><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                                            <li class="social-google"><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a></li>
-                                        </ul>
+                                    <div class="tag-wrap">
+                                        <p><h5>Size</h5></p>
+                                        @foreach (var propertyProduct in ViewBag.PropertyProducts)
+                                        {
+                                            <input type="radio" id="propertyId_@propertyProduct.Id" name="propertyId" value="@propertyProduct.Id">
+                                            <label>@propertyProduct.Name - @propertyProduct.Price.ToString("N0")đ</label><br>
+                                            
+                                            @*<a href="#" class="tag-btn">@Model.Category</a>*@
+                                        }
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="tag-wrap">
-                                        <h5>TAGS</h5>
-                                        <a href="#" class="tag-btn">Audio</a>
-                                        <a href="#" class="tag-btn">Service</a>
-                                        <a href="#" class="tag-btn">Cupcake</a>
+                                        <p><h5>Topping</h5></p>
+                                        @foreach (var optionProduct in ViewBag.OptionProducts)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="optionProducts[@optionProduct.Id]" id="optionProduct_@optionProduct.Id" value="@optionProduct.Id">
+                                                <label class="form-check-label" for="optionProduct_@optionProduct.Id">
+                                                    @optionProduct.Name - @optionProduct.Price.ToString("N0")đ
+                                                </label>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="price-textbox">
+                            <span class="minus-text" onclick="minusQuantity()"><i class="glyphicon glyphicon-minus"></i></span>
+                            <input type="text" id="quantity" name="quantity" value="1" pattern="[0-9]">
+                            <span class="plus-text" onclick="plusQuantity()"><i class="glyphicon glyphicon-plus"></i></span>
+                        </div>
+                        <a href="#" class="filter-btn btn-large" id="addToCart"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ hàng</a>
+                        @*<div class="share-tag">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="tag-wrap">
+                        <h5>Danh mục</h5>
+                        <a href="#" class="tag-btn">@Model.Category</a>
+                    </div>
+                </div>
+            </div>
+        </div>*@
                     </div>
                 </div>
             </div>
         </section>
 
-        @* Description *@
         <section class="default-section comment-review-tab bg-grey v-pad-remove wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
             <div class="container">
                 <div class="tab-part">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">DESCRIPTION</a></li>
+                        <li role="presentation" class="active">
+                        <a href="#description" aria-controls="description" role="tab" data-toggle="tab" aria-expanded="true">MÔ TẢ</a>
+                        </li>
                     </ul>
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane" id="description">
+                        <div role="tabpanel" class="tab-pane active" id="description">
                             <p>
-                                <b>Hồng trà sữa trân châu</b> là một loại đồ uống được làm từ trà đen chất lượng cao phối hợp với sữa tươi và trân châu đen, tạo ra một hương vị thơm ngon và đặc biệt.<br />
-                                Hương vị của trà đen thơm và đầy đặn, hòa quyện với sữa tươi béo ngậy, tạo ra một hỗn hợp vị ngọt nhẹ, bùi và thơm ngon. Trân châu đen được thêm vào để tăng thêm độ ngon và độ sánh của đồ uống, khiến cho người uống cảm nhận được sự thú vị và độc đáo của sản phẩm.<br />
-                                Hồng trà sữa trân châu thích hợp cho mọi đối tượng, từ trẻ em đến người già. Đây là một lựa chọn tuyệt vời cho các buổi hẹn hò, hội họp, hoặc chỉ đơn giản là thưởng thức trong những ngày nắng nóng.<br />
-                                Thêm chút ngọt ngào cho ngày mới với hồng trà nguyên lá, sữa thơm ngậy được cân chỉnh với tỉ lệ hoàn hảo, cùng trân châu trắng dai giòn có sẵn để bạn tận hưởng từng ngụm trà sữa ngọt ngào thơm ngậy thiệt đã.
+                                @Model.Description
                             </p>
                         </div>
                     </div>
@@ -235,16 +133,20 @@
                 </div>
                 <div class="product-wrapper">
                     <div class="owl-carousel owl-theme" data-items="4" data-tablet="3" data-mobile="2" data-nav="false" data-dots="true" data-autoplay="true" data-speed="1800" data-autotime="5000">
-                        <div class="item">
-                            <div class="product-img">
-                                <a href="shop_single.html">
-                                    <img src="~/Content/Layout/User/images/ca-phe-sua-da.jpg" alt="">
-                                    <span class="icon-basket fontello"></span>
-                                </a>
+                        @*@foreach (var item in ViewBag.ProductRelative)
+                        {
+                            <div class="item">
+                                <div class="product-img">
+                                    <a href="/product/@item.Slug">
+                                        <img src="@item.Image" alt="">
+                                        <span class="icon-basket fontello"></span>
+                                    </a>
+                                </div>
+                                <h5>@item.Name</h5>
+                                <span>@item.Price.ToString("N0")đ</span>
                             </div>
-                            <h5>Cà Phê Sữa Đá</h5>
-                            <span>$79.00</span><del>$99.00</del>
-                        </div>
+                        }*@
+
                         <div class="item">
                             <div class="product-img">
                                 <a href="shop_single.html">
@@ -401,3 +303,29 @@
         </section>
     </div>
 </main>
+<script type="text/javascript">
+    // Plus number quantiy product detail 
+    var plusQuantity = function () {
+        if (jQuery('input[name="quantity"]').val() != undefined) {
+            var currentVal = parseInt(jQuery('input[name="quantity"]').val());
+            if (!isNaN(currentVal)) {
+                jQuery('input[name="quantity"]').val(currentVal + 1);
+            } else {
+                jQuery('input[name="quantity"]').val(1);
+            }
+        } else {
+            console.log('error: Not see elemnt ' + jQuery('input[name="quantity"]').val());
+        }
+    }
+    // Minus number quantiy product detail 
+    var minusQuantity = function () {
+        if (jQuery('input[name="quantity"]').val() != undefined) {
+            var currentVal = parseInt(jQuery('input[name="quantity"]').val());
+            if (!isNaN(currentVal) && currentVal > 1) {
+                jQuery('input[name="quantity"]').val(currentVal - 1);
+            }
+        } else {
+            console.log('error: Not see elemnt ' + jQuery('input[name="quantity"]').val());
+        }
+    }
+</script>

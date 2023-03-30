@@ -299,6 +299,7 @@
     <Content Include="Content\Layout\User\css\scroll-bar\jquery.mCustomScrollbar.css" />
     <Content Include="Content\Layout\User\css\slick-slider\slick-theme.css" />
     <Content Include="Content\Layout\User\css\style.css" />
+    <Content Include="Content\Layout\User\css\sweetalert2\sweetalert2.min.css" />
     <Content Include="Content\Layout\User\fonts\Graviola-Regular.svg" />
     <Content Include="Content\Layout\User\fonts\GraviolaSoft-Medium.svg" />
     <Content Include="Content\Layout\User\fonts\icomoon.svg" />
@@ -306,6 +307,7 @@
     <Content Include="Content\Layout\User\fonts\QuicksandBold-Regular.svg" />
     <Content Include="Content\Layout\User\fonts\QuicksandBook-Regular.svg" />
     <Content Include="Content\Layout\User\fonts\QuicksandLight-Regular.svg" />
+    <Content Include="Content\Layout\User\fonts\slick.svg" />
     <Content Include="Content\Layout\User\images\arrow-left.png" />
     <Content Include="Content\Layout\User\images\arrow-right.png" />
     <Content Include="Content\Layout\User\images\arrow-top.png" />
@@ -404,6 +406,7 @@
     <Content Include="Content\Layout\User\js\script.js" />
     <Content Include="Content\Layout\User\js\scroll-bar\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="Content\Layout\User\js\slick-slider\slick.min.js" />
+    <Content Include="Content\Layout\User\js\sweetalert2\sweetalert2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -459,6 +462,9 @@
     <Content Include="Content\Layout\User\fonts\revicons.ttf" />
     <Content Include="Content\Layout\User\fonts\revicons.woff" />
     <Content Include="Content\Layout\User\fonts\SF-Pro-Display-Regular.otf" />
+    <Content Include="Content\Layout\User\fonts\slick.eot" />
+    <Content Include="Content\Layout\User\fonts\slick.ttf" />
+    <Content Include="Content\Layout\User\fonts\slick.woff" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
