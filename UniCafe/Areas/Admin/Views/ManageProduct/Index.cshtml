@@ -162,32 +162,32 @@
         var result = removeDiacritics(name);
         $('#slug').val(result.toLowerCase());
     }
-    function del(id) {
-        if (confirm("Bạn chắc chắn muốn xóa?")) {
-            $.ajax({
-                url: "@Url.Action("Delete", "ManageProduct")",
-                type: "POST",
-                data: { id: id },
-                success: function (response) {
-                    if (response.success) {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        alert(response.message);
+        function del(id) {
+            if (confirm("Bạn chắc chắn muốn xóa?")) {
+                $.ajax({
+                    url: "@Url.Action("Delete", "ManageProduct")",
+                    type: "POST",
+                    data: { id: id },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(error);
                     }
-                },
-                error: function (xhr, status, error) {
-                    alert(error);
-                }
-            });
+                });
+            }
         }
-    }
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#nTable').DataTable({
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[9, 'desc']],
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#nTable').DataTable({
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "order": [[9, 'desc']],
+            });
         });
-    });
-</script>
+    </script>

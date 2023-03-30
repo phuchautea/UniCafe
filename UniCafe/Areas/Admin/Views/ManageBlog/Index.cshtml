@@ -1,0 +1,151 @@
+﻿@model IEnumerable<UniCafe.Models.Blog>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions{
+    public string NorActive(bool active = true)
+    {
+        return active == true ? "<span class='label label-success'>ON</span>" : "<span class='label label-danger'>OFF</span>";
+    }
+}
+<h2>Manage Blog</h2>
+@Html.Partial("ErrorsAlert")
+<p>
+    <a data-toggle="modal" data-target="#create_modal">Create</a>
+    <div class="modal fade" id="create_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <b><i class="fa fa-plus"></i> Thêm Blog mới</b>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Create", "ManageBlog", FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            <label>Tiêu đề</label>
+                            <input type="text" class="form-control" name="Title">
+                        </div>
+                        <div class="form-group">
+                            <label>Nội dung</label>
+                            <textarea rows="5" class="form-control" name="Content" id="Content"></textarea>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <label>Hiện hành</label>
+                            <input type="checkbox" class="form-check-input" name="Published" id="Published" value="true" checked>
+                            <label class="form-check-label">ON</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Người đăng</label>
+                            <input type="text" class="form-control" name="Author" id="Author">
+                        </div>
+                        <div class="form-group">
+                            <label>Hình ảnh</label>
+                            <input type="text" class="form-control" name="Image" id="Image">
+                        </div>
+                        <button type="submit" class="btn btn-success">Thêm mới</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</p>
+<div class="table-responsive">
+    <table class="table table-condensed table-hover" id="nTable">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Tiêu đề
+                </th>
+                <th>
+                    Nội dung
+                </th>
+                <th>
+                    Thời gian tạo
+                </th>
+                <th>
+                    Hiện hành
+                </th>
+                <th>
+                    Người đăng
+                </th>
+                <th>
+                    Hình ảnh
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        <textarea rows="3">@Html.DisplayFor(modelItem => item.Content)</textarea>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.Raw(NorActive(item.Published))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Image)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "ManageBlog", new { id = item.Id })">Sửa</a>
+                        <a onclick="del(@item.Id)">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+  function del(id) {
+        if (confirm("Bạn chắc chắn muốn xóa?")) {
+            $.ajax({
+                url: "@Url.Action("Delete", "ManageBlog")",
+                type: "POST",
+                data: { id: id },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+            });
+        }
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#nTable').DataTable({
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "order": [[9, 'desc']],
+        });
+    });
+</script>
+
+
