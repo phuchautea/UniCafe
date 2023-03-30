@@ -14,5 +14,7 @@ namespace UniCafe.Models
         public string Content { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public bool Published { get; set; }
+        public string Author { get; set; }  
+        public string Image { get; set; }
     }
 }

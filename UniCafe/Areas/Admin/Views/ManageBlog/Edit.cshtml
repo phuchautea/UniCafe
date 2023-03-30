@@ -1,0 +1,70 @@
+﻿@model UniCafe.Models.Blog
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+@Html.Partial("ErrorsAlert")
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Blog</h4>
+    <hr />
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Tiêu đề</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Title" name="Title" type="text" value="@Html.DisplayFor(item => item.Title)">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Nội dung</label>
+        <div class="col-md-10">
+            <textarea class="form-control" id="Content" name="Content" rows="3">@Html.DisplayFor(item => item.Content)</textarea>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Hiện hành</label>
+        <div class="col-md-10">
+            @if (Convert.ToInt32(Model.Published)== 1)
+            {
+                <input type="checkbox" class="form-check-input" name="Published" id="Published" value="true" checked>
+            }
+            else
+            {
+                <input type="checkbox" class="form-check-input" name="Published" id="Published" value="true">
+            }
+            <label class="form-check-label">ON</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Người đăng</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Author" name="Author" type="text" value="@Html.DisplayFor(item => item.Author)">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Hình ảnh</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Image" name="Image" type="text" value="@Html.DisplayFor(item => item.Image)">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

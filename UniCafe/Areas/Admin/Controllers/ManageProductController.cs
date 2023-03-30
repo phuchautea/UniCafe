@@ -12,7 +12,7 @@ using UniCafe.Models;
 namespace UniCafe.Areas.Admin.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class ManageProductController : BaseController<Product>
     {
         private readonly IRepository<Category> _categoryRepository;

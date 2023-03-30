@@ -20,6 +20,7 @@ namespace UniCafe.Models
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
         public ApplicationDbContext() : base("DefaultConnection"){
 
         }

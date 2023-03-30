@@ -185,6 +185,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageBlogController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagePropertyProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageOptionProductController.cs" />
@@ -259,6 +260,14 @@
     <Compile Include="Migrations\202303220945146_addTotal.cs" />
     <Compile Include="Migrations\202303220945146_addTotal.designer.cs">
       <DependentUpon>202303220945146_addTotal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303301909186_updateAuthorBLOG1.cs" />
+    <Compile Include="Migrations\202303301909186_updateAuthorBLOG1.designer.cs">
+      <DependentUpon>202303301909186_updateAuthorBLOG1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303302050054_updateImageBlog.cs" />
+    <Compile Include="Migrations\202303302050054_updateImageBlog.designer.cs">
+      <DependentUpon>202303302050054_updateImageBlog.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
@@ -465,6 +474,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Admin\Views\ManageBlog\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageBlog\Edit.cshtml" />
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -526,7 +537,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\ManageBlog\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\ApplicationRole\" />
     <Folder Include="Views\Authenticate\" />
@@ -569,6 +579,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303220945146_addTotal.resx">
       <DependentUpon>202303220945146_addTotal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303301909186_updateAuthorBLOG1.resx">
+      <DependentUpon>202303301909186_updateAuthorBLOG1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303302050054_updateImageBlog.resx">
+      <DependentUpon>202303302050054_updateImageBlog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
