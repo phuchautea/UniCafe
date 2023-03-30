@@ -42,14 +42,10 @@ namespace UniCafe.Services.Payment.Momo
                 {
                     rsa.PersistKeyInCsp = false;
                 }
-
             }
-
             return result;
-
         }
-        public string buildQueryHash(string partnerCode, string merchantRefId,
-            string requestid, string publicKey)
+        public string buildQueryHash(string partnerCode, string merchantRefId, string requestid, string publicKey)
         {
             string json = "{\"partnerCode\":\"" +
                 partnerCode + "\",\"partnerRefId\":\"" +
@@ -72,11 +68,8 @@ namespace UniCafe.Services.Payment.Momo
                 {
                     rsa.PersistKeyInCsp = false;
                 }
-
             }
-
             return result;
-
         }
 
         public string buildRefundHash(string partnerCode, string merchantRefId,

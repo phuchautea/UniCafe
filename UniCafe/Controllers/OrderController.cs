@@ -78,7 +78,6 @@ namespace UniCafe.Controllers
                         break;
                 }
 
-
                 if (errors.Count == 0)
                 {
                     Order order = new Order();
@@ -92,29 +91,36 @@ namespace UniCafe.Controllers
                     order.Note = note;
                     order.Status = "1";
                     Add(order);
-                    TempData["orderCode"] = code;
+                    //TempData["orderCode"] = code;
                     Session["orderCode"] = code;
                     var cart = _cartManager.GetCartItems();
+                    decimal totalOrder = 0;
                     foreach (var item in cart) {
+                        var itemTotal = item.Price;
+                        itemTotal += item.PropertyProduct.Price;
                         string propertyProduct = "" + item.PropertyProduct.Name + " - " + item.PropertyProduct.Price.ToString("N0") + "đ";
                         string optionProduct = "";
                         foreach (var option in item.Options)
                         {
+                            itemTotal += option.Price;
                             optionProduct += "" + option.Name + " - " + option.Price.ToString("N0") + "đ\n";
                         }
-
                         OrderDetail orderDetail = new OrderDetail();
                         orderDetail.Order = order;
                         orderDetail.ProductId = item.ProductId;
                         orderDetail.ProductName = item.ProductName;
                         orderDetail.Price = item.Price;
+                        orderDetail.Total = itemTotal;
                         orderDetail.Quantity = item.Quantity;
                         orderDetail.PropertyProduct = propertyProduct;
                         orderDetail.OptionProduct = optionProduct;
-
+                        totalOrder += itemTotal;
                         Context.OrderDetails.Add(orderDetail);
                         Context.SaveChanges();
                     }
+                    //Cập nhật tổng số tiền
+                    order.Total = totalOrder;
+                    Update(order);
                     _cartManager.ClearCart();
                     if (payment == "momo")
                     {
@@ -140,7 +146,7 @@ namespace UniCafe.Controllers
         public ActionResult SearchOrder()
         {
             return View();
-        }
+        }s
         [Route("Order/SearchOrder/{orderCode}")]
         public ActionResult SearchOrder(string orderCode)
         {
