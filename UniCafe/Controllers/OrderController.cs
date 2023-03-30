@@ -6,9 +6,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using UniCafe.Data;
 using UniCafe.Models;
 using UniCafe.Services;
+using Unity.Policy;
 
 namespace UniCafe.Controllers
 {
@@ -150,16 +152,23 @@ namespace UniCafe.Controllers
         [Route("Order/SearchOrder/{orderCode}")]
         public ActionResult SearchOrder(string orderCode)
         {
+
             if (orderCode == null)
             {
                 return View();
             }
-            var order = Context.Orders.FirstOrDefault(p => p.Code == orderCode);
-            if(order == null)
+            var order = Context.Orders.FirstOrDefault(p => p.Code == orderCode); 
+            //var find =  from o in Context.Orders join od in Context.OrderDetails on o.Id equals od.Id where o.Code== orderCode
+            //            select o;
+
+
+            if (order != null)
             {
-                return View();
+                var orderDetails = Context.OrderDetails.Where(p => p.Order.Code == orderCode).ToList();
+                ViewBag.OrderDetails = orderDetails;
+                return View(order);
             }
-            return View(order);
+            return View();
         }
 
         public ActionResult CompleteOrder()
