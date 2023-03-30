@@ -117,7 +117,7 @@ namespace UniCafe.Controllers
             Remove(category);
             return RedirectToAction("Index", "Category");
         }
-        [Route("Collection/{Slug}")]
+        [Route("Collections/{Slug}")]
         public ActionResult Collection(string Slug)
         {
             var categories = GetAll();
