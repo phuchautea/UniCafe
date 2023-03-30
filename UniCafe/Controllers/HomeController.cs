@@ -39,6 +39,12 @@ namespace UniCafe.Controllers
             ViewBag.Category = category;
             return View();
         }
+
+        public ActionResult Menu()
+        {
+            var category = _categoryRepository.GetAll();
+            return View(category);
+        }
         public ActionResult Contact()
         {
             return View();
