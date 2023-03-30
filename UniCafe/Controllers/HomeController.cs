@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Management;
 using System.Web.Mvc;
 using UniCafe.Data;
 using UniCafe.Models;
@@ -36,6 +37,14 @@ namespace UniCafe.Controllers
             var products = _context.Products.Where(c => c.Category.Id == category.Id).ToList();
             ViewBag.Products = products;
             ViewBag.Category = category;
+            return View();
+        }
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        public ActionResult KhuyenMai() 
+        {
             return View();
         }
     }

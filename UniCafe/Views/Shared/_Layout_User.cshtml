@@ -39,6 +39,8 @@
 
     <link href="~/Content/Layout/User/css/style.css" rel="stylesheet">
     <link href="~/Content/Layout/User/css/responsive.css" rel="stylesheet">
+    <script src="~/Content/Layout/User/js/jquery/jquery.min.js"></script>
+
 
 </head>
 
@@ -73,9 +75,6 @@
                                         <li class="mega-menu">
                                             <a href="@Url.Action("Index","Product")">Sản Phẩm</a>
                                             <ul class="menu_child" id="menu_child_3_3">
-                                                <li class="lv2_title">
-                                                    <a href="/collections/all" title="Tất Cả">Tất Cả</a>
-                                                </li>
                                                 <li class="lv2_title">
                                                     <a href="/collections/ca-phe" title="Cà Phê">Cà Phê</a>
                                                     <ul class="menu_child_lv3">
@@ -139,24 +138,26 @@
                                             </ul>
                                         </li>
                                         <li class="has-child">
-                                            <a href="shop.html">Khuyến Mãi</a>
-                                            <ul class="drop-nav">
-                                                <li><a href="shop_single.html">Test Khuyến Mãi</a></li>
-                                            </ul>
+                                            <a href="@Url.Action("KhuyenMai","Home")">Khuyến Mãi</a>
                                         </li>
                                         <li class="has-child">
-                                            <a href="blog_2col.html">Blog</a>
-                                            <ul class="drop-nav">
-                                                <li><a href="blog_list.html">Test Blogs</a></li>
-                                            </ul>
+                                            <a href="@Url.Action("Index","Blog")">Blog</a>
                                         </li>
-                                        <li class="has-child">
-                                            <a href="contact_1.html">Về Chúng Tôi</a>
-                                            <ul class="drop-nav">
-                                                <li><a href="contact_1.html">Hoàng Phúc Hậu</a></li>
-                                                <li><a href="contact_2.html">Lê Trần Tấn Lực</a></li>
-                                                <li><a href="contact_1.html">Vũ Đức Hoài Nam</a></li>
-                                                <li><a href="contact_2.html">Lê Chế Thanh</a></li>
+                                        <li class="mega-menu">
+                                            <a href="@Url.Action("Index","Contact")">Về Chúng Tôi</a>
+                                            <ul class="menu_child" id="menu_child_3_3">
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Hoàng Phúc Hậu</a>
+                                                </li>
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Lê Trần Tấn Lực</a>
+                                                </li>
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Vũ Đức Hoài Nam</a>
+                                                </li>
+                                                <li class="lv2_title">
+                                                    <a href="/collections/ca-phe" title="Cà Phê">Lê Chế Thanh</a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -199,8 +200,8 @@
                                                 </div>
                                             </div>
                                             <div class="cart-btn">
-                                                <a href="shop_cart.html" class="button-default view">VIEW ALL</a>
-                                                <a href="shop_checkout.html" class="button-default checkout">
+                                                <a href="@Url.Action("Index","Cart")" class="button-default view">VIEW ALL</a>
+                                                <a href="@Url.Action("CheckOut","Order")" class="button-default checkout">
                                                     CHECK
                                                     OUT
                                                 </a>
@@ -288,7 +289,6 @@
 
     <a href="#" class="top-arrow"></a>
 
-    <script src="~/Content/Layout/User/js/jquery/jquery.min.js"></script>
     <script src="~/Content/Layout/User/js/bootstrap/bootstrap.min.js"></script>
     <script src="~/Content/Layout/User/js/bootstrap/bootstrap-slider.js"></script>
     <script src="~/Content/Layout/User/js/revolution-plugin/jquery.themepunch.plugins.min.js"></script>

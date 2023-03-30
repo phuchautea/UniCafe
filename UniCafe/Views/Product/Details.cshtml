@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout_User.cshtml";
 }
 
-@*<h2>Details</h2>
 
 <div>
     <h4>Product</h4>
@@ -14,67 +13,51 @@
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Slug)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Slug)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Price)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Image)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Image)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Status)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.CreatedAt)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.UpdatedAt)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
-
     </dl>
 </div>
 <form>
@@ -90,12 +73,12 @@
     </div>
     <div class="form-group">
         <label>Topping:</label>
-        <select name="optionProduct1" id="optionProduct1" class="form-control">
+        @*<select name="optionProduct1" id="optionProduct1" class="form-control">
             @foreach (var optionProduct in ViewBag.OptionProducts)
             {
                 <option value="@optionProduct.Id">@optionProduct.Name - @optionProduct.Price.ToString("N0")đ</option>
             }
-        </select>
+        </select>*@
     </div>
     @foreach (var optionProduct in ViewBag.OptionProducts)
     {
@@ -122,20 +105,20 @@
             e.preventDefault();
             var productId = $('#productId').val();
             var propertyId = $('#propertyId').val();
-            
+
             var quantity = $('#quantity').val();
             var optionProductIds = [];
             $('input[type="checkbox"]:checked').each(function () {
                 optionProductIds.push($(this).val());
             });
-            
+
             $.ajax({
                 url: '/Cart/AddToCart',
                 type: 'POST',
                 data: { productId: productId, quantity: quantity, optionProductIds: optionProductIds, propertyId: propertyId },
                 success: function (data) {
                     alert("Thêm thành công");
-                    
+
                 },
                 error: function () {
                     alert('An error occurred while adding to cart.');
@@ -143,90 +126,79 @@
             });
         });
     });
-
-</script>*@
+</script>
 <main>
     <div class="main-part">
         <section class="default-section shop-single pad-bottom-remove">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
-                        <div class="slider slider-for slick-shop slick-initialized slick-slider">
-                            <div aria-live="polite" class="slick-list draggable">
-                                <div class="slick-track" role="listbox" style="opacity: 1; width: 4550px; transform: translate3d(-455px, 0px, 0px);">
-                                    <div class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1" style="width: 455px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                                    <div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00" style="width: 455px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                                    <div class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide01" style="width: 455px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
-                                    <div class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide02" style="width: 455px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
-                                    <div class="slick-slide slick-cloned" data-slick-index="8" aria-hidden="true" tabindex="-1" style="width: 455px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                                </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <div class="slider slider-for slick-shop">
+                            <div>
+                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt="">
+                            </div>
+                            <div>
+                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt="">
+                            </div>
+                            <div>
+                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt="">
+                            </div>
+                            <div>
+                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail4.jpg" alt="">
+                            </div>
+                            <div>
+                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt="">
+                            </div>
+                            <div>
+                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt="">
+                            </div>
+                            <div>
+                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt="">
+                            </div>
+                            <div>
+                                <img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail4.jpg" alt="">
                             </div>
                         </div>
-                        <div class="slider slider-nav slick-shop-thumb slick-initialized slick-slider">
-                            <button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style="display: block;" fdprocessedid="xio4di">Previous</button>
-                            <div aria-live="polite" class="slick-list draggable">
-                                <div class="slick-track" role="listbox" style="opacity: 1; width: 1584px; transform: translate3d(-396px, 0px, 0px);">
-                                    <div class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" tabindex="-1" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                                    <div class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" tabindex="-1" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
-                                    <div class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" tabindex="-1" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
-                                    <div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide10" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                                    <div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide11" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
-                                    <div class="slick-slide slick-active" data-slick-index="2" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide12" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
-                                    <div class="slick-slide" data-slick-index="4" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide14" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                                    <div class="slick-slide" data-slick-index="5" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide15" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
-                                    <div class="slick-slide" data-slick-index="6" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide16" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
-                                    <div class="slick-slide slick-cloned" data-slick-index="8" aria-hidden="true" tabindex="-1" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
-                                    <div class="slick-slide slick-cloned" data-slick-index="9" aria-hidden="true" tabindex="-1" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
-                                    <div class="slick-slide slick-cloned" data-slick-index="10" aria-hidden="true" tabindex="-1" style="width: 75px;"><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
-                                </div>
-                            </div><button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style="display: block;" fdprocessedid="altywr">Next</button>
+                        <div class="slider slider-nav slick-shop-thumb">
+                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
+                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
+                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
+                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-4.jpg" alt=""></div>
+                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau.jpg" alt=""></div>
+                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-1.jpg" alt=""></div>
+                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-2.jpg" alt=""></div>
+                            <div><img src="~/Content/Layout/User/images/hong-tra-sua-tran-chau-detail-4.jpg" alt=""></div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                         <h4 class="text-coffee">Hồng Trà Sữa Trân Châu</h4>
-                        <h3 class="text-coffee">49.000đ</h3>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="tag-wrap">
-                                <h5>Chọn Size (bắt buộc)</h5>
-                                <a href="#" class="tag-btn">Vừa +0đ</a>
-                                <a href="#" class="tag-btn">Lớn +5.000đ</a>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="tag-wrap">
-                                <h5>Topping</h5>
-                                <a href="#" class="tag-btn">Kem Phô Mai Macchiato +10.000đ</a>
-                                <a href="#" class="tag-btn">Trân Châu Trắng +10.000đ</a>
-                                <a href="#" class="tag-btn">Thạch Cà Phê +10.000đ</a>
-                                <a href="#" class="tag-btn">Shot Espresso +10.000đ</a>
-                            </div>
-                        </div>
-
+                        <h3 class="text-coffee">$290.50</h3>
                         <div class="price-textbox">
-                            <span class="minus-text">
-                                <i class="icon-minus"></i>
-                            </span>
-                            <input type="text" name="txt" placeholder="1" pattern="[0-9]" fdprocessedid="b1grhl">
-                            <span class="plus-text"><i class="icon-plus"></i></span>
+                            <span class="minus-text"><i class="glyphicon glyphicon-minus"></i></span>
+                            <input type="text" name="txt" placeholder="1" pattern="[0-9]">
+                            <span class="plus-text"><i class="glyphicon glyphicon-plus"></i></span>
                         </div>
-                        <a href="#" class="filter-btn btn-large"><i class="fa fa-shopping-bag" aria-hidden="true"></i>Thêm</a>
+                        <a href="#" class="filter-btn btn-large"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to Cart</a>
                         <div class="share-tag">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="social-wrap">
-                                        <h5>Chia Sẻ</h5>
+                                        <h5>SHARE</h5>
                                         <ul class="social">
                                             <li class="social-facebook"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                             <li class="social-tweeter"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                             <li class="social-instagram"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                            <li class="social-dribble"><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
                                             <li class="social-google"><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="tag-wrap">
-                                        <h5>Từ Khóa</h5>
-                                        <a href="#" class="tag-btn">Trà Sữa</a>
+                                        <h5>TAGS</h5>
+                                        <a href="#" class="tag-btn">Audio</a>
+                                        <a href="#" class="tag-btn">Service</a>
+                                        <a href="#" class="tag-btn">Cupcake</a>
                                     </div>
                                 </div>
                             </div>
@@ -235,6 +207,7 @@
                 </div>
             </div>
         </section>
+
         @* Description *@
         <section class="default-section comment-review-tab bg-grey v-pad-remove wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
             <div class="container">

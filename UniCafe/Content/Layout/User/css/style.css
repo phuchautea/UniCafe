@@ -3258,6 +3258,7 @@ textarea {
 
 .blog-right-listing .feature-img img {
     width: 100%;
+    border-radius: 20px;
 }
 
 .blog-right-listing .feature-info {
@@ -5238,5 +5239,11 @@ table.shop-cart-table .shop-cart-close {
     box-shadow: 5px;
 }
 .best-deal-left > img {
+    border-radius: 17px;
+}
+/*cart*/
+.product-cart > img 
+{
+    max-width: 120px;
     border-radius: 17px;
 }
