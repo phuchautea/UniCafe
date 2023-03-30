@@ -126,6 +126,7 @@
 <script type="text/javascript">
     function removeDiacritics(str) {
         str = str.replace(/Đ/g, "D");
+        str = str.replace(/đ/g, "d");
         str = str.replace(/ /g, "-"); // replace space to "-"
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
