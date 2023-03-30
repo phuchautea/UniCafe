@@ -1,4 +1,6 @@
-﻿@model UniCafe.Models.Order
+﻿@*@model List<UniCafe.Models.Order>*@
+
+@model UniCafe.Models.Order
 
 @{
     ViewBag.Title = "SearchOrder";
@@ -6,79 +8,153 @@
 }
 
 
-@if (Model != null)
-{
-    <h2>Tìm Kiếm</h2>
+@*@if (Model != null)
+    {
+        <h2>Tìm Kiếm</h2>
 
-    <div>
-        <h4>Hóa Đơn</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Code)
-            </dt>
+        <div>
+            <h4>Hóa Đơn</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Code)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Code)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Code)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.PhoneNumber)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Address)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Address)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Payment)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Payment)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Payment)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Payment)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Note)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Note)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Note)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Note)
+                </dd>
 
-        </dl>
+            </dl>
+        </div>
+        <p>
+
+            @Html.ActionLink("Back to List", "IndexSearchOrder")
+        </p>
+    }
+    else
+    {
+        <div style="padding: 200px 50px 100px">
+            <center>
+                <h2 style="color: #c19942;">Tìm Kiếm Đơn Hàng</h2>
+                <form action="@Url.Action("SearchOrder", "Order")">
+                    <input class="form-control" type="text" name="OrderCode" placeholder="Nhập mã đơn hàng của bạn" style="width:50%;" />
+                    <button class="btn btn-success">Tra cứu</button>
+                </form>
+            </center>
+        </div>
+    }*@
+
+<div class="page-layout">
+    <div class="wrapper-row pd-page">
+        <div class="container-fluid">
+            <div class="heading-page">
+                <div class="header-page">
+                    <div style="text-align:center"><h1>Tra cứu đơn hàng</h1></div>
+                </div>
+            </div>
+            @if (Model != null)
+            {
+                <div class="row wrapbox-content-cart">
+                    <div class="col-md-12 col-sm-4 col-xs-12 sidebarCart-sticky">
+                        <div class="sidebox-order">
+                            <div class="sidebox-order-inner">
+                                <div class="sidebox-order_title">
+                                    <h3>Thông tin đơn hàng</h3>
+                                </div>
+                                <div class="sidebox-order_text">
+                                    <div class="col-md-6 col-sm-4 col-xs-12">
+                                        <p>Mã đơn hàng: <b>@Model.Code</b></p>
+                                        <p>Tên người nhận: <b>@Model.Name</b></p>
+                                        <p>Số điện thoại: <b>@Model.PhoneNumber</b></p>
+                                        <p>Địa chỉ: <b>@Model.Address</b></p>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <p>Phương thức thanh toán: @Model.Payment</p>
+                                        <p>Tổng tiền: <b>@Model.Total.ToString("N0")đ</b></p>
+                                        <p>Ghi chú: <b>@Model.Note</b></p>
+                                        <p>Thời gian tạo: <b>@Model.CreatedAt</b></p>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12" style="text-align: center">
+                                        <img src="https://chart.googleapis.com/chart?chs=130x130&cht=qr&chl=http://@Request.Url.Host/Order/SearchOrder/@Model.Code">
+                                    </div>
+                                </div>
+                                <div class="sidebox-order_text">
+                                    <table class="table table-head-fixed text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Giá</th>
+                                                <th>Số lượng </th>
+                                                <th>Size</th>
+                                                <th>Topping</th>
+                                                <th>Tổng tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var OrderDetail in ViewBag.OrderDetails)
+                                            {
+                                                <tr>
+                                                    <td>@OrderDetail.ProductName</td>
+                                                    <td>@OrderDetail.Price</td>
+                                                    <td>@OrderDetail.Quantity</td>
+                                                    <td>@OrderDetail.PropertyProduct</td>
+                                                    <td>@OrderDetail.OptionProduct</td>
+                                                    <td>@OrderDetail.Total.ToString("N0")đ</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h3 style="color:red; text-align:center">Đơn hàng không hợp lệ</h3>
+                <h4 style="text-align:center;"><a href="/">Trở về trang chủ</a></h4>
+            }
+        </div>
     </div>
-    <p>
-
-        @Html.ActionLink("Back to List", "IndexSearchOrder")
-    </p>
-}
-else
-{
-<div style="padding: 200px 50px 100px">
-    <center>
-        <h2 style="color: #c19942;">Tìm Kiếm Đơn Hàng</h2>
-        <form action="@Url.Action("SearchOrder", "Order")">
-            <input class="form-control" type="text" name="OrderCode" placeholder="Nhập mã đơn hàng của bạn" style="width:50%;" />
-            <button class="btn btn-success">Tra cứu</button>
-        </form>
-    </center>
 </div>
-}
-
