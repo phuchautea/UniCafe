@@ -8,7 +8,6 @@
         @RenderBody()
     </body>
     </html>*@
-@model List<UniCafe.Models.Category>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,11 +76,7 @@
                                         <li class="mega-menu">
                                             <a href="/Collections/All">Sản Phẩm</a>
                                             <ul class="menu_child" id="menu_child_3_3">
-                                                @foreach (var cate in Model)
-                                                {
-                                                    
-                                                    <li class="lv2_title">
-                                                        <a href="/collections/@cate.Slug" title="@cate.Name">@cate.Name"</a>
+                                                
                                                         @*<ul class="menu_child_lv3">
                                                             <li class="lv3_title" main-menu-new-menu="" a_="">
                                                                 <a href="/collections/ca-phe-viet-nam" title="Cà Phê Đen Đá">
@@ -99,8 +94,7 @@
                                                                 </a>
                                                             </li>
                                                         </ul>*@
-                                                    </li>
-                                                }
+                                                 
                                                 <li class="lv2_title">
                                                     <a href="/collections/tra-trai-cay-tra-sua" title="Trà">Trà</a>
                                                     <ul class="menu_child_lv3">
