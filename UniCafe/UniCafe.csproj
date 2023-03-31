@@ -533,6 +533,7 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\KhuyenMai.cshtml" />
+    <Content Include="Views\Blog\Readmore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
