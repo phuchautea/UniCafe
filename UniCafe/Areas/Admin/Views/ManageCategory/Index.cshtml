@@ -1,31 +1,40 @@
 ﻿@model IEnumerable<UniCafe.Models.Category>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Category Manager";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 @functions{
     public string NorActive(string active = "1")
     {
-        return active == "1" ? "<span class='label label-success'>ON</span>" : "<span class='label label-danger'>OFF</span>";
+        return active == "1" ? "<span class='btn btn-success btn-xs'>ON</span>" : "<span class='btn btn-danger btn-xs'>OFF</span>";
+    }
+    public string ParentCategory(int parentId)
+    {
+        foreach(var item in Model)
+        {
+            if(item.Id == parentId)
+            {
+                return item.Name;
+            }
+        }
+        return "Danh mục cha";
     }
 }
-<h2>Manage Category</h2>
 @Html.Partial("ErrorsAlert")
-<p>
-    <a data-toggle="modal" data-target="#create_modal">Create</a>
-    <div class="modal fade" id="create_modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+<div class="modal fade" id="create_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "ManageCategory", FormMethod.Post))
+            {
                 <div class="modal-header">
-                    <h4 class="modal-title">
-                        <b><i class="fa fa-plus"></i> Thêm danh mục mới</b>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </h4>
+                    <h4 class="modal-title">Tạo danh mục mới</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("Create", "ManageCategory", FormMethod.Post))
-                    {
+                    <div class="card-body table-responsive p-0">
                         <div class="form-group">
                             <label>Tên</label>
                             <input type="text" class="form-control" name="name" id="name" onchange="getSlug();">
@@ -39,88 +48,81 @@
                             <textarea rows="5" class="form-control" name="description" id="description"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>ParentId</label>
-                            <input type="number" class="form-control" name="parentid" id="parentid">
+                            <label>Danh mục cha</label>
+                            <select class="form-control" name="parentid" id="parentid">
+                                <option value="0">Danh mục cha</option>
+                                @foreach(var item in Model) { 
+                                <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
                         </div>
-                        <div class="form-group form-check">
+                        <div class="form-group">
                             <label>Trạng thái</label>
-                            <input type="checkbox" class="form-check-input" name="status" id="status" value="1" checked>
+                            <input type="checkbox" name="status" id="status" value="1" checked>
                             <label class="form-check-label">ON</label>
                         </div>
-                        <button type="submit" class="btn btn-success">Thêm mới</button>
-                    }
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-list"></i> DANH SÁCH DANH MỤC <a data-toggle="modal" data-target="#create_modal"><i class="fa fa-plus-circle"></i></a>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-head-fixed text-nowrap" id="nTable">
+                        <thead>
+                            <tr>
+                                <th>Hành động</th>
+                                <th>Id</th>
+                                <th>Tên</th>
+                                <th>Slug</th>
+                                <th>Mô tả</th>
+                                <th>Danh mục cha</th>
+                                <th>Trạng thái</th>
+                                <th>CreatedAt</th>
+                                <th>UpdatedAt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "ManageCategory", new { id = item.Id })" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="del('@item.Id')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Slug)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                    <td>@ParentCategory(item.ParentId)</td>
+                                    <td>@Html.Raw(NorActive(item.Status))</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</p>
-<div class="table-responsive">
-    <table class="table table-condensed table-hover" id="nTable">
-        <thead>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Tên
-                </th>
-                <th>
-                    Slug
-                </th>
-                <th>
-                    Mô tả
-                </th>
-                <th>
-                    ParentID
-                </th>
-                <th>
-                    Trạng thái
-                </th>
-                <th>
-                    CreatedAt
-                </th>
-                <th>
-                    UpdatedAt
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Slug)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ParentId)
-                    </td>
-                    <td>
-                        @Html.Raw(NorActive(item.Status))
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedAt)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UpdatedAt)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit", "ManageCategory", new { id = item.Id })">Sửa</a>
-                        <a onclick="del(@item.Id)">Xóa</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 </div>
 
 <script type="text/javascript">
@@ -141,26 +143,11 @@
                 url: "@Url.Action("Delete", "ManageCategory")",
                 type: "POST",
                 data: { id: id },
-                success: function (response) {
-                    if (response.success) {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        alert(response.message);
-                    }
+                success: function (response) {if (response.success) {    alert(response.message);    location.reload();} else {    alert(response.message);}
                 },
-                error: function (xhr, status, error) {
-                    alert(error);
+                error: function (xhr, status, error) {alert(error);
                 }
             });
         }
     }
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#nTable').DataTable({
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[7, 'desc']],
-        });
-    });
 </script>

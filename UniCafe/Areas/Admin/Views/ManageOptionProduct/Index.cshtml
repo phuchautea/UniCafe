@@ -1,45 +1,39 @@
 ﻿@model IEnumerable<UniCafe.Models.OptionProduct>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Option Product Manager";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 @functions{
     public string NorActive(string active = "1")
     {
-        return active == "1" ? "<span class='label label-success'>ON</span>" : "<span class='label label-danger'>OFF</span>";
+        return active == "1" ? "<span class='btn btn-success btn-xs'>ON</span>" : "<span class='btn btn-danger btn-xs'>OFF</span>";
     }
 }
-<h2>Manage Option Product</h2>
 @Html.Partial("ErrorsAlert")
-<p>
-    <a data-toggle="modal" data-target="#create_modal">Create</a>
-    <div class="modal fade" id="create_modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+<div class="modal fade" id="create_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "ManageOptionProduct", FormMethod.Post))
+            {
                 <div class="modal-header">
-                    <h4 class="modal-title">
-                        <b><i class="fa fa-plus"></i> Thêm tùy chọn mới</b>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </h4>
+                    <h4 class="modal-title">Tạo tùy chọn sản phẩm mới</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("Create", "ManageOptionProduct", FormMethod.Post))
-                    {
+                    <div class="card-body table-responsive p-0">
                         <div class="form-group">
                             <label>Tên</label>
-                            <input type="text" class="form-control" name="name" id="name">
+                            <input type="text" class="form-control" name="name" id="name" onchange="getSlug();">
                         </div>
-                        @*<div class="form-group">
-                            <label>Slug</label>
-                            <input type="text" class="form-control" name="slug" id="slug">
-                        </div>*@
                         <div class="form-group">
                             <label>Giá</label>
-                            <input type="number" class="form-control" name="price" id="price" value="0">
+                            <input type="number" class="form-control" name="price" id="price" value="1000">
                         </div>
                         <div class="form-group">
-                            <label>Sản Phẩm</label>
+                            <label>Sản phẩm</label>
                             <select class="form-control" name="product_id" id="product_id">
                                 @foreach (var product in ViewBag.Product)
                                 {
@@ -47,87 +41,71 @@
                                 }
                             </select>
                         </div>
-                        <div class="form-group form-check">
+                        <div class="form-group">
                             <label>Trạng thái</label>
-                            <input type="checkbox" class="form-check-input" name="status" id="status" value="1" checked>
+                            <input type="checkbox" name="status" id="status" value="1" checked>
                             <label class="form-check-label">ON</label>
                         </div>
-                        <button type="submit" class="btn btn-success">Thêm mới</button>
-                    }
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-list"></i> DANH SÁCH TÙY CHỌN SẢN PHẨM <a data-toggle="modal" data-target="#create_modal"><i class="fa fa-plus-circle"></i></a>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-head-fixed text-nowrap" id="nTable">
+                        <thead>
+                            <tr>
+                                <th>Hành động</th>
+                                <th>Id</th>
+                                <th>Tên</th>
+                                <th>Giá</th>
+                                <th>Sản phẩm</th>
+                                <th>Trạng thái</th>
+                                <th>CreatedAt</th>
+                                <th>UpdatedAt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "ManageOptionProduct", new { id = item.Id })" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="del('@item.Id')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@item.Price.ToString("N0")đ</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+                                    <td>@Html.Raw(NorActive(item.Status))</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</p>
-<div class="table-responsive">
-    <table class="table table-condensed table-hover" id="nTable">
-        <thead>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Tên
-                </th>
-                @*<th>
-                    Slug
-                </th>*@
-                <th>
-                    Giá
-                </th>
-                <th>
-                    Trạng thái
-                </th>
-                <th>
-                    Sản Phẩm
-                </th>
-                <th>
-                    CreatedAt
-                </th>
-                <th>
-                    UpdatedAt
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.Slug)
-                    </td>*@
-                    <td>
-                        @item.Price.ToString("N0")đ
-                    </td>
-                    <td>
-                        @Html.Raw(NorActive(item.Status))
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Product.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedAt)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UpdatedAt)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit", "ManageOptionProduct", new { id = item.Id })">Sửa</a>
-                        <a onclick="del(@item.Id)">Xóa</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-
-    </table>
 </div>
 
 <script type="text/javascript">
@@ -162,12 +140,4 @@
             });
         }
     }
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#nTable').DataTable({
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[6, 'desc']], // order by theo cột
-        });
-    });
 </script>
