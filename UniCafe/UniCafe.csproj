@@ -2594,6 +2594,7 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\KhuyenMai.cshtml" />
+    <Content Include="Views\Blog\Readmore.cshtml" />
     <Content Include="Views\Shared\_Layout_Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>

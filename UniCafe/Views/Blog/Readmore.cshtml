@@ -1,0 +1,37 @@
+﻿@model  UniCafe.Models.Blog
+@{
+    ViewBag.Title = "Readmore";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<main>
+    <div class="main-part">
+
+        <section class="breadcrumb-nav">
+            <div class="container">
+                <div class="breadcrumb-nav-inner" style="text-align:center">
+                    <label class="now">BLOG</label>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <div class="breadcrumb-nav-inner" style="text-align:center">
+                <label class="now page-title" style="margin-top: 20px;font-size:20px">@Model.Title</label>
+                </div>
+                <section class="default-section blog-main-section blog-single">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="blog-right-listing">
+                            <div class="feature-img wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                                <img src="@Model.Image" alt="Image Blog"><div class="date-feature"><a href="">@Model.CreatedDate.ToString("dd") <br> <small>@Model.CreatedDate.ToString("MM")</small></a></div>
+                            </div>
+                            <div class="feature-info wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                                <span><i class="icon-user-1"></i>Đăng bởi: @Model.Author</span>
+                                <span><i class="icon-comment-5"></i></span><p>&nbsp;</p>
+                                <p>@Model.Content</p>
+                            </div><!-- #respond -->
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
