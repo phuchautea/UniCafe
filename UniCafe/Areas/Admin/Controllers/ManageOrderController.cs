@@ -15,7 +15,7 @@ namespace UniCafe.Areas.Admin.Controllers
         // GET: Admin/ManageOrder
         public ActionResult Index()
         {
-            var orders = GetAll().ToList();
+            var orders = GetAll().OrderByDescending(x => x.CreatedAt).ToList();
             return View(orders);
         }
         //--Create

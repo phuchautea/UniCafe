@@ -1,99 +1,84 @@
 ﻿@model IEnumerable<UniCafe.Models.Order>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Order Manager";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-
-<h2>Index</h2>
-<div class="table-responsive">
-    <table class="table table-condensed table-hover" id="nTable">
-        <thead>
-            <tr>
-                <th>
-                    Code
-                </th>
-                <th>
-                    Tên
-                </th>
-                <th>
-                    Số điện thoại
-                </th>
-                <th>
-                    Địa chỉ
-                </th>
-                <th>
-                    Phương thức thanh toán
-                </th>
-                <th>
-                    Ghi chú
-                </th>
-                <th>
-                    Trạng thái
-                </th>
-                <th>
-                    CreatedAt
-                </th>
-                <th>
-                    UpdatedAt
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Code)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PhoneNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Payment)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Note)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedAt)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UpdatedAt)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Detail", "ManageOrder", new { id = item.Id })">Chi tiết</a>
-                        <a href="@Url.Action("Edit", "ManageOrder", new { id = item.Id })">Sửa</a>
-                        <a onclick="del(@item.Id)">Xóa</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+@functions{
+    public string NorActive(string active = "1")
+    {
+        return active == "1" ? "<span class='btn btn-success btn-xs'>ON</span>" : "<span class='btn btn-danger btn-xs'>OFF</span>";
+    }
+    public string NorPaid(int paid = 0)
+    {
+        return paid == 0 ? "<span class='btn btn-danger btn-xs'>CHƯA THANH TOÁN</span>" : "<span class='btn btn-success btn-xs'>ĐÃ THANH TOÁN</span>";
+    }
+}
+@Html.Partial("ErrorsAlert")
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-list"></i> DANH SÁCH ĐƠN HÀNG
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="card-body table-responsive p-0" style="text-align: center">
+                    <table class="table table-head-fixed text-nowrap" id="nTable">
+                        <thead>
+                            <tr>
+                                <th>Hành động</th>
+                                <th>Mã đơn</th>
+                                <th>Tên</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Phương thức</th>
+                                <th>Thanh toán</th>
+                                <th>Ghi chú</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>CreatedAt</th>
+                                <th>UpdatedAt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Detail", "ManageOrder", new { id = item.Id })" class="btn btn-info btn-sm">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", "ManageOrder", new { id = item.Id })" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="del('@item.Id')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                    <td><img style="width:22px" src="/Content/images/payment/@(item.Payment).png"></td>
+                                    <td>@Html.Raw(NorPaid(item.Paid))</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Note)</td>
+                                    <td>@item.Total.ToString("N0")đ</td>
+                                    <td>@Html.Raw(NorActive(item.Status))</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
-    function removeDiacritics(str) {
-        str = str.replace(/Đ/g, "D");
-        str = str.replace(/đ/g, "d");
-        str = str.replace(/ /g, "-"); // replace space to "-"
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
-    function getSlug() {
-        var name = $('#name').val();
-        var result = removeDiacritics(name);
-        $('#slug').val(result.toLowerCase());
-    }
     function del(id) {
         if (confirm("Bạn chắc chắn muốn xóa?")) {
             $.ajax({
@@ -114,12 +99,4 @@
             });
         }
     }
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#nTable').DataTable({
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[8, 'desc']],
-        });
-    });
 </script>

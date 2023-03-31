@@ -1,68 +1,79 @@
 ﻿@model IEnumerable<UniCafe.Models.Role>
 @{
     ViewBag.Title = "Role Manager";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-
-<h2>Role Manager</h2>
 @Html.Partial("ErrorsAlert")
-<p>
-    <a data-toggle="modal" data-target="#create_modal">Create</a>
-    <div class="modal fade" id="create_modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+<div class="modal fade" id="create_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "ManageRole", FormMethod.Post))
+            {
                 <div class="modal-header">
-                    <h4 class="modal-title">
-                        <b><i class="fa fa-plus"></i> Thêm role mới</b>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </h4>
+                    <h4 class="modal-title">Tạo role mới</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("Create", "ManageRole", FormMethod.Post))
-                    {
+                    <div class="card-body table-responsive p-0">
                         <div class="form-group">
                             <label>Tên</label>
                             <input type="text" class="form-control" name="name" id="name">
                         </div>
-                        <button type="submit" class="btn btn-success">Thêm mới</button>
-                    }
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-list"></i> DANH SÁCH ROLE <a data-toggle="modal" data-target="#create_modal"><i class="fa fa-plus-circle"></i></a>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-head-fixed text-nowrap" id="nTable">
+                        <thead>
+                            <tr>
+                                <th>Hành động</th>
+                                <th>Id</th>
+                                <th>Tên</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="del('@item.Id')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</p>
-
-<div class="table-responsive">
-    <table class="table table-condensed table-hover" id="nTable">
-        <thead>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Tên
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        <a onclick="del('@item.Id')">Xóa</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 </div>
+
 <script type="text/javascript">
     function del(id) {
         if (confirm("Bạn chắc chắn muốn xóa?")) {
@@ -84,10 +95,4 @@
             });
         }
     }
-    $(document).ready(function () {
-        $('#nTable').DataTable({
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[1, 'desc']],
-        });
-    });
 </script>

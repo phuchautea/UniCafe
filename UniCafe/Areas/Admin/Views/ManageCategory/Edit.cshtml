@@ -1,67 +1,75 @@
 ﻿@model UniCafe.Models.Category
 
 @{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit Category";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-
-<h2>Edit</h2>
+@functions{
+    public string ParentCategory(int parentId)
+    {
+        foreach(var item in ViewBag.Categories)
+        {
+            if(item.Id == parentId)
+            {
+                return item.Name;
+            }
+        }
+        return "Danh mục cha";
+    }
+}
 @Html.Partial("ErrorsAlert")
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    <h4>Category</h4>
-    <hr />
-    @Html.HiddenFor(model => model.Id)
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Tên</label>
-        <div class="col-md-10">
-            <input class="form-control" id="name" name="name" type="text" value="@Html.DisplayFor(item => item.Name)" onchange="getSlug()">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Slug</label>
-        <div class="col-md-10">
-            <input class="form-control" id="slug" name="slug" type="text" value="@Html.DisplayFor(item => item.Slug)">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Mô tả</label>
-        <div class="col-md-10">
-            <textarea class="form-control" id="description" name="description" rows="3">@Html.DisplayFor(item => item.Description)</textarea>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Trạng thái</label>
-        <div class="col-md-10">
-            @if (Convert.ToInt32(Model.Status) == 1)
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-edit"></i> CHỈNH SỬA DANH MỤC: @Model.Name
+                </h3>
+            </div>
+            @using (Html.BeginForm())
             {
-                <input type="checkbox" class="form-check-input" name="status" id="status" value="1" checked>
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input class="form-control" id="name" name="name" type="text" value="@Html.DisplayFor(item => item.Name)" onchange="getSlug()">
+                    </div>
+                    <div class="form-group">
+                        <label>Slug</label>
+                        <input class="form-control" id="slug" name="slug" type="text" value="@Html.DisplayFor(item => item.Slug)">
+                    </div>
+                    <div class="form-group">
+                        <label>Mô tả</label>
+                        <textarea class="form-control" id="description" name="description" rows="3">@Html.DisplayFor(item => item.Description)</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Danh mục cha</label>
+                        <select class="form-control" id="parent_id" name="parent_id">
+                            <option value="@Html.DisplayFor(item => item.ParentId)">@ParentCategory(Model.ParentId)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        @if (Convert.ToInt32(Model.Status) == 1)
+                        {
+                            <input type="checkbox" name="status" id="status" value="1" checked>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="status" id="status" value="1">
+                        }
+                        <label class="form-check-label">ON</label>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
             }
-            else
-            {
-                <input type="checkbox" class="form-check-input" name="status" id="status" value="1">
-            }
-            <label class="form-check-label">ON</label>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
 </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 <script type="text/javascript">
     function removeDiacritics(str) {
         str = str.replace(/Đ/g, "D");

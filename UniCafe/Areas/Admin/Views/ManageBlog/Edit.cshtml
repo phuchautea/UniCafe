@@ -1,70 +1,56 @@
 ﻿@model UniCafe.Models.Blog
+
 @{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit Blog";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-
-<h2>Edit</h2>
 @Html.Partial("ErrorsAlert")
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>Blog</h4>
-    <hr />
-    @Html.HiddenFor(model => model.Id)
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Tiêu đề</label>
-        <div class="col-md-10">
-            <input class="form-control" id="Title" name="Title" type="text" value="@Html.DisplayFor(item => item.Title)">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Nội dung</label>
-        <div class="col-md-10">
-            <textarea class="form-control" id="Content" name="Content" rows="3">@Html.DisplayFor(item => item.Content)</textarea>
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Hiện hành</label>
-        <div class="col-md-10">
-            @if (Convert.ToInt32(Model.Published)== 1)
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-edit"></i> CHỈNH SỬA BÀI VIẾT: (@Model.Title)
+                </h3>
+            </div>
+            @using (Html.BeginForm())
             {
-                <input type="checkbox" class="form-check-input" name="Published" id="Published" value="true" checked>
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Tiêu đề</label>
+                        <input class="form-control" id="Title" name="Title" type="text" value="@Html.DisplayFor(item => item.Title)">
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung</label>
+                        <textarea class="form-control" id="Content" name="Content" rows="3">@Html.DisplayFor(item => item.Content)</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Người đăng</label>
+                        <input class="form-control" id="Author" name="Author" type="text" value="@Html.DisplayFor(item => item.Author)">
+                    </div>
+                    <div class="form-group">
+                        <label>Hình ảnh</label>
+                        <input class="form-control" id="Image" name="Image" type="text" value="@Html.DisplayFor(item => item.Image)">
+                    </div>
+                    <div class="form-group">
+                        <label>Hiện hành</label>
+                        @if (Convert.ToInt32(Model.Published)== 1)
+                        {
+                            <input type="checkbox" name="Published" id="Published" value="true" checked>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="Published" id="Published" value="true">
+                        }
+                        <label class="form-check-label">ON</label>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
             }
-            else
-            {
-                <input type="checkbox" class="form-check-input" name="Published" id="Published" value="true">
-            }
-            <label class="form-check-label">ON</label>
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Người đăng</label>
-        <div class="col-md-10">
-            <input class="form-control" id="Author" name="Author" type="text" value="@Html.DisplayFor(item => item.Author)">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Hình ảnh</label>
-        <div class="col-md-10">
-            <input class="form-control" id="Image" name="Image" type="text" value="@Html.DisplayFor(item => item.Image)">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>

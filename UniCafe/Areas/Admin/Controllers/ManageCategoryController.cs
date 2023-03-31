@@ -69,6 +69,7 @@ namespace UniCafe.Areas.Admin.Controllers
                 return RedirectToAction("Index", "ManageCategory");
             }
             Category category = GetById(Id.Value);
+            ViewBag.Categories = GetAll().ToList();
             return View(category);
         }
         [HttpPost]

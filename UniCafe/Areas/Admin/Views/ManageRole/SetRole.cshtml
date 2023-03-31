@@ -1,28 +1,26 @@
 ﻿@model IEnumerable<UniCafe.Models.AspNetUserRoles>
 @{
     ViewBag.Title = "Set Role Manage";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 @{
     List<UniCafe.Data.ApplicationUser> users = ViewBag.Users;
     List<Microsoft.AspNet.Identity.EntityFramework.IdentityRole> roles = ViewBag.Roles;
 }
-<h2>Set Role Manage</h2>
 @Html.Partial("ErrorsAlert")
-<p>
-    <a data-toggle="modal" data-target="#create_modal">Create</a>
-    <div class="modal fade" id="create_modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+<div class="modal fade" id="create_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("SetRole", "ManageRole", FormMethod.Post))
+            {
                 <div class="modal-header">
-                    <h4 class="modal-title">
-                        <b><i class="fa fa-plus"></i> Set role cho user</b>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </h4>
+                    <h4 class="modal-title">Tạo role mới</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("SetRole", "ManageRole", FormMethod.Post))
-                    {
+                    <div class="card-body table-responsive p-0">
                         <div class="form-group">
                             <label>User</label>
                             <select class="form-control" name="UserId" id="UserId">
@@ -41,46 +39,57 @@
                                 }
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-success">Thêm mới</button>
-                    }
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-list"></i> DANH SÁCH SET ROLE <a data-toggle="modal" data-target="#create_modal"><i class="fa fa-plus-circle"></i></a>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-head-fixed text-nowrap" id="nTable">
+                        <thead>
+                            <tr>
+                                <th>Hành động</th>
+                                <th>User</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="del('@item.UserId', '@item.RoleId')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @users.Find(x => x.Id == item.UserId).UserName
+                                    </td>
+                                    <td>
+                                        @roles.Find(x => x.Id == item.RoleId).Name
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</p>
-
-<div class="table-responsive">
-    <table class="table table-condensed table-hover" id="nTable">
-        <thead>
-            <tr>
-                <th>
-                    User
-                </th>
-                <th>
-                    Role
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @users.Find(x => x.Id == item.UserId).UserName
-                        @*@Html.DisplayFor(modelItem => item.UserId)*@
-                    </td>
-                    <td>
-                        @roles.Find(x => x.Id == item.RoleId).Name
-                        @*@Html.DisplayFor(modelItem => item.RoleId)*@
-                    </td>
-                    <td>
-                        <a onclick="del('@item.UserId', '@item.RoleId')">Xóa</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 </div>
 <script type="text/javascript">
     function del(UserId, RoleId) {
