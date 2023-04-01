@@ -1,40 +1,165 @@
 ﻿@{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+<section>
+        <div class="form-box">
+            <div class="form-value">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <h2>ĐĂNG NHẬP</h2>
+                        @Html.Partial("ErrorsAlert")
+                        <div class="inputbox form-group">
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <input type="text" required placeholder="Tên đăng nhập" name="UserName" id="UserName">
+                        </div>
+                        <div class="inputbox form-group">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <input type="password" required placeholder="Mật khẩu" name="PassWord" id="PassWord">
+                        </div>
+                        <div class="forget">
+                            <label for="">
+                                <input type="checkbox" style="color:white">Ghi Nhớ
+                            </label>
+                        </div>
+                        <button class="form-group" style="color:white" type="submit" value="Login">Đăng Nhập</button>
+                    </div>
+                }
+                <div class="forget">
+                    <label for="">
+                        <a href="#" style="text-align:center"><br />Quên Mật Khẩu ?</a>
+                    </label>
+                </div>
+                <div class="register">
+                    <p>Bạn chưa có tài khoản? <a href="@Url.Action("Register", "Account")">Đăng ký ngay</a></p>
+                </div>
+            </div>
+        </div>
+</section>
+<style>
+* {
+    margin: 0;
+    padding: 0;
 }
 
-<h2>Login</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Login</h4>
-        <hr />
-        @Html.Partial("ErrorsAlert")
-        <div class="form-group">
-            <label class="control-label col-md-2"><b>Tên đăng nhập</b></label>
-            <div class="col-md-10">
-                <input class="form-control" type="text" name="UserName" id="UserName" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2"><b>Mật khẩu</b></label>
-            <div class="col-md-10">
-                <input class="form-control" type="password" name="PassWord" id="PassWord" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.6;
 }
 
-<div>
-    <a href="@Url.Action("Register", "Account")">Tạo tài khoản mới</a>
-</div>
+.form-box {
+    position: relative;
+    width: 420px;
+    height: 580px;
+    border: 2px solid #000;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    font-size: 2em;
+    color: #000;
+    text-align: center;
+}
+
+.inputbox {
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #000;
+}
+
+.inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #000;
+    font-size: 1em;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.inputbox input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color: #000;
+}
+
+.inputbox ion-icon {
+    position: absolute;
+    right: 8px;
+    color: #000;
+    font-size: 1.2em;
+    top: 20px;
+}
+
+.forget {
+    margin: -15px 0 15px;
+    font-size: .9em;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+}
+
+.forget label input {
+    margin-right: 3px;
+
+}
+
+.forget label a {
+    color: #000;
+    text-decoration: none;
+}
+
+.forget label a:hover {
+    text-decoration: underline;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #000;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.register {
+    font-size: .9em;
+    color: #000;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.register p a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+}
+
+.register p a:hover {
+    text-decoration: underline;
+}
+</style>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
