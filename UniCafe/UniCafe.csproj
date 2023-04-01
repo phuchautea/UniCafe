@@ -2248,6 +2248,7 @@
     <Content Include="Content\Layout\User\images\arrow-right.png" />
     <Content Include="Content\Layout\User\images\arrow-top.png" />
     <Content Include="Content\Layout\User\images\bac-xiu.jpg" />
+    <Content Include="Content\Layout\User\images\background.jpg" />
     <Content Include="Content\Layout\User\images\banner1.jpg" />
     <Content Include="Content\Layout\User\images\banner2.jpg" />
     <Content Include="Content\Layout\User\images\bewerages.png" />
