@@ -1,0 +1,35 @@
+﻿<div class="cart animated">
+    <span class="icon-basket fontello"></span>
+    <span>@Model.Quantity items - $@Model.TotalPrice</span>
+    <div class="cart-wrap">
+        <div class="cart-blog">
+            @foreach (var item in Model.Items)
+            {
+                <div class="cart-item">
+                    <div class="cart-item-left">
+                        <img src="@item.ImageUrl" alt="@item.Name">
+                    </div>
+                    <div class="cart-item-right">
+                        <h6>@item.Name</h6>
+                        <span>@item.Price</span>
+                    </div>
+                    <a href="javascript:void(0);" class="delete-icon" onclick="RemoveCartItem('@item.Id')">x</a>
+                </div>
+            }
+            <div class="subtotal">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <h6>Subtotal :</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <span>$@Model.TotalPrice</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-btn">
+                <a href="@Url.Action("Cart", "ShoppingCart")" class="button-default view">VIEW ALL</a>
+                <a href="@Url.Action("Checkout", "ShoppingCart")" class="button-default checkout">CHECK OUT</a>
+            </div>
+        </div>
+    </div>
+</div>

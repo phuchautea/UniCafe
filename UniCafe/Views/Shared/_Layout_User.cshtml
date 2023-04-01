@@ -8,6 +8,7 @@
         @RenderBody()
     </body>
     </html>*@
+@using UniCafe.Helpers
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,65 +77,25 @@
                                         <li class="mega-menu">
                                             <a href="/Collections/All">Sản Phẩm</a>
                                             <ul class="menu_child" id="menu_child_3_3">
-                                                
-                                                        @*<ul class="menu_child_lv3">
-                                                            <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                                <a href="/collections/ca-phe-viet-nam" title="Cà Phê Đen Đá">
-                                                                    Cà Phê Đen Đá
-                                                                </a>
-                                                            </li>
-                                                            <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                                <a href="/collections/ca-phe-may" title="Cà Phê Sữa Đá">
-                                                                    Cà Phê Sữa Đá
-                                                                </a>
-                                                            </li>
-                                                            <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                                <a href="/collections/cold-brew" title="Bạc Xỉu">
-                                                                    Bạc Xỉu
-                                                                </a>
-                                                            </li>
-                                                        </ul>*@
-                                                 
-                                                <li class="lv2_title">
-                                                    <a href="/collections/tra-trai-cay-tra-sua" title="Trà">Trà</a>
-                                                    <ul class="menu_child_lv3">
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/tra-trai-cay" title="Trà Long Nhãn Hạt Sen">
-                                                                Trà Long Nhãn Hạt Sen
-                                                            </a>
-                                                        </li>
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/tra-trai-cay" title="Trà Đào Cam Sả">
-                                                                Trà Đào Cam Sả
-                                                            </a>
-                                                        </li>
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/tra-sua-macchiato" title="Trà Hạt Sen">
-                                                                Trà Hạt Sen
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="lv2_title">
-                                                    <a href="/collections/tra-trai-cay-tra-sua" title="Trà">Trà Sữa</a>
-                                                    <ul class="menu_child_lv3">
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/tra-trai-cay" title="Hồng Trà Sữa Trân Châu">
-                                                                Hồng Trà Sữa Trân Châu
-                                                            </a>
-                                                        </li>
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/tra-sua-macchiato" title="Trà sữa Macchiato">
-                                                                Trà sữa Macchiato
-                                                            </a>
-                                                        </li>
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/tra-sua-macchiato" title="Trà sữa Olong">
-                                                                Trà sữa Olong
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
+                                                @Html.Menu()
+
+                                                @*<ul class="menu_child_lv3">
+                                                    <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                        <a href="/collections/ca-phe-viet-nam" title="Cà Phê Đen Đá">
+                                                            Cà Phê Đen Đá
+                                                        </a>
+                                                    </li>
+                                                    <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                        <a href="/collections/ca-phe-may" title="Cà Phê Sữa Đá">
+                                                            Cà Phê Sữa Đá
+                                                        </a>
+                                                    </li>
+                                                    <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                        <a href="/collections/cold-brew" title="Bạc Xỉu">
+                                                            Bạc Xỉu
+                                                        </a>
+                                                    </li>
+                                                </ul>*@
                                             </ul>
                                         </li>
                                         <li class="has-child">

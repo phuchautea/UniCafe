@@ -217,6 +217,7 @@
     </Compile>
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\ApplicationUser.cs" />
+    <Compile Include="Helpers\MenuHelper.cs" />
     <Compile Include="Migrations\202303030337250_InitCreate.cs" />
     <Compile Include="Migrations\202303030337250_InitCreate.designer.cs">
       <DependentUpon>202303030337250_InitCreate.cs</DependentUpon>
@@ -2596,8 +2597,10 @@
     <Content Include="Views\Home\KhuyenMai.cshtml" />
     <Content Include="Views\Blog\Readmore.cshtml" />
     <Content Include="Views\Shared\_Layout_Admin.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
