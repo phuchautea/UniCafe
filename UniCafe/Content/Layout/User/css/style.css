@@ -1325,10 +1325,10 @@ textarea {
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
     -o-border-radius: 30px;
-    border-radius: 30px;
+    border-radius: 100%;
     border: 1px solid rgba(255, 255, 255, 0.20);
-    padding: 10px 30px;
-    margin-left: 30px;
+    padding: 10px;
+    margin-left: 5px;
     margin-top: -12px;
     font-size: 16px;
     font-weight: 700;
@@ -1347,7 +1347,7 @@ textarea {
 .cart-wrap {
     position: absolute;
     top: 100%;
-    right: 0px;
+    right: -35px;
     width: auto;
     padding-top: 25px;
     z-index: 99999;
@@ -5264,4 +5264,14 @@ button.remove {
     button.remove:hover {
         color: #fff !important;
         background: red
+    }
+#button_login {
+    width: 100%;
+    line-height: 40px;
+    background-color: white;
+    border: 2px solid #f4f2ed;
+}
+    #button_login:hover {
+        background-color: #c19942;
+        color:white;
     }
