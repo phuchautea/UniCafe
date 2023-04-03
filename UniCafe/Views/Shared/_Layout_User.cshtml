@@ -125,9 +125,32 @@
                                 </div>
                                 <div class="cell-part">
                                         <a href="tel:0877220202"><span class="fa fa-phone"></span> 08 7722 0202</a>
-                                    </div>
+                                </div>
                                 <div class="cart animated">
-                                    <span class="icon-basket fontello"><ion-icon name="cart-outline"></ion-icon></span>
+                                    <span class="icon-basket fontello"><ion-icon name="person"></ion-icon></span>
+                                    <div class="cart-wrap">
+                                        <div class="cart-blog">
+                                            @using (Html.BeginForm())
+                                            {
+                                                <h5 style="text-align: center; color: #252a2b;">ĐĂNG NHẬP TÀI KHOẢN</h5>
+                                                <p style="text-align: center;">Nhập tên đăng nhập và mật khẩu</p>
+                                                @Html.Partial("ErrorsAlert")
+                                                <div class="inputbox form-group">
+                                                    <input type="text" required placeholder="Tên đăng nhập" name="UserName" id="UserName" style="border-radius:10px !important;">
+                                                </div>
+                                                <div class="inputbox form-group">
+                                                    <input type="password" required placeholder="Mật khẩu" name="PassWord" id="PassWord" style="border-radius:10px !important;">
+                                                </div>
+                                                <button id="button_login" class="form-group" type="submit" value="Login">Đăng Nhập</button>
+                                                <div class="register">
+                                                    <p>Bạn chưa có tài khoản? <a href="@Url.Action("Register", "Account")">Đăng ký ngay</a></p>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cart animated">
+                                    <span class="icon-basket fontello"><ion-icon name="cart"></ion-icon></span>
                                     <div class="cart-wrap">
                                         <div class="cart-blog">
                                             <div class="cart-item">
@@ -177,10 +200,6 @@
                                         <span class="bar-3"></span>
                                     </a>
                                 </div>
-                                @*<div class="">
-                                        <a href="@Url.Action("Login","Account")"><span>Đăng Nhập</span></a> |
-                                        <a href="@Url.Action("Register","Account")"><span>Đăng Ký</span></a>
-                                    </div>*@
                             </div>
                         </div>
                     </div>
