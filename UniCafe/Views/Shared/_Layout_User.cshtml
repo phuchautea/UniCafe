@@ -80,22 +80,22 @@
                                                 @Html.Menu()
 
                                                 @*<ul class="menu_child_lv3">
-                                                    <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                        <a href="/collections/ca-phe-viet-nam" title="Cà Phê Đen Đá">
-                                                            Cà Phê Đen Đá
-                                                        </a>
-                                                    </li>
-                                                    <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                        <a href="/collections/ca-phe-may" title="Cà Phê Sữa Đá">
-                                                            Cà Phê Sữa Đá
-                                                        </a>
-                                                    </li>
-                                                    <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                        <a href="/collections/cold-brew" title="Bạc Xỉu">
-                                                            Bạc Xỉu
-                                                        </a>
-                                                    </li>
-                                                </ul>*@
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/ca-phe-viet-nam" title="Cà Phê Đen Đá">
+                                                                Cà Phê Đen Đá
+                                                            </a>
+                                                        </li>
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/ca-phe-may" title="Cà Phê Sữa Đá">
+                                                                Cà Phê Sữa Đá
+                                                            </a>
+                                                        </li>
+                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
+                                                            <a href="/collections/cold-brew" title="Bạc Xỉu">
+                                                                Bạc Xỉu
+                                                            </a>
+                                                        </li>
+                                                    </ul>*@
                                             </ul>
                                         </li>
                                         <li class="has-child">
@@ -124,10 +124,10 @@
                                     </ul>
                                 </div>
                                 <div class="cell-part">
-                                    <a href="tel:0877220202"><span class="fa fa-phone"></span> 08 7722 0202</a>
-                                </div>
+                                        <a href="tel:0877220202"><span class="fa fa-phone"></span> 08 7722 0202</a>
+                                    </div>
                                 <div class="cart animated">
-                                    <span class="icon-basket fontello"></span><span>2 items - $ 10.89</span>
+                                    <span class="icon-basket fontello"><ion-icon name="cart-outline"></ion-icon></span>
                                     <div class="cart-wrap">
                                         <div class="cart-blog">
                                             <div class="cart-item">
@@ -177,6 +177,10 @@
                                         <span class="bar-3"></span>
                                     </a>
                                 </div>
+                                @*<div class="">
+                                        <a href="@Url.Action("Login","Account")"><span>Đăng Nhập</span></a> |
+                                        <a href="@Url.Action("Register","Account")"><span>Đăng Ký</span></a>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -267,6 +271,8 @@
     <script src="~/Content/Layout/User/js/progress-circle/waterbubble.min.js"></script>
     <script src="~/Content/Layout/User/js/app.js"></script>
     <script src="~/Content/Layout/User/js/script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
