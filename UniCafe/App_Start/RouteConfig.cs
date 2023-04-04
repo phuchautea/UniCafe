@@ -25,6 +25,11 @@ namespace UniCafe
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "AllController",
+                url: "{controller}/",
+                defaults: new { action = "Index" }
+            );
         }
     }
 }
