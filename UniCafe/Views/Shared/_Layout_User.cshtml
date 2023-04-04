@@ -8,6 +8,7 @@
         @RenderBody()
     </body>
     </html>*@
+@using Microsoft.AspNet.Identity
 @using UniCafe.Helpers
 <!DOCTYPE html>
 <html lang="en">
@@ -80,22 +81,22 @@
                                                 @Html.Menu()
 
                                                 @*<ul class="menu_child_lv3">
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/ca-phe-viet-nam" title="Cà Phê Đen Đá">
-                                                                Cà Phê Đen Đá
-                                                            </a>
-                                                        </li>
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/ca-phe-may" title="Cà Phê Sữa Đá">
-                                                                Cà Phê Sữa Đá
-                                                            </a>
-                                                        </li>
-                                                        <li class="lv3_title" main-menu-new-menu="" a_="">
-                                                            <a href="/collections/cold-brew" title="Bạc Xỉu">
-                                                                Bạc Xỉu
-                                                            </a>
-                                                        </li>
-                                                    </ul>*@
+                            <li class="lv3_title" main-menu-new-menu="" a_="">
+                                <a href="/collections/ca-phe-viet-nam" title="Cà Phê Đen Đá">
+                                    Cà Phê Đen Đá
+                                </a>
+                            </li>
+                            <li class="lv3_title" main-menu-new-menu="" a_="">
+                                <a href="/collections/ca-phe-may" title="Cà Phê Sữa Đá">
+                                    Cà Phê Sữa Đá
+                                </a>
+                            </li>
+                            <li class="lv3_title" main-menu-new-menu="" a_="">
+                                <a href="/collections/cold-brew" title="Bạc Xỉu">
+                                    Bạc Xỉu
+                                </a>
+                            </li>
+                        </ul>*@
                                             </ul>
                                         </li>
                                         <li class="has-child">
@@ -124,8 +125,34 @@
                                     </ul>
                                 </div>
                                 <div class="cell-part">
-                                        <a href="tel:0877220202"><span class="fa fa-phone"></span> 08 7722 0202</a>
+                                    <a href="tel:0877220202"><span class="fa fa-phone"></span> 08 7722 0202</a>
+                                </div>
+                                <div class="cart animated">
+                                    <span class="icon-basket fontello"><ion-icon name="person-outline"></ion-icon></span>
+                                    <div class="cart-wrap">
+                                        <div class="cart-blog">
+                                            <div class="cart-btn">
+                                                @if (@User.Identity.IsAuthenticated)
+                                                {
+                                                    <span>Xin chào, @User.Identity.GetUserName()</span>
+                                                    if (User.IsInRole("Admin"))
+                                                    {
+                                                        <a href="/Admin/ManageUser" class="button-default checkout">Quản lý admin</a>
+                                                    }
+                                                    <a href="@Url.Action("Logout","Account")" class="button-default checkout">Đăng xuất</a>
+
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("Login","Account")" class="button-default view">Đăng nhập</a>
+                                                    <a href="@Url.Action("Register","Account")" class="button-default checkout">Đăng ký</a>
+
+                                                }
+
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
                                 <div class="cart animated">
                                     <span class="icon-basket fontello"><ion-icon name="cart-outline"></ion-icon></span>
                                     <div class="cart-wrap">
@@ -178,9 +205,9 @@
                                     </a>
                                 </div>
                                 @*<div class="">
-                                        <a href="@Url.Action("Login","Account")"><span>Đăng Nhập</span></a> |
-                                        <a href="@Url.Action("Register","Account")"><span>Đăng Ký</span></a>
-                                    </div>*@
+            <a href="@Url.Action("Login","Account")"><span>Đăng Nhập</span></a> |
+            <a href="@Url.Action("Register","Account")"><span>Đăng Ký</span></a>
+        </div>*@
                             </div>
                         </div>
                     </div>
