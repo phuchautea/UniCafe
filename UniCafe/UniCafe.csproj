@@ -197,6 +197,7 @@
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CollectionController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -270,6 +271,10 @@
     <Compile Include="Migrations\202303302050054_updateImageBlog.designer.cs">
       <DependentUpon>202303302050054_updateImageBlog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304050247087_addUserIdToOrderTable.cs" />
+    <Compile Include="Migrations\202304050247087_addUserIdToOrderTable.designer.cs">
+      <DependentUpon>202304050247087_addUserIdToOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -296,6 +301,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\payment\cash.png" />
+    <Content Include="Content\images\payment\credit.png" />
+    <Content Include="Content\images\payment\momo.png" />
+    <Content Include="Content\images\payment\vnpay.png" />
     <Content Include="Content\Layout\Admin\dist\css\adminlte.css" />
     <Content Include="Content\Layout\Admin\dist\css\adminlte.min.css" />
     <Content Include="Content\Layout\Admin\dist\css\alt\adminlte.components.css" />
@@ -2609,6 +2618,7 @@
     <Folder Include="Views\Authenticate\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ControllerBase\" />
+    <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -2652,6 +2662,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303302050054_updateImageBlog.resx">
       <DependentUpon>202303302050054_updateImageBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304050247087_addUserIdToOrderTable.resx">
+      <DependentUpon>202304050247087_addUserIdToOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

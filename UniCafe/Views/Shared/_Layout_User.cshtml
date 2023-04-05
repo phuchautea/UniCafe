@@ -8,6 +8,7 @@
         @RenderBody()
     </body>
     </html>*@
+@using Microsoft.AspNet.Identity
 @using UniCafe.Helpers
 <!DOCTYPE html>
 <html lang="en">
@@ -49,13 +50,13 @@
 <body>
 
     <!-- Page pre loader -->
-    <div id="pre-loader">
-        <div class="loader-holder">
-            <div class="frame">
-                <img src="~/Content/Layout/User/images/logo-cafe.gif" alt="UniCafe" />
+    @*<div id="pre-loader">
+            <div class="loader-holder">
+                <div class="frame">
+                    <img src="~/Content/Layout/User/images/logo-cafe.gif" alt="UniCafe" />
+                </div>
             </div>
-        </div>
-    </div>
+        </div>*@
 
     <!-- Start Wrapper Part -->
     <div class="wrapper">
@@ -125,32 +126,9 @@
                                 </div>
                                 <div class="cell-part">
                                         <a href="tel:0877220202"><span class="fa fa-phone"></span> 08 7722 0202</a>
-                                </div>
-                                <div class="cart animated">
-                                    <span class="icon-basket fontello"><ion-icon name="person"></ion-icon></span>
-                                    <div class="cart-wrap">
-                                        <div class="cart-blog">
-                                            @using (Html.BeginForm())
-                                            {
-                                                <h5 style="text-align: center; color: #252a2b;">ĐĂNG NHẬP TÀI KHOẢN</h5>
-                                                <p style="text-align: center;">Nhập tên đăng nhập và mật khẩu</p>
-                                                @Html.Partial("ErrorsAlert")
-                                                <div class="inputbox form-group">
-                                                    <input type="text" required placeholder="Tên đăng nhập" name="UserName" id="UserName" style="border-radius:10px !important;">
-                                                </div>
-                                                <div class="inputbox form-group">
-                                                    <input type="password" required placeholder="Mật khẩu" name="PassWord" id="PassWord" style="border-radius:10px !important;">
-                                                </div>
-                                                <button id="button_login" class="form-group" type="submit" value="Login">Đăng Nhập</button>
-                                                <div class="register">
-                                                    <p>Bạn chưa có tài khoản? <a href="@Url.Action("Register", "Account")">Đăng ký ngay</a></p>
-                                                </div>
-                                            }
-                                        </div>
                                     </div>
-                                </div>
                                 <div class="cart animated">
-                                    <span class="icon-basket fontello"><ion-icon name="cart"></ion-icon></span>
+                                    <span class="icon-basket fontello"><ion-icon name="cart-outline"></ion-icon></span>
                                     <div class="cart-wrap">
                                         <div class="cart-blog">
                                             <div class="cart-item">
@@ -292,6 +270,18 @@
     <script src="~/Content/Layout/User/js/script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript">
+    function getTotalCart() {
+        $.ajax({
+            type: 'GET',
+            url: "@Url.Action("GetTotal", "Cart")",
+            success: function (result) {
+                $("#totalCart").html(result.total);
+            }
+        });
+    }
+    getTotalCart();
+    </script>
 </body>
 
 </html>

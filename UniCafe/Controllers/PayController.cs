@@ -19,9 +19,11 @@ namespace UniCafe.Controllers
     public class PayController : BaseController<Payment>
     {
         private readonly IRepository<Order> _orderRepository;
+        private readonly CartManager _cartManager;
         public PayController()
         {
             _orderRepository = new Repository<Order>(Context);
+            _cartManager = new CartManager();
         }
         public ActionResult ErrorPayment()
         {
@@ -35,8 +37,9 @@ namespace UniCafe.Controllers
                 // Lỗi không tìm thấy order
                 return RedirectToAction("CheckOut", "Order");
             }
-            var orderCode = Session["orderCode"].ToString();
-            var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
+            //var orderCode = Session["orderCode"].ToString();
+            //var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
+            var order = Session["order"] as Order;
             if(order == null)
             {
                 // Lỗi không tìm thấy order
@@ -49,7 +52,7 @@ namespace UniCafe.Controllers
             string redirectUrl = System.Configuration.ConfigurationManager.AppSettings["redirectUrl_Momo"];
             string ipnUrl = System.Configuration.ConfigurationManager.AppSettings["ipnUrl_Momo"];
             string requestType = "captureWallet";
-            string orderInfo = "Thanh toan UniCafe #" + orderCode + "";
+            string orderInfo = "Thanh toan UniCafe #" + order.Code + "";
             string amount = string.Join("", order.Total.ToString("N0").Where(char.IsDigit)); // Xóa dấu phẩy
             string orderId = Guid.NewGuid().ToString();
             string requestId = Guid.NewGuid().ToString();
@@ -98,19 +101,44 @@ namespace UniCafe.Controllers
             //errorCode = 0 : thanh toán thành công (Request.QueryString["errorCode"])
             if (result.resultCode == 0)
             {
-                if (!String.IsNullOrEmpty(Session["orderCode"].ToString()))
+                Order order = Session["order"] as Order;
+                if (order != null)
                 {
-                    // Cập nhật lại status paid
-                    string orderCode = Session["orderCode"].ToString();
-                    var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
-                    if (order != null)
+                    var cart = _cartManager.GetCartItems();
+                    decimal totalOrder = 0;
+                    foreach (var item in cart)
                     {
-                        order.Paid = 1;
+                        var itemTotal = item.Price;
+                        itemTotal += item.PropertyProduct.Price;
+                        string propertyProduct = "" + item.PropertyProduct.Name + " - " + item.PropertyProduct.Price.ToString("N0") + "đ";
+                        string optionProduct = "";
+                        foreach (var option in item.Options)
+                        {
+                            itemTotal += option.Price;
+                            optionProduct += "" + option.Name + " - " + option.Price.ToString("N0") + "đ\n";
+                        }
+                        OrderDetail orderDetail = new OrderDetail();
+                        orderDetail.Order = order;
+                        orderDetail.ProductId = item.ProductId;
+                        orderDetail.ProductName = item.ProductName;
+                        orderDetail.Price = item.Price;
+                        orderDetail.Total = itemTotal;
+                        orderDetail.Quantity = item.Quantity;
+                        orderDetail.PropertyProduct = propertyProduct;
+                        orderDetail.OptionProduct = optionProduct;
+                        totalOrder += itemTotal;
+                        Context.OrderDetails.Add(orderDetail);
                         Context.SaveChanges();
                     }
+                    //Cập nhật tổng số tiền
+                    order.Total = totalOrder;
+                    _orderRepository.Update(order);
+                    _cartManager.ClearCart();
+                    // Cập nhật lại status paid
+                    order.Paid = 1;
+                    Context.SaveChanges();
                     // Xóa OrderCode
                     Session["orderCode"] = null;
-                    Session["payment"] = null;
                 }
                 return RedirectToAction("CompleteOrder", "Order");
             }

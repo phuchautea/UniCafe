@@ -61,16 +61,15 @@ namespace UniCafe.Controllers
                 var product = Context.Products.FirstOrDefault(x => x.Slug == Slug);
                 if(product == null || Slug == null)
                 {
-                    return RedirectToAction("Index", "Product");
+                    return Redirect("/Collections/All");
                 }
                 //ViewBag.ProductRelative = Context.Products.Where(x => x.Category.Id == product.Category.Id).ToList();
                 return View(product);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return RedirectToAction("Index", "Product");
+                return Redirect("/Collections/All");
             }
-            return RedirectToAction("Index", "Product");
         }
     }
 }

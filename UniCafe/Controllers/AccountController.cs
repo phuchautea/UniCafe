@@ -88,6 +88,10 @@ namespace UniCafe.Data
         }
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         [HttpPost]
@@ -104,6 +108,7 @@ namespace UniCafe.Data
                 if (user != null)
                 {
                     var authenticationManager = HttpContext.GetOwinContext().Authentication;
+
                     var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
 
                     authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);

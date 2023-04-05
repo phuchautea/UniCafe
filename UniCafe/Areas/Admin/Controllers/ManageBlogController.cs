@@ -8,6 +8,7 @@ using UniCafe.Models;
 
 namespace UniCafe.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ManageBlogController : BaseController<Blog>
     {
         // GET: Admin/ManageBlog

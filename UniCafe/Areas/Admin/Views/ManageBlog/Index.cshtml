@@ -44,7 +44,15 @@
                         </div>
                         <div class="form-group">
                             <label>Hình ảnh</label>
-                            <input type="text" class="form-control" name="Image" id="Image">
+                            <input type="text" class="form-control" name="image" id="image">
+                            <div class="input-group form-group">
+                                <input type="file" name="fileUpload" id="fileUpload" accept="image/*"
+                                       style="display:none;" />
+                                <span class="input-group-btn">
+                                    <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />
+                                </span>
+                            </div>
+                            <img src="" id="pictureUpload" class="img-fluid" />
                         </div>
                     </div>
                 </div>
@@ -130,5 +138,36 @@
         }
     }
 </script>
+<script>
+    $(function () {
+        $('#btnUpload').click(function () {
+            $('#fileUpload').trigger('click');
+        });
+    });
+    $('#fileUpload').change(function () {
+        if (window.FormData !== undefined) {
+            var fileUpload = $('#fileUpload').get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append('file', files[0]);
 
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/Image/ProcessUpload',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (urlImage) {
+
+                        $('#pictureUpload').attr('src', urlImage);
+                        $('#image').val(urlImage);
+                    },
+                    error: function (err) {
+                        alert('Error ', err.statusText);
+                    }
+                });
+        }
+    });
+</script>
 
