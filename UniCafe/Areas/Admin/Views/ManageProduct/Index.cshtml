@@ -60,9 +60,9 @@
                                 }
                             </select>
                         </div>
-                        <div class="form-group form-check">
+                        <div class="form-group">
                             <label>Trạng thái</label>
-                            <input type="checkbox" class="form-check-input" name="status" id="status" value="1" checked>
+                            <input type="checkbox" name="status" id="status" value="1" checked>
                             <label class="form-check-label">ON</label>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.Slug)</td>
                                     <td><textarea rows="3">@Html.DisplayFor(modelItem => item.Description)</textarea></td>
                                     <td>@item.Price.ToString("N0")đ</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Image)</td>
+                                    <td><img src="@Html.DisplayFor(modelItem => item.Image)" style="width:100px" /></td>
                                     <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
                                     <td>@Html.Raw(NorActive(item.Status))</td>
                                     <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
