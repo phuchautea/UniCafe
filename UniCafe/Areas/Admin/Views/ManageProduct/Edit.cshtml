@@ -50,6 +50,14 @@
                     <div class="form-group">
                         <label>Hình ảnh</label>
                         <input class="form-control" id="image" name="image" type="text" value="@Html.DisplayFor(item => item.Image)">
+                        <div class="input-group form-group">
+                            <input type="file" name="fileUpload" id="fileUpload" accept="image/*"
+                                   style="display:none;" />
+                            <span class="input-group-btn">
+                                <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />
+                            </span>
+                        </div>
+                        <img src="@Html.DisplayFor(item => item.Image)" id="pictureUpload" class="img-fluid" />
                     </div>
                     <div class="form-group">
                         <label>Danh mục</label>
@@ -94,4 +102,37 @@
         var result = removeDiacritics(name);
         $('#slug').val(result.toLowerCase());
     }
+</script>
+
+<script>
+    $(function () {
+        $('#btnUpload').click(function () {
+            $('#fileUpload').trigger('click');
+        });
+    });
+    $('#fileUpload').change(function () {
+        if (window.FormData !== undefined) {
+            var fileUpload = $('#fileUpload').get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append('file', files[0]);
+
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/Image/ProcessUpload',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (urlImage) {
+
+                        $('#pictureUpload').attr('src', urlImage);
+                        $('#image').val(urlImage);
+                    },
+                    error: function (err) {
+                        alert('Error ', err.statusText);
+                    }
+                });
+        }
+    });
 </script>

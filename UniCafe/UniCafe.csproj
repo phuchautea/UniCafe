@@ -197,6 +197,7 @@
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CollectionController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -300,6 +301,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\payment\cash.png" />
+    <Content Include="Content\images\payment\credit.png" />
+    <Content Include="Content\images\payment\momo.png" />
+    <Content Include="Content\images\payment\vnpay.png" />
     <Content Include="Content\Layout\Admin\dist\css\adminlte.css" />
     <Content Include="Content\Layout\Admin\dist\css\adminlte.min.css" />
     <Content Include="Content\Layout\Admin\dist\css\alt\adminlte.components.css" />
@@ -2613,6 +2618,7 @@
     <Folder Include="Views\Authenticate\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ControllerBase\" />
+    <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
