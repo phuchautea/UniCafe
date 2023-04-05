@@ -14,7 +14,7 @@
             @using (Html.BeginForm("SetRole", "ManageRole", FormMethod.Post))
             {
                 <div class="modal-header">
-                    <h4 class="modal-title">Tạo role mới</h4>
+                    <h4 class="modal-title">Set role cho user</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -112,10 +112,4 @@
             });
         }
     }
-    $(document).ready(function () {
-        $('#nTable').DataTable({
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "order": [[1, 'desc']],
-        });
-    });
 </script>
