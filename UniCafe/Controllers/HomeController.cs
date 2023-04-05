@@ -54,10 +54,10 @@ namespace UniCafe.Controllers
         {
             return View();
         }
-        public ActionResult GetProduct()
-        {
+        //public ActionResult GetProduct()
+        //{
            
-            return RedirectToAction("Index","Home");
-        }
+        //    return RedirectToAction("Index","Home");
+        //}
     }
 }
