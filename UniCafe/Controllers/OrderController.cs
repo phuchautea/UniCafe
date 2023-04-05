@@ -54,6 +54,7 @@ namespace UniCafe.Controllers
                 var address = formCollection["address"];
                 var payment = formCollection["payment"];
                 var note = formCollection["note"];
+                var UserId = formCollection["UserId"];
 
                 if (string.IsNullOrEmpty(name))
                 {
@@ -91,6 +92,7 @@ namespace UniCafe.Controllers
                     order.Address = address;
                     order.Payment = payment;
                     order.Note = note;
+                    order.UserId = UserId;
                     order.Status = "1";
                     Add(order);
                     //TempData["orderCode"] = code;

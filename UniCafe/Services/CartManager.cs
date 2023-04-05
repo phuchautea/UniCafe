@@ -56,6 +56,10 @@ namespace UniCafe.Services
                 cart.Add(item);
             }
         }
+        public void UpdateCart(IEnumerable<CartItem> cart)
+        {
+            HttpContext.Current.Session[CartSessionKey] = cart.ToList();
+        }
 
         public void RemoveFromCart(Guid cartItemId)
         {
@@ -66,7 +70,15 @@ namespace UniCafe.Services
                 cart.Remove(existingItem);
             }
         }
-
+        public decimal GetCartTotal(IEnumerable<CartItem> cart)
+        {
+            decimal total = 0;
+            foreach (var item in cart)
+            {
+                total += item.Price * item.Quantity;
+            }
+            return total;
+        }
         public decimal GetTotal()
         {
             var cart = GetCartItems();

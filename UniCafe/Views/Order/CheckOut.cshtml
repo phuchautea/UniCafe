@@ -1,8 +1,16 @@
 ﻿@model UniCafe.Models.Order
 @{
-    ViewBag.Title = "CheckOut";
+    Page.Title = "Thanh toán";
     Layout = "~/Views/Shared/_Layout_User.cshtml";
     List<UniCafe.Models.CartItem> carts = ViewBag.Carts as List<UniCafe.Models.CartItem>;
+}
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using UniCafe.Models
+
+@{
+    var userManager = new UserManager<UniCafe.Data.ApplicationUser>(new UserStore<UniCafe.Data.ApplicationUser>(new ApplicationDbContext()));
+    var user = userManager.FindById(User.Identity.GetUserId());
 }
 <main>
     <div class="main-part">
@@ -29,25 +37,29 @@
                                 <form class="form-checkout" name="form" method="post">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <h5>CHI TIẾT NGƯỜI ĐẶT HÀNG</h5>
+                                            <h5>THÔNG TIN NHẬN HÀNG</h5>
                                             <hr />
                                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         </div>
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <span>Bạn đã có tài khoản? Đăng nhập </span><a href="@Url.Action("Login","Account")">tại đây</a>
+                                            </div>
+                                            
+                                        }
+                                        <input type="hidden" name="UserId" value="@if (User.Identity.IsAuthenticated){@user.Id}" />
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Họ Tên" } })
-                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            <input class="form-control text-box single-line" id="Name" name="Name" placeholder="Họ Tên" type="text" value="@if (User.Identity.IsAuthenticated){@user.UserName}">
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Số Điện Thoại" } })
-                                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                            <input class="form-control text-box single-line" id="PhoneNumber" name="PhoneNumber" placeholder="Số Điện Thoại" type="text" value="@if (User.Identity.IsAuthenticated){@user.PhoneNumber}">
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Địa Chỉ" } })
-                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                            <input class="form-control text-box single-line" id="Address" name="Address" placeholder="Địa chỉ nhận hàng" type="text" value="">
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <textarea class="form-control" rows="5" name="Note" id="Note" placeholder="Thêm hướng dẫn giao hàng hoặc gì đó về đơn hàng"></textarea>
-                                            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </form>
@@ -90,7 +102,7 @@
                                             </div>
                                         </div>
                                         <hr />
-                                     }
+                                    }
                                     <div class="checkout-total">
                                         <h6>TỔNG CỘNG<small class="price-big">@carts.Sum(item => (item.Price + item.PropertyProduct.Price + item.Options.Sum(option => option.Price)) * item.Quantity).ToString("N0")đ</small></h6>
                                     </div>
@@ -123,7 +135,7 @@
 
                         </div>
                     </div>
-                 }
+                }
             </div>
 
         </section>

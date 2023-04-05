@@ -270,6 +270,10 @@
     <Compile Include="Migrations\202303302050054_updateImageBlog.designer.cs">
       <DependentUpon>202303302050054_updateImageBlog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304050247087_addUserIdToOrderTable.cs" />
+    <Compile Include="Migrations\202304050247087_addUserIdToOrderTable.designer.cs">
+      <DependentUpon>202304050247087_addUserIdToOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -2652,6 +2656,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303302050054_updateImageBlog.resx">
       <DependentUpon>202303302050054_updateImageBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304050247087_addUserIdToOrderTable.resx">
+      <DependentUpon>202304050247087_addUserIdToOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
