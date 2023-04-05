@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-chart-area"></i> THỐNG KÊ HỆ THỐNG
+                </h3>
+            </div>
+            <div class="card-body">
+                <script src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function() {
+                        drawChart('@Html.Raw(Json.Encode(ViewBag.SalesStatistics))', 'Doanh thu theo tháng (VND)', 'salesStatisticsChart', 'LineChart');
+                        drawChart('@Html.Raw(Json.Encode(ViewBag.PaymentMethodStatistics))', 'Phương thức thanh toán', 'paymentMethodStatisticsChart', 'PieChart');
+                    });
+
+                    function drawChart(chartData, title, chartId, typeChart = 'ColumnChart') {
+                        var data = google.visualization.arrayToDataTable(JSON.parse(chartData));
+
+                        var options = {
+                            title: title,
+                            curveType: 'function',
+                            legend: {
+                                position: 'bottom'
+                            }
+                        };
+
+                        var chart = new google.visualization[typeChart](document.getElementById(chartId));
+                        chart.draw(data, options);
+                    }
+                </script>
+
+                <div id="salesStatisticsChart"></div>
+                <div id="paymentMethodStatisticsChart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+            

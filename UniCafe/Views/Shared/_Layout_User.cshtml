@@ -137,7 +137,7 @@
                                                     <span>Xin chào, @User.Identity.GetUserName()</span>
                                                     if (User.IsInRole("Admin"))
                                                     {
-                                                        <a href="/Admin/ManageUser" class="button-default checkout">Quản lý admin</a>
+                                                        <a href="@Url.Action("Index", "Stats", new { area = "Admin" })" class="button-default checkout">Quản lý admin</a>
                                                     }
                                                     <a href="@Url.Action("Logout","Account")" class="button-default checkout">Đăng xuất</a>
 

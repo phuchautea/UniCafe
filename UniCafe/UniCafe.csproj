@@ -193,6 +193,7 @@
     <Compile Include="Areas\Admin\Controllers\ManageProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageRoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -2548,6 +2549,7 @@
     <Content Include="Content\Layout\Admin\plugins\toastr\toastr.js.map" />
     <Content Include="Areas\Admin\Views\ManageOrder\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\ManageOrder\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Stats\Index.cshtml" />
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
