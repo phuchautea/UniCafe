@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     Page.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout_User.cshtml";
 }
@@ -22,7 +23,7 @@
             </h2>
         </div>
     </div>*@
-
+@model IEnumerable<UniCafe.Models.Product>
 <main>
     <div class="main-part">
 
@@ -190,46 +191,20 @@
                     <div class="owl-carousel owl-theme" data-items="4" data-tablet="3" data-mobile="2"
                          data-nav="false" data-dots="true" data-autoplay="true" data-speed="1800"
                          data-autotime="5000">
-                        <div class="item">
-                            <div class="product-img">
-                                <a href="shop_single.html">
-                                    <img src="~/Content/Layout/User/images/product1.png" alt="">
-                                    <span class="icon-basket fontello"></span>
-                                </a>
+                        @foreach (var item in Model)
+                        {
+                            <div class="item">
+                                <div class="product-img">
+                                    <a href="shop_single.html">
+                                        <img src="@item.Image" alt="image_Product">
+                                        <span class="icon-basket fontello"></span>
+                                    </a>
+                                </div>
+                                <h5><a href="shop_single.html">@item.Name</a></h5>
+                                <span>@item.Price.ToString("N0")đ</span>
+                                @*<del>18,000đ</del>*@
                             </div>
-                            <h5><a href="shop_single.html">Cà Phê Sữa Đá</a></h5>
-                            <span>15,000đ</span><del>18,000đ</del>
-                        </div>
-                        <div class="item">
-                            <div class="product-img">
-                                <a href="shop_single.html">
-                                    <img src="~/Content/Layout/User/images/product2.png" alt="">
-                                    <span class="icon-basket fontello"></span>
-                                </a>
-                            </div>
-                            <h5><a href="shop_single.html">Cà Phê Đen Đá</a></h5>
-                            <span>15,000đ</span>
-                        </div>
-                        <div class="item">
-                            <div class="product-img">
-                                <a href="shop_single.html">
-                                    <img src="~/Content/Layout/User/images/product3.png" alt="">
-                                    <span class="icon-basket fontello"></span>
-                                </a>
-                            </div>
-                            <h5><a href="shop_single.html">Bạc Sỉu Nóng</a></h5>
-                            <span>29,000đ</span>
-                        </div>
-                        <div class="item">
-                            <div class="product-img">
-                                <a href="shop_single.html">
-                                    <img src="~/Content/Layout/User/images/product4.png" alt="">
-                                    <span class="icon-basket fontello"></span>
-                                </a>
-                            </div>
-                            <h5><a href="shop_single.html">Cappuccino Nóng</a></h5>
-                            <span>55,000đ</span>
-                        </div>
+                        }
                     </div>
                 </div>
                 <div class="product-single">
@@ -331,6 +306,6 @@
         </section>
 
         <!-- End Feature Part -->
-       
+
     </div>
 </main>

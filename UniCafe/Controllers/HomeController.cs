@@ -28,7 +28,8 @@ namespace UniCafe.Controllers
             //    return RedirectToAction("Login", "Account");
             //}
             ViewBag.showProducts = showProducts;
-            return View();
+            var products = _productRepository.GetAll().ToList().Take(10);
+            return View(products);
         }
         //[Route("Collection/{id}")]
         public ActionResult Collection(string id)
@@ -53,5 +54,10 @@ namespace UniCafe.Controllers
         {
             return View();
         }
+        //public ActionResult GetProduct()
+        //{
+           
+        //    return RedirectToAction("Index","Home");
+        //}
     }
 }
