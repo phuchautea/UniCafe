@@ -27,7 +27,7 @@
                             <div class="feature-info wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
                                 <span><i class="icon-user-1"></i>Đăng bởi: @Model.Author</span>
                                 <span><i class="icon-comment-5"></i></span><p>&nbsp;</p>
-                                <p>@Model.Content</p>
+                                <p>@Html.Raw(Model.Content)</p>
                             </div><!-- #respond -->
                         </div>
                     </div>

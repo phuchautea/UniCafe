@@ -32,7 +32,7 @@
                                 <div class="feature-info">
                                     <span><i class="icon-user-1"></i> Đăng bởi: @item.Author</span>
                                     <a href="/Blog/ReadMore/@item.Id"><h5>@item.Title</h5></a>
-                               <p>@item.Content.Substring(0, Math.Min(@item.Content.Length, 150))</p>
+                               <p>@Html.Raw(item.Content.Substring(0, Math.Min(@item.Content.Length, 150)))</p>
                                     <a href="/Blog/ReadMore/@item.Id" class="button-default">Read More <i class="icon-right-4"></i></a>
                                 </div>
                             </div>

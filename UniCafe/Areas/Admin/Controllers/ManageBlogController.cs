@@ -18,6 +18,7 @@ namespace UniCafe.Areas.Admin.Controllers
             var blogs = GetAll().ToList();
             return View(blogs);
         }
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(FormCollection formCollection, Blog blog)
         {
@@ -65,6 +66,7 @@ namespace UniCafe.Areas.Admin.Controllers
             Blog blog = GetById(Id.Value);
             return View(blog);
         }
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Edit(FormCollection formCollection)
         {
