@@ -8,6 +8,7 @@ using UniCafe.Models;
 
 namespace UniCafe.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class StatsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -18,21 +19,6 @@ namespace UniCafe.Areas.Admin.Controllers
         // GET: Admin/Stats
         public ActionResult Index()
         {
-            Dictionary<string, string> monthMap = new Dictionary<string, string>()
-{
-    { "January", "Tháng 1" },
-    { "February", "Tháng 2" },
-    { "March", "Tháng 3" },
-    { "April", "Tháng 4" },
-    { "May", "Tháng 5" },
-    { "June", "Tháng 6" },
-    { "July", "Tháng 7" },
-    { "August", "Tháng 8" },
-    { "September", "Tháng 9" },
-    { "October", "Tháng 10" },
-    { "November", "Tháng 11" },
-    { "December", "Tháng 12" },
-};
 
             var currentYear = DateTime.Now.Year;
             var sales = _context.Orders
@@ -50,7 +36,6 @@ namespace UniCafe.Areas.Admin.Controllers
             salesStatistics.Add(new object[] { "Tháng", "Doanh thu" });
             foreach (var data in sales)
             {
-                //var monthName = monthMap.FirstOrDefault(m => m.Value == CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(data.Month)).Key;
                 salesStatistics.Add(new object[] { "Tháng "+data.Month, (int)data.Sales });
             }
 
@@ -70,31 +55,8 @@ namespace UniCafe.Areas.Admin.Controllers
                 paymentMethodStatistics.Add(new object[] { data.PaymentMethod, data.Total });
             }
 
-            //var bestSellingProducts = _context.Products
-            //    .OrderByDescending(p => p.sold_quantity)
-            //    .Take(5)
-            //    .Select(p => new
-            //    {
-            //        p.id,
-            //        p.name,
-            //        p.sold_quantity,
-            //    })
-            //    .ToList();
-
-            //var soldQuantityStatistics = new List<object[]>();
-            //soldQuantityStatistics.Add(new object[] { "Tên", "Số lượng" });
-            //foreach (var data in bestSellingProducts)
-            //{
-            //    soldQuantityStatistics.Add(new object[] { data.name, data.sold_quantity });
-            //}
             ViewBag.salesStatistics = salesStatistics.ToArray();
             ViewBag.paymentMethodStatistics = paymentMethodStatistics.ToArray();
-            //return View(new
-            //{
-            //    salesStatistics = salesStatistics.ToArray(),
-            //    paymentMethodStatistics = paymentMethodStatistics.ToArray(),
-            //    //soldQuantityStatistics = soldQuantityStatistics.ToArray(),
-            //});
 
             return View();
         }
