@@ -180,6 +180,8 @@ namespace UniCafe.Controllers
 
             if (order != null)
             {
+                // Xóa OrderCode
+                Session["orderCode"] = null;
                 var orderDetails = Context.OrderDetails.Where(p => p.Order.Code == orderCode).ToList();
                 ViewBag.OrderDetails = orderDetails;
                 return View(order);

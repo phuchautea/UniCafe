@@ -2609,7 +2609,6 @@
     <Content Include="Views\PropertyProduct\Delete.cshtml" />
     <Content Include="Views\PropertyProduct\Edit.cshtml" />
     <Content Include="Views\PropertyProduct\Index.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Collection\Index.cshtml" />
     <Content Include="Views\Home\Collection.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />

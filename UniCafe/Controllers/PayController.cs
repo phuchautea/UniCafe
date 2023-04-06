@@ -32,11 +32,11 @@ namespace UniCafe.Controllers
         // GET: Pay
         public ActionResult MomoPay()
         {
-            if (String.IsNullOrEmpty(Session["orderCode"].ToString()))
-            {
-                // Lỗi không tìm thấy order
-                return RedirectToAction("CheckOut", "Order");
-            }
+            //if (String.IsNullOrEmpty(Session["orderCode"].ToString()))
+            //{
+            //    // Lỗi không tìm thấy order
+            //    return RedirectToAction("CheckOut", "Order");
+            //}
             //var orderCode = Session["orderCode"].ToString();
             //var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
             var order = Session["order"] as Order;
@@ -137,8 +137,6 @@ namespace UniCafe.Controllers
                     // Cập nhật lại status paid
                     order.Paid = 1;
                     Context.SaveChanges();
-                    // Xóa OrderCode
-                    Session["orderCode"] = null;
                 }
                 return RedirectToAction("CompleteOrder", "Order");
             }
@@ -203,13 +201,7 @@ namespace UniCafe.Controllers
         }
         public ActionResult VNPay()
         {
-            if (String.IsNullOrEmpty(Session["orderCode"].ToString()))
-            {
-                // Lỗi không tìm thấy order
-                return RedirectToAction("CheckOut", "Order");
-            }
-            var orderCode = Session["orderCode"].ToString();
-            var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
+            var order = Session["order"] as Order;
             if (order == null)
             {
                 // Lỗi không tìm thấy order
@@ -226,7 +218,7 @@ namespace UniCafe.Controllers
             vnp_Params.Add("vnp_Locale", "vn"); //en= English, vn=Tiếng Việt
             vnp_Params.Add("vnp_CurrCode", "VND");
             vnp_Params.Add("vnp_TxnRef", Guid.NewGuid().ToString()); // Mã tham chiếu của giao dịch đơn hàng gửi sang VNPAY. Không được trùng lặp trong ngày
-            vnp_Params.Add("vnp_OrderInfo", "Thanh toan UniCafe #" + orderCode + "");
+            vnp_Params.Add("vnp_OrderInfo", "Thanh toan UniCafe #" + order.Code + "");
             vnp_Params.Add("vnp_OrderType", "topup"); //Mã danh mục hàng hóa.
             string amount = string.Join("", order.Total.ToString("N0").Where(char.IsDigit)); // Xóa dấu phẩy
             amount = (Int32.Parse(amount) * 100).ToString();
@@ -247,21 +239,44 @@ namespace UniCafe.Controllers
             //errorCode = 0 : thanh toán thành công (Request.QueryString["errorCode"])
             if (vnp_ResponseCode == 00)
             {
-                if (!String.IsNullOrEmpty(Session["orderCode"].ToString()))
+                Order order = Session["order"] as Order;
+                if (order != null)
                 {
-                    // Cập nhật lại status paid
-                    string orderCode = Session["orderCode"].ToString();
-                    var order = Context.Orders.FirstOrDefault(x => x.Code == orderCode);
-                    if (order != null)
+                    var cart = _cartManager.GetCartItems();
+                    decimal totalOrder = 0;
+                    foreach (var item in cart)
                     {
-                        order.Paid = 1;
+                        var itemTotal = item.Price;
+                        itemTotal += item.PropertyProduct.Price;
+                        string propertyProduct = "" + item.PropertyProduct.Name + " - " + item.PropertyProduct.Price.ToString("N0") + "đ";
+                        string optionProduct = "";
+                        foreach (var option in item.Options)
+                        {
+                            itemTotal += option.Price;
+                            optionProduct += "" + option.Name + " - " + option.Price.ToString("N0") + "đ\n";
+                        }
+                        OrderDetail orderDetail = new OrderDetail();
+                        orderDetail.Order = order;
+                        orderDetail.ProductId = item.ProductId;
+                        orderDetail.ProductName = item.ProductName;
+                        orderDetail.Price = item.Price;
+                        orderDetail.Total = itemTotal;
+                        orderDetail.Quantity = item.Quantity;
+                        orderDetail.PropertyProduct = propertyProduct;
+                        orderDetail.OptionProduct = optionProduct;
+                        totalOrder += itemTotal;
+                        Context.OrderDetails.Add(orderDetail);
                         Context.SaveChanges();
                     }
-                    // Xóa OrderCode
-                    Session["orderCode"] = null;
-                    Session["payment"] = null;
+                    //Cập nhật tổng số tiền
+                    order.Total = totalOrder;
+                    _orderRepository.Update(order);
+                    _cartManager.ClearCart();
+                    // Cập nhật lại status paid
+                    order.Paid = 1;
+                    Context.SaveChanges();
                 }
-                
+
 
                 return RedirectToAction("CompleteOrder", "Order");
             }

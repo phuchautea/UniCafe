@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.PeerToPeer;
+using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI.WebControls;
@@ -28,6 +30,22 @@ namespace UniCafe.Data
         public ActionResult Register()
         {
             return View();
+        }
+        public static bool ValidateVNPhoneNumber(string phoneNumber)
+        {
+            phoneNumber = phoneNumber.Replace("+84", "0");
+            Regex regex = new Regex(@"^(0)(86|96|97|98|32|33|34|35|36|37|38|39|91|94|83|84|85|81|82|90|93|70|79|77|76|78|92|56|58|99|59|55|87)\d{7}$");
+            return regex.IsMatch(phoneNumber);
+        }
+        public bool ValidateEmail(string email)
+        {
+            Regex regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+            return regex.IsMatch(email);
+        }
+        public bool ValidatePassword(string password)
+        {
+            Regex regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+            return regex.IsMatch(password);
         }
         [HttpPost]
         public ActionResult Register(FormCollection formCollection)
@@ -54,6 +72,18 @@ namespace UniCafe.Data
                 if (checkPhoneNumber > 0)
                 {
                     errors.Add("Số điện thoại đã tồn tại.");
+                }
+                if (ValidateVNPhoneNumber(PhoneNumber) != true)
+                {
+                    errors.Add("Số điện thoại không hợp lệ.");
+                }
+                if (ValidatePassword(Password) == false)
+                {
+                    errors.Add("Mật khẩu ít nhất 8 kí tự (Có 1 chữ hoa + thường + số + kí tự đặc biệt");
+                }
+                if (ValidateEmail(Email) == false)
+                {
+                    errors.Add("Email không hợp lệ");
                 }
                 if (checkUserName > 0)
                 {

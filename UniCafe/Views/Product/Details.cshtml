@@ -26,6 +26,7 @@
                 data: { productId: productId, quantity: quantity, optionProductIds: optionProductIds, propertyId: propertyId },
                 success: function (data) {
                     if (data.status == true) {
+                        getTotalCart();
                         Swal.fire('Thêm thành công!', data.message, 'success');
                     } else {
                         Swal.fire('Có lỗi xảy ra khi thêm vào giỏ hàng!', data.message, 'error');
@@ -35,7 +36,7 @@
                     Swal.fire('Có lỗi xảy ra khi thêm vào giỏ hàng!', data.message, 'error');
                 }
             });
-            getTotalCart();
+            
         });
     });
 </script>
