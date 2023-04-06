@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +13,7 @@ using UniCafe.Data;
 using UniCafe.Models;
 using UniCafe.Services;
 using Unity.Policy;
+using System.Web.Helpers;
 
 namespace UniCafe.Controllers
 {
@@ -33,6 +36,39 @@ namespace UniCafe.Controllers
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray()).ToUpper();
         }
+        public void SendEmail(string email, string name, string orderCode)
+        {
+            var fromAddress = new MailAddress("hphcplnh7@gmail.com", "UniCafe");
+            var toAddress = new MailAddress(email, name);
+            const string fromPassword = "phhrqqdawnyalkpr";
+            string subject = "Thông tin đơn hàng UniCafe #" + orderCode + "";
+            const string emailBody = "<div class='text-center'>" +
+                                "<p>Bạn đã đặt hàng thành công</p>" +
+                                "<p>Cảm ơn bạn vì giữa muôn vàn sự lựa chọn đã chọn <b>UniCafe</b></p>" +
+                                "<p>Xem chi tiết đơn đặt hàng của bạn <a href='https://unicafe.phuchautea.com/Order/SearchOrder/{0}'>tại đây</a></p>";
+            string body = string.Format(emailBody, orderCode);
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+            {
+                smtp.Send(message);
+                ViewBag.Message = "Email sent successfully.";
+            }
+        }
+
         // GET: Order
         public ActionResult CheckOut()
         {
@@ -50,6 +86,7 @@ namespace UniCafe.Controllers
             try
             {
                 var name = formCollection["name"];
+                var email = formCollection["email"];
                 var phoneNumber = formCollection["phoneNumber"];
                 var address = formCollection["address"];
                 var payment = formCollection["payment"];
@@ -112,6 +149,7 @@ namespace UniCafe.Controllers
                     }
                     order.Total = totalOrder;
                     Session["order"] = order;
+                    Session["email"] = email;
                     switch (payment)
                     {
                         case "momo":
@@ -148,6 +186,7 @@ namespace UniCafe.Controllers
                             order.Total = totalOrder;
                             Update(order);
                             _cartManager.ClearCart();
+                            SendEmail(Session["email"].ToString(), order.Name, order.Code);
                             break;
                     }
                     return RedirectToAction("CompleteOrder", "Order");

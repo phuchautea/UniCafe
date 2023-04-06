@@ -46,7 +46,7 @@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <span>Bạn đã có tài khoản? Đăng nhập </span><a href="@Url.Action("Login","Account")">tại đây</a>
                                             </div>
-                                            
+
                                         }
                                         <input type="hidden" name="UserId" value="@if (User.Identity.IsAuthenticated){@user.Id}" />
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -54,6 +54,9 @@
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <input class="form-control text-box single-line" id="PhoneNumber" name="PhoneNumber" placeholder="Số Điện Thoại" type="text" value="@if (User.Identity.IsAuthenticated){@user.PhoneNumber}">
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input class="form-control text-box single-line" id="Email" name="Email" placeholder="Địa chỉ Email" type="email" value="@if (User.Identity.IsAuthenticated){@user.Email}">
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <input class="form-control text-box single-line" id="Address" name="Address" placeholder="Địa chỉ nhận hàng" type="text" value="">
