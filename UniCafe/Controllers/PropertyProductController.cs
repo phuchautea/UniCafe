@@ -8,7 +8,7 @@ using UniCafe.Models;
 
 namespace UniCafe.Controllers
 {
-    public class PropertyProductController : MasterController<PropertyProduct>
+    public class PropertyProductController : BaseController<PropertyProduct>
     {
         private readonly IRepository<Product> _productRepository;
         public PropertyProductController()

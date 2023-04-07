@@ -7,7 +7,7 @@ using UniCafe.Models;
 
 namespace UniCafe.Controllers
 {
-    public class BlogController : MasterController<Blog>
+    public class BlogController : BaseController<Blog>
     {
         // GET: Blog
         public ActionResult Index()

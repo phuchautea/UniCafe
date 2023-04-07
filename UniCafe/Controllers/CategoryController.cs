@@ -10,7 +10,7 @@ using System.Data.Entity;
 
 namespace UniCafe.Controllers
 {
-    public class CategoryController : MasterController<Category>
+    public class CategoryController : BaseController<Category>
     {
         //private readonly IUnitOfWork _unitOfWork;
         //private readonly IRepository<Category> _categoryRepository;

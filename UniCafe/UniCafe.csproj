@@ -199,7 +199,6 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CollectionController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
-    <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OptionProductController.cs" />

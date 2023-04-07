@@ -9,7 +9,7 @@ using System.Runtime.Caching;
 
 namespace UniCafe.Controllers
 {
-    public class ProductController : MasterController<Product>
+    public class ProductController : BaseController<Product>
     {
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<PropertyProduct> _propertyProductRepositoy;
